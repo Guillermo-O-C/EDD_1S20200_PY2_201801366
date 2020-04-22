@@ -1,0 +1,17 @@
+digraph G {
+ nodesep=0.3;
+ ranksep=0.2;
+    margin=0.1;
+   node [shape=circle];
+  edge [arrowsize=0.8];"como"[label="4 como"]"como" -> "beuno";
+"beuno"[label="2 beuno"]"beuno" -> "amigos";
+"amigos"[label="1 amigos"]"beuno" -> "coco";
+"coco"[label="1 coco"]"coco" -> "buenas";
+"buenas"[label="0 buenas"]"como" -> "tardes";
+"tardes"[label="3 tardes"]"tardes" -> "Hola";
+"Hola"[label="2 Hola"]"Hola" -> "en";
+"en"[label="1 en"]"en" -> "ecatepec";
+"ecatepec"[label="0 ecatepec"]"Hola" -> "mis";
+"mis"[label="0 mis"]"tardes" -> "tios";
+"tios"[label="1 tios"]"tios" -> "trabajan";
+"trabajan"[label="0 trabajan"]}
