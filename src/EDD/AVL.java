@@ -152,4 +152,83 @@ public class AVL {
         }
         return x;
     }
+    public NODO_AVL Search(NODO_AVL x, String name){
+        NODO_AVL aux = this.root;
+        if(x==null){
+            return null;
+        }else if(name.compareToIgnoreCase(x.getValue())<0){
+            return Search(x.getLeft(), name);
+        }else if(name.compareToIgnoreCase(x.getValue())>0){
+            return Search(x.getRight(), name);
+        }else{
+            return x;
+        }
+    }
+    public NODO_AVL Delete(NODO_AVL x, String name){
+        if(x == null){
+            return x;
+        }else if(name.compareToIgnoreCase(x.getValue())<0){
+            x.setLeft(Delete(x.getLeft(), name));
+        }else if(name.compareToIgnoreCase(x.getValue())>0){
+            x.setRight(Delete(x.getRight(), name));
+        }else{
+            if(x.getLeft()==null || x.getRight()==null){
+                if(x.getLeft()==null){
+                    x=x.getRight();
+                }else{
+                    x=x.getLeft();
+                }
+            }else{
+                NODO_AVL Leaf = LeftLeaf(x.getRight());
+                x.setValue(Leaf.getValue());
+                x.setRight(Delete(x.getRight(), x.getValue()));
+            }
+        }
+        UpdateHeight(x);
+        int NodeBalance = Swing(x);
+        if(NodeBalance>1 && name.compareToIgnoreCase(x.getLeft().getValue())<0){
+            return RightRotacion(x);
+        }
+        if(NodeBalance<-1 && name.compareToIgnoreCase(x.getRight().getValue())>0){
+            return LeftRotacion(x);
+        }        
+        if(NodeBalance>1 && name.compareToIgnoreCase(x.getLeft().getValue())>0){
+            x.setLeft(LeftRotacion(x.getLeft()));
+            return RightRotacion(x);
+        }
+        if(NodeBalance<-1 && name.compareToIgnoreCase(x.getRight().getValue())<0){
+            x.setRight(RightRotacion(x.getRight()));
+            return LeftRotacion(x);
+        }
+        return x;
+    }
+    NODO_AVL Rebalance(NODO_AVL x, String name){
+        UpdateHeight(x);
+        int NodeBalance = Swing(x);
+        if(NodeBalance>1 && name.compareToIgnoreCase(x.getLeft().getValue())<0){
+            return RightRotacion(x);
+        }
+        if(NodeBalance<-1 && name.compareToIgnoreCase(x.getRight().getValue())>0){
+            return LeftRotacion(x);
+        }        
+        if(NodeBalance>1 && name.compareToIgnoreCase(x.getLeft().getValue())>0){
+            x.setLeft(LeftRotacion(x.getLeft()));
+            return RightRotacion(x);
+        }
+        if(NodeBalance<-1 && name.compareToIgnoreCase(x.getRight().getValue())<0){
+            x.setRight(RightRotacion(x.getRight()));
+            return LeftRotacion(x);
+        }
+        return x;
+    }
+    NODO_AVL LeftLeaf(NODO_AVL x){
+        while(true){
+            if(x.getLeft()!=null){
+                x=x.getLeft();
+            }else{
+                break;
+            }
+        }
+        return x;
+    }
 }

@@ -8,6 +8,7 @@ package usaclibrary;
 import EDD.AVL;
 import EDD.ListaDoble;
 import EDD.ListaSimple;
+import EDD.NODO_AVL;
 
 /**
  *
@@ -57,6 +58,14 @@ public class USACLibrary {
         arbol.Add("tiene");
         arbol.Add("que");
         arbol.Add("hacer");*/
+         try {
+            
+        arbol.GraphTree();
+        } catch (Exception e) {
+        }
+        arbol.setRoot(arbol.Delete(arbol.getRoot(),"coco"));
+        NODO_AVL a = arbol.Search(arbol.getRoot(), "Hola");
+        
         try {
             
         arbol.GraphTree();

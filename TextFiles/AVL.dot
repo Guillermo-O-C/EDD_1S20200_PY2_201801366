@@ -5,9 +5,8 @@ digraph G {
    node [shape=circle];
   edge [arrowsize=0.8];"como"[label="4 como"]"como" -> "beuno";
 "beuno"[label="2 beuno"]"beuno" -> "amigos";
-"amigos"[label="1 amigos"]"beuno" -> "coco";
-"coco"[label="1 coco"]"coco" -> "buenas";
-"buenas"[label="0 buenas"]"como" -> "tardes";
+"amigos"[label="1 amigos"]"beuno" -> "buenas";
+"buenas"[label="1 buenas"]"como" -> "tardes";
 "tardes"[label="3 tardes"]"tardes" -> "Hola";
 "Hola"[label="2 Hola"]"Hola" -> "en";
 "en"[label="1 en"]"en" -> "ecatepec";
