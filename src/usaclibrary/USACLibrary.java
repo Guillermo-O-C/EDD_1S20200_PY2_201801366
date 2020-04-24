@@ -90,9 +90,9 @@ public class USACLibrary {
         arbol2.Insert(arbol2,17, new Books(17));
         arbol2.Insert(arbol2,18, new Books(18));
         arbol2.Insert(arbol2,19, new Books(19));
-        arbol2.Insert(arbol2,20, new Books(20));/*
+        arbol2.Insert(arbol2,20, new Books(20));
         arbol2.Insert(arbol2,21, new Books(21));
-        arbol2.Insert(arbol2,22, new Books(22));*/
+        arbol2.Insert(arbol2,22, new Books(22));/**/
         try {            
         arbol2.GraphTree();
         } catch (Exception e) {

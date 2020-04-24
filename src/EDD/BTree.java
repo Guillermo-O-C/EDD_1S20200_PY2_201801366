@@ -8,6 +8,8 @@ package EDD;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import usaclibrary.Books;
 
 /**
@@ -53,13 +55,19 @@ public class BTree {
             z.getShelf()[e]=y.getShelf()[e+this.order];
         }
         if(y.isIsLeaf()==false){
-            for(int e =0;e<this.order;e++){
+            int e;
+            for(e =0;e<this.order;e++){
                 z.getBranches()[e]=y.getBranches()[e+this.order];
+            }//added
+            for(int w=e;w<this.order;w++){
+                z.getBranches()[w]=null;
             }
         }
         y.setOccupied(order-1);
+        int w=0;
         for(int e=x.getOccupied();e>i;e--){
             x.getBranches()[e+1]=x.getBranches()[e];
+            w=e;
         }
         x.getBranches()[i+1]=z;
         for(int e= x.getOccupied();e>i;e--){
@@ -69,6 +77,9 @@ public class BTree {
         y.getShelf()[this.order-1]=null;
         for(int e =0;e<this.order-1;e++){
             y.getShelf()[e+this.order]=null;
+        }        
+        for(int e =5; e>this.order;e--){//deleting branches from splited node when it's not a leaf
+            y.getBranches()[e-1]=null;
         }
         x.setOccupied(x.getOccupied()+1);
     }
@@ -113,6 +124,11 @@ public class BTree {
             SpacedIsert(newNode, ISBN, Data);
         }else{
             SpacedIsert(rootNode, ISBN, Data);
+        }
+        try {
+            GraphTree();
+        } catch (IOException ex) {
+            Logger.getLogger(BTree.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     public void GraphTree() throws IOException{
