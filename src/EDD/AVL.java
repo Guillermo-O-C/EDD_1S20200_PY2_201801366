@@ -202,25 +202,6 @@ public class AVL {
         }
         return x;
     }
-    NODO_AVL Rebalance(NODO_AVL x, String name){
-        UpdateHeight(x);
-        int NodeBalance = Swing(x);
-        if(NodeBalance>1 && name.compareToIgnoreCase(x.getLeft().getValue())<0){
-            return RightRotacion(x);
-        }
-        if(NodeBalance<-1 && name.compareToIgnoreCase(x.getRight().getValue())>0){
-            return LeftRotacion(x);
-        }        
-        if(NodeBalance>1 && name.compareToIgnoreCase(x.getLeft().getValue())>0){
-            x.setLeft(LeftRotacion(x.getLeft()));
-            return RightRotacion(x);
-        }
-        if(NodeBalance<-1 && name.compareToIgnoreCase(x.getRight().getValue())<0){
-            x.setRight(RightRotacion(x.getRight()));
-            return LeftRotacion(x);
-        }
-        return x;
-    }
     NODO_AVL LeftLeaf(NODO_AVL x){
         while(true){
             if(x.getLeft()!=null){

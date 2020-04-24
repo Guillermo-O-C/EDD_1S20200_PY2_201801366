@@ -6,9 +6,11 @@
 package usaclibrary;
 
 import EDD.AVL;
+import EDD.BTree;
 import EDD.ListaDoble;
 import EDD.ListaSimple;
 import EDD.NODO_AVL;
+import UI.AddCategory;
 
 /**
  *
@@ -57,18 +59,42 @@ public class USACLibrary {
         arbol.Add(arbol.getRaiz(),"que");
         arbol.Add("tiene");
         arbol.Add("que");
-        arbol.Add("hacer");*/
-         try {
+        arbol.Add("hacer");
+        arbol.setRoot(arbol.Delete(arbol.getRoot(),"coco"));
+        NODO_AVL a = arbol.Search(arbol.getRoot(), "Hola");*/
+        /*
+        try {
             
         arbol.GraphTree();
         } catch (Exception e) {
         }
-        arbol.setRoot(arbol.Delete(arbol.getRoot(),"coco"));
-        NODO_AVL a = arbol.Search(arbol.getRoot(), "Hola");
-        
-        try {
-            
-        arbol.GraphTree();
+        AddCategory s = new AddCategory();
+        s.show();*/
+        BTree arbol2 = new BTree(3);
+        arbol2.Insert(arbol2, 1, new Books(1));
+        arbol2.Insert(arbol2,2, new Books(2));
+        arbol2.Insert(arbol2,3, new Books(3));
+        arbol2.Insert(arbol2,4, new Books(4));
+        arbol2.Insert(arbol2,5, new Books(5));
+        arbol2.Insert(arbol2,6, new Books(6));
+        arbol2.Insert(arbol2,7, new Books(7));
+        arbol2.Insert(arbol2,8, new Books(8));
+        arbol2.Insert(arbol2,9, new Books(9));
+        arbol2.Insert(arbol2,10, new Books(10));
+        arbol2.Insert(arbol2,11, new Books(11));
+        arbol2.Insert(arbol2,12, new Books(12));
+        arbol2.Insert(arbol2,13, new Books(13));
+        arbol2.Insert(arbol2,14, new Books(14));
+        arbol2.Insert(arbol2,15, new Books(15));
+        arbol2.Insert(arbol2,16, new Books(16));
+        arbol2.Insert(arbol2,17, new Books(17));
+        arbol2.Insert(arbol2,18, new Books(18));
+        arbol2.Insert(arbol2,19, new Books(19));
+        arbol2.Insert(arbol2,20, new Books(20));/*
+        arbol2.Insert(arbol2,21, new Books(21));
+        arbol2.Insert(arbol2,22, new Books(22));*/
+        try {            
+        arbol2.GraphTree();
         } catch (Exception e) {
         }
     }
