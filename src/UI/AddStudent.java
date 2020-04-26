@@ -151,7 +151,8 @@ public class AddStudent extends javax.swing.JFrame {
 
         label6.getAccessibleContext().setAccessibleName("label6");
 
-        pack();
+        setSize(new java.awt.Dimension(449, 362));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void textField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textField1ActionPerformed

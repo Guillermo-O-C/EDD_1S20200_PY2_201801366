@@ -5,6 +5,7 @@
  */
 package EDD;
 
+import java.util.Arrays;
 import javax.swing.JOptionPane;
 import usaclibrary.Estudiante;
 
@@ -46,6 +47,22 @@ public class HashTable {
                 return true;
             }
             z=z.getRight();
+        }
+        return false;
+    }
+    public boolean LogIn(int carne, String password){
+        int key = HashFunction(carne);
+         if(key>=0 && key <45){
+            if(this.bucket[key]==null){
+                return false;
+            }            
+            Nodo<Estudiante> z = this.bucket[key].getListado().getHead();
+            while(z!=null){
+            if(z.getValue().getCarne()==carne){
+                return Arrays.equals(z.getValue().getPassword(),  Estudiante.encrypting(password));
+            }
+            z=z.getRight();
+            }
         }
         return false;
     }

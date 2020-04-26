@@ -24,7 +24,7 @@ public class Estudiante {
         this.password = encrypting(password);
     }
 
-    public byte[] encrypting(String password){
+    public static byte[] encrypting(String password){
         byte[] passwordBytes=null;
         try {
             passwordBytes = password.getBytes("UTF-8");
