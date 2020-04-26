@@ -7,21 +7,24 @@ package usaclibrary;
 
 import EDD.AVL;
 import EDD.BTree;
+import EDD.HashTable;
 import EDD.ListaDoble;
 import EDD.ListaSimple;
 import EDD.NODO_AVL;
 import UI.AddCategory;
+import UI.PrincipalMenu;
 
 /**
  *
  * @author Guillermo
  */
 public class USACLibrary {
-
+public static HashTable StudentTable;
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        StudentTable= new HashTable();
         // TODO code application logic here
       //  conector c = new conector();
        // c.iniciar();
@@ -97,6 +100,10 @@ public class USACLibrary {
         arbol2.GraphTree();
         } catch (Exception e) {
         }
+        PrincipalMenu begin = new PrincipalMenu();
+        StudentTable.Insert(new Estudiante(201801366, "josue", "orellana", "sistemass", "1201"));
+      //  ListaSimple<Estudiante> oj = new ListaSimple<>();
+      //  oj.AddLast(new Estudiante(201801366, "josue", "orellana", "sistemass", "1201"));
+        begin.show();
     }
-    
 }
