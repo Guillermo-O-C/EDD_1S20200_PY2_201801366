@@ -83,6 +83,7 @@ public class BTree {
         }
         x.setOccupied(x.getOccupied()+1);
     }
+    
     public void SpacedIsert(NODO_B x, int ISBN, Books Data){
         int i = x.getOccupied();
         if(x.isIsLeaf()){
@@ -106,12 +107,14 @@ public class BTree {
             SpacedIsert(x.getBranches()[e], ISBN, Data);
         }
     }
+    
     public int GetISBN(Books[] x, int y){
         if(x[y]==null){
             return 0;
         }
         return x[y].getISBN();
     }
+    
     public void Insert(BTree x, int ISBN, Books Data){
         NODO_B rootNode = x.getRoot();
         if(rootNode.getOccupied()==2*this.order -1){/*si lo camibio a 4 luego no puede llegar en el split al 5to*/
@@ -131,6 +134,7 @@ public class BTree {
             Logger.getLogger(BTree.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
     public void GraphTree() throws IOException{
         String head = "digraph G {\n node [shape = record,height=.1];";  
         labels="";
@@ -145,7 +149,9 @@ public class BTree {
             e.printStackTrace();
         }
     }
+    
     String labels;
+    
     public String NextNodos(NODO_B Central){
         labels +=Integer.toString(Central.getShelf()[0].getISBN())+"[label = \"";
         for(int i =0;i<5;i++){
@@ -174,5 +180,10 @@ public class BTree {
             TemporalFile.write(doc);
         }
         temporal.createNewFile();
+    }
+
+    public boolean Eliminar(NODO_B x,int ISBN){
+        Search(root, order);
+        return false;
     }
 }

@@ -5,7 +5,12 @@
  */
 package UI;
 
+import java.io.File;
+import java.io.FileFilter;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import usaclibrary.JsonReader;
 
 /**
  *
@@ -49,6 +54,11 @@ public class PrincipalMenu extends javax.swing.JFrame {
         setResizable(false);
 
         label1.setText("Carga Masiva Estudiantes");
+        label1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                label1MouseClicked(evt);
+            }
+        });
 
         label2.setText("Registrar Estudiante");
         label2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -74,13 +84,10 @@ public class PrincipalMenu extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(117, 117, 117))
+                .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(160, 160, 160))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(109, 109, 109)
-                        .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(81, 81, 81)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -90,7 +97,10 @@ public class PrincipalMenu extends javax.swing.JFrame {
                             .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(141, 141, 141)
-                        .addComponent(jButton1)))
+                        .addComponent(jButton1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(105, 105, 105)
+                        .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(91, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -131,6 +141,18 @@ public class PrincipalMenu extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Ingreso incorrecto, inténtalo de nuevo");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void label1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label1MouseClicked
+        // TODO add your handling code here:
+        JFileChooser jsonFileChooser = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("JSON Files", "json");
+        jsonFileChooser.addChoosableFileFilter(filter);
+        int loaded = jsonFileChooser.showOpenDialog(label1);
+        if(loaded==JFileChooser.APPROVE_OPTION){
+            File jsonFile = jsonFileChooser.getSelectedFile();
+            JsonReader.LoadStudents(jsonFile);
+        }
+    }//GEN-LAST:event_label1MouseClicked
 
     /**
      * @param args the command line arguments
