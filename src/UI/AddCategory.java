@@ -76,12 +76,12 @@ public class AddCategory extends javax.swing.JFrame {
 BTree arbol = new BTree(3);
     private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
         // TODO add your handling code here:        
-        arbol.Insert(arbol,Integer.parseInt(jTextArea1.getText()), new Books(Integer.parseInt(jTextArea1.getText())));
-          try {
+        arbol.Insert(arbol, new Books(Integer.parseInt(jTextArea1.getText())));
+      /*    try {
             jTextArea1.setText("");
-        arbol.GraphTree();
+      //  arbol.GraphTree();
         } catch (Exception e) {
-        }
+        }*/
     }//GEN-LAST:event_button1ActionPerformed
 
     /**

@@ -136,7 +136,8 @@ public class PrincipalMenu extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         if(usaclibrary.USACLibrary.StudentTable.LogIn(Integer.parseInt(jTextField2.getText()), jPasswordField1.getText())){
-            
+            UserUI signIn = new UserUI(Integer.parseInt(jTextField2.getText()));
+            signIn.show();
         }else{
             JOptionPane.showMessageDialog(null, "Ingreso incorrecto, inténtalo de nuevo");
         }
@@ -147,7 +148,7 @@ public class PrincipalMenu extends javax.swing.JFrame {
         JFileChooser jsonFileChooser = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter("JSON Files", "json");
         jsonFileChooser.addChoosableFileFilter(filter);
-        int loaded = jsonFileChooser.showOpenDialog(label1);
+        int loaded = jsonFileChooser.showOpenDialog(null);
         if(loaded==JFileChooser.APPROVE_OPTION){
             File jsonFile = jsonFileChooser.getSelectedFile();
             JsonReader.LoadStudents(jsonFile);

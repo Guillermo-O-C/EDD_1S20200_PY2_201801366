@@ -40,7 +40,8 @@ public class AVL {
     }
     
     public void GraphTree() throws IOException{
-        String head = "digraph G {\n nodesep=0.3;\n ranksep=0.2;\n    margin=0.1;\n   node [shape=circle];\n  edge [arrowsize=0.8];";       
+        //String head = "digraph G {\n nodesep=0.3;\n ranksep=0.2;\n    margin=0.1;\n   node [shape=circle];\n  edge [arrowsize=0.8];";       
+        String head = "digraph G {\n nodesep=0.3;\\n ranksep=0.2;\\n    margin=0.1;\\n node[shape=circle width=\"1.5\" height=\"1.5\" fixed=\"true\"];  edge [arrowsize=0.8];";       
         head += NextNodos(this.root)+"}";
         writeDOC(head);
         try {            
@@ -122,14 +123,14 @@ public class AVL {
             return Height(x.getLeft())-Height(x.getRight());
         }
     }
-    public NODO_AVL Add(NODO_AVL x, String name){
+    public NODO_AVL Add(NODO_AVL x, String name, int AllowedToDelete){
         if(x==null){
-            return (new NODO_AVL(name));
+            return (new NODO_AVL(name, AllowedToDelete));
         }
         if(name.compareToIgnoreCase(x.getValue())<0){
-            x.setLeft(Add(x.getLeft(), name));
+            x.setLeft(Add(x.getLeft(), name, AllowedToDelete));
         }else if(name.compareToIgnoreCase(x.getValue())>0){
-            x.setRight(Add(x.getRight(), name));
+            x.setRight(Add(x.getRight(), name, AllowedToDelete));
         }else{
             //son iguales
             return x;
@@ -153,7 +154,6 @@ public class AVL {
         return x;
     }
     public NODO_AVL Search(NODO_AVL x, String name){
-        NODO_AVL aux = this.root;
         if(x==null){
             return null;
         }else if(name.compareToIgnoreCase(x.getValue())<0){
@@ -211,5 +211,14 @@ public class AVL {
             }
         }
         return x;
+    }
+    public void PrintAllBTrees(NODO_AVL x) throws IOException{
+        x.getColeccion().GraphTree(x.getValue());
+        if(x.getLeft()!=null){
+            PrintAllBTrees(x.getLeft());
+        }
+        if(x.getRight()!=null){
+            PrintAllBTrees(x.getRight());
+        }
     }
 }

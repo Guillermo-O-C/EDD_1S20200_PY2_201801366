@@ -5,6 +5,7 @@
  */
 package usaclibrary;
 
+import EDD.NODO_AVL;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -38,6 +39,33 @@ public class JsonReader {
          //   Logger.getLogger(JsonReader.class.getName()).log(Level.SEVERE, null, ex);
         }  
     }   
+    public static void LoadBooks(File jsonFile, int carne){
+      JSONParser parser = new JSONParser();
+        try{
+            Object obj = parser.parse(new FileReader(jsonFile));
+            JSONObject jsonObj = (JSONObject) obj;
+            JSONArray jsonArray = (JSONArray) jsonObj.get("libros");
+            for(int i =0;i<jsonArray.size();i++){
+                JSONObject temporalObj = (JSONObject) jsonArray.get(i);
+                if(USACLibrary.PublicLibrary.Search(USACLibrary.PublicLibrary.getRoot(), temporalObj.get("Categoria").toString())==null){
+                    USACLibrary.PublicLibrary.setRoot(USACLibrary.PublicLibrary.Add(USACLibrary.PublicLibrary.getRoot(), temporalObj.get("Categoria").toString(), carne));
+                }
+                    NODO_AVL x =  USACLibrary.PublicLibrary.Search(USACLibrary.PublicLibrary.getRoot(), temporalObj.get("Categoria").toString());
+                    x.getColeccion().Insert(x.getColeccion(), new Books(
+                            Integer.parseInt(temporalObj.get("ISBN").toString())
+                            , temporalObj.get("Titulo").toString(), temporalObj.get("Autor").toString(), temporalObj.get("Editorial").toString()
+                    , Integer.parseInt(temporalObj.get("Año").toString()), Integer.parseInt(temporalObj.get("Edicion").toString()), temporalObj.get("Categoria").toString()
+                    , temporalObj.get("Idioma").toString(), carne));
+                }
+            USACLibrary.PublicLibrary.GraphTree();
+        } catch (org.json.simple.parser.ParseException ex) {
+         //   Logger.getLogger(JsonReader.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+         //   Logger.getLogger(JsonReader.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            USACLibrary.PublicLibrary.PrintAllBTrees(USACLibrary.PublicLibrary.getRoot());
+        } catch (IOException e) {
+        }
+    } 
 }
-
-

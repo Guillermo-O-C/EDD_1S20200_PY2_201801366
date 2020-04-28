@@ -20,11 +20,13 @@ import UI.PrincipalMenu;
  */
 public class USACLibrary {
 public static HashTable StudentTable;
+public static AVL PublicLibrary;
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         StudentTable= new HashTable();
+        PublicLibrary = new AVL();
         // TODO code application logic here
       //  conector c = new conector();
        // c.iniciar();
@@ -45,7 +47,7 @@ public static HashTable StudentTable;
         if("hola".compareToIgnoreCase("hola")==0){
                     System.out.println("==0 significa que son iguales");
         }
-        */
+        *//*
         AVL arbol = new AVL();
         arbol.setRoot(arbol.Add(arbol.getRoot(),"amigos"));
         arbol.setRoot(arbol.Add(arbol.getRoot(),"beuno"));
@@ -58,7 +60,10 @@ public static HashTable StudentTable;
         arbol.setRoot(arbol.Add(arbol.getRoot(), "tios"));
         arbol.setRoot(arbol.Add(arbol.getRoot(),"trabajan"));
         arbol.setRoot(arbol.Add(arbol.getRoot(), "en"));
-        arbol.setRoot(arbol.Add(arbol.getRoot(),"ecatepec"));/*
+        arbol.setRoot(arbol.Add(arbol.getRoot(),"ecatepec"));
+        arbol.setRoot(arbol.Add(arbol.getRoot(),"pinches"));
+        arbol.setRoot(arbol.Add(arbol.getRoot(),"chilangos"));
+        arbol.setRoot(arbol.Add(arbol.getRoot(),"mamones"));
         arbol.Add(arbol.getRaiz(),"que");
         arbol.Add("tiene");
         arbol.Add("que");
@@ -70,38 +75,40 @@ public static HashTable StudentTable;
             
         arbol.GraphTree();
         } catch (Exception e) {
-        }
-        AddCategory s = new AddCategory();
-        s.show();*/
+        }*/
+      //  AddCategory s = new AddCategory();
+       // s.show();
         BTree arbol2 = new BTree(3);
-        arbol2.Insert(arbol2, 1, new Books(1));
-        arbol2.Insert(arbol2,2, new Books(2));
-        arbol2.Insert(arbol2,3, new Books(3));
-        arbol2.Insert(arbol2,4, new Books(4));
-        arbol2.Insert(arbol2,5, new Books(5));
-        arbol2.Insert(arbol2,6, new Books(6));
-        arbol2.Insert(arbol2,7, new Books(7));
-        arbol2.Insert(arbol2,8, new Books(8));
-        arbol2.Insert(arbol2,9, new Books(9));
-        arbol2.Insert(arbol2,10, new Books(10));
-        arbol2.Insert(arbol2,11, new Books(11));
-        arbol2.Insert(arbol2,12, new Books(12));
-        arbol2.Insert(arbol2,13, new Books(13));
-        arbol2.Insert(arbol2,14, new Books(14));
-        arbol2.Insert(arbol2,15, new Books(15));
-        arbol2.Insert(arbol2,16, new Books(16));
-        arbol2.Insert(arbol2,17, new Books(17));
-        arbol2.Insert(arbol2,18, new Books(18));
-        arbol2.Insert(arbol2,19, new Books(19));
-        arbol2.Insert(arbol2,20, new Books(20));
-        arbol2.Insert(arbol2,21, new Books(21));
-        arbol2.Insert(arbol2,22, new Books(22));/**/
-        try {            
-        arbol2.GraphTree();
+        arbol2.Insert(arbol2, new Books(1));
+        arbol2.Insert(arbol2, new Books(2));
+        arbol2.Insert(arbol2, new Books(3));
+        arbol2.Insert(arbol2, new Books(4));
+        arbol2.Insert(arbol2, new Books(5));
+        arbol2.Insert(arbol2, new Books(6));
+        arbol2.Insert(arbol2, new Books(7));
+        arbol2.Insert(arbol2, new Books(8));
+        arbol2.Insert(arbol2, new Books(9));
+        arbol2.Insert(arbol2, new Books(10));
+        arbol2.Insert(arbol2, new Books(11));
+        arbol2.Insert(arbol2, new Books(12));
+        arbol2.Insert(arbol2, new Books(13));
+        arbol2.Insert(arbol2, new Books(14));
+        arbol2.Insert(arbol2, new Books(15));
+        arbol2.Insert(arbol2, new Books(16));
+        arbol2.Insert(arbol2, new Books(17));
+        arbol2.Insert(arbol2, new Books(18));
+        arbol2.Insert(arbol2, new Books(19));
+        arbol2.Insert(arbol2, new Books(20));
+        arbol2.Insert(arbol2, new Books(21));
+        arbol2.Insert(arbol2, new Books(22));/**/
+       /* try {            
+        arbol2.GraphTree("AVL");
         } catch (Exception e) {
-        }
+        }*/
+        
         PrincipalMenu begin = new PrincipalMenu();
         StudentTable.Insert(new Estudiante(201801366, "josue", "orellana", "sistemass", "1201"));
+        PublicLibrary.setRoot(PublicLibrary.Add(PublicLibrary.getRoot(), "anime", 1));
       //  ListaSimple<Estudiante> oj = new ListaSimple<>();
       //  oj.AddLast(new Estudiante(201801366, "josue", "orellana", "sistemass", "1201"));
         begin.show();

@@ -3,8 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/D:/progra/EDD/USACLibrary/src/EDD/AVL.java</file>
             <file>file:/D:/progra/EDD/USACLibrary/src/EDD/BTree.java</file>
-            <file>file:/D:/progra/EDD/USACLibrary/src/UI/CargarEstudiantes.java</file>
+            <file>file:/D:/progra/EDD/USACLibrary/src/UI/PrincipalMenu.java</file>
+            <file>file:/D:/progra/EDD/USACLibrary/src/EDD/NODO_AVL.java</file>
+            <file>file:/D:/progra/EDD/USACLibrary/src/UI/AddBook.java</file>
+            <file>file:/D:/progra/EDD/USACLibrary/src/usaclibrary/BookList.java</file>
+            <file>file:/D:/progra/EDD/USACLibrary/src/UI/UserUI.java</file>
+            <file>file:/D:/progra/EDD/USACLibrary/src/usaclibrary/Books.java</file>
+            <file>file:/D:/progra/EDD/USACLibrary/src/usaclibrary/JsonReader.java</file>
             <file>file:/D:/progra/EDD/USACLibrary/src/usaclibrary/USACLibrary.java</file>
         </group>
     </open-files>

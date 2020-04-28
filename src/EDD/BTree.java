@@ -84,10 +84,10 @@ public class BTree {
         x.setOccupied(x.getOccupied()+1);
     }
     
-    public void SpacedIsert(NODO_B x, int ISBN, Books Data){
+    public void SpacedIsert(NODO_B x, Books Data){
         int i = x.getOccupied();
         if(x.isIsLeaf()){
-            while(i>=1 && ISBN < GetISBN(x.getShelf(), i-1)){
+            while(i>=1 && Data.getISBN() < GetISBN(x.getShelf(), i-1)){
                 x.getShelf()[i]=x.getShelf()[i-1];
                 i--;
             }
@@ -95,16 +95,16 @@ public class BTree {
             x.setOccupied(x.getOccupied()+1);
         }else{
             int e =0;
-            while(e<x.getOccupied() && ISBN > GetISBN(x.getShelf(), e)){
+            while(e<x.getOccupied() && Data.getISBN() > GetISBN(x.getShelf(), e)){
                 e++;
             }
             if(x.getBranches()[e].getOccupied() == this.order*2-1){
                 SplitChild(x, e, x.getBranches()[e]);
-                if(ISBN > GetISBN(x.getShelf(), e)){
+                if(Data.getISBN() > GetISBN(x.getShelf(), e)){
                     e++;
                 }
             }
-            SpacedIsert(x.getBranches()[e], ISBN, Data);
+            SpacedIsert(x.getBranches()[e], Data);
         }
     }
     
@@ -115,7 +115,7 @@ public class BTree {
         return x[y].getISBN();
     }
     
-    public void Insert(BTree x, int ISBN, Books Data){
+    public void Insert(BTree x, Books Data){
         NODO_B rootNode = x.getRoot();
         if(rootNode.getOccupied()==2*this.order -1){/*si lo camibio a 4 luego no puede llegar en el split al 5to*/
             NODO_B newNode = new NODO_B(null);
@@ -124,25 +124,25 @@ public class BTree {
             newNode.setOccupied(0);
             newNode.getBranches()[0]=rootNode;
             SplitChild(newNode, 0, rootNode);
-            SpacedIsert(newNode, ISBN, Data);
+            SpacedIsert(newNode, Data);
         }else{
-            SpacedIsert(rootNode, ISBN, Data);
+            SpacedIsert(rootNode, Data);
         }
-        try {
-            GraphTree();
+       /* try {
+            GraphTree("");
         } catch (IOException ex) {
             Logger.getLogger(BTree.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
     }
     
-    public void GraphTree() throws IOException{
+    public void GraphTree(String name) throws IOException{
         String head = "digraph G {\n node [shape = record,height=.1];";  
         labels="";
         head += NextNodos(this.root)+labels+"}";
-        writeDOC(head);
+        writeDOC(head, name);
         try {            
             ProcessBuilder pbuilder;
-            pbuilder = new ProcessBuilder("dot", "-Tpng", "-o", "Graphics\\BTree.png","TextFiles\\BTree.dot");
+            pbuilder = new ProcessBuilder("dot", "-Tpng", "-o", "Graphics\\"+name+".png","TextFiles\\"+name+".dot");
             pbuilder.redirectErrorStream(true);
             pbuilder.start();
         } catch (Exception e) {
@@ -170,12 +170,12 @@ public class BTree {
         return content;   
     }
     
-    public static void writeDOC(String doc) throws IOException{
+    public static void writeDOC(String doc, String name) throws IOException{
         File dir = new File("Graphics");
         dir.mkdirs();
         dir = new File("TextFiles");
         dir.mkdirs();            
-        File temporal = new File(dir, "BTree.dot");
+        File temporal = new File(dir, name+".dot");
         try (FileWriter TemporalFile = new FileWriter(temporal)) {
             TemporalFile.write(doc);
         }

@@ -12,15 +12,35 @@ package EDD;
 public class NODO_AVL{
     
     private String value;
+    private int AllowedToDelete;
     private NODO_AVL right;
     private NODO_AVL left;
     private int balance;
+    private BTree coleccion;
 
-    public NODO_AVL(String value) {
+    public NODO_AVL(String value, int AllowedToDelete) {
         this.value = value;
         this.right = null;
         this.left = null;
         this.balance = 0;
+        this.AllowedToDelete = AllowedToDelete;
+        this.coleccion = new BTree(3); 
+    }
+
+    public int getAllowedToDelete() {
+        return AllowedToDelete;
+    }
+
+    public void setAllowedToDelete(int AllowedToDelete) {
+        this.AllowedToDelete = AllowedToDelete;
+    }
+
+    public BTree getColeccion() {
+        return coleccion;
+    }
+
+    public void setColeccion(BTree coleccion) {
+        this.coleccion = coleccion;
     }
 
     public String getValue() {
