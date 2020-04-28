@@ -82,4 +82,30 @@ public class NODO_B {
         this.trunk = trunk;
     }
     
+    public NODO_B UpdateBook(Books Data){
+        int i =0;
+        while(i<this.occupied && Data.getISBN() > this.shelf[i].getISBN()){
+            i++;
+        }
+        if(this.shelf[i].getISBN()==Data.getISBN()){
+            this.shelf[i]=Data;
+        }
+        if(isIsLeaf()){
+            return null;
+        }
+        return this.branches[i].UpdateBook(Data);
+    }
+     public Books Search(int ISBN){
+        int i =0;
+        while(i<this.occupied && ISBN > this.shelf[i].getISBN()){
+            i++;
+        }
+        if(this.shelf[i].getISBN()==ISBN){
+            return this.shelf[i];
+        }
+        if(isIsLeaf()){
+            return null;
+        }
+        return this.branches[i].Search(ISBN);
+    }
 }

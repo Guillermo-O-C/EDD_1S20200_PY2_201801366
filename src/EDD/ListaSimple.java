@@ -54,6 +54,17 @@ public class ListaSimple<T> {
             this.Tail.setRight(nuevo);
             this.Tail=nuevo;
         }
+        this.size++;
+    }
+    public T elementAt(int val){
+        if(val<=this.size){
+            Nodo<T> aux = this.Head;
+            for(int i =0;i<val;i++){
+                aux=aux.getRight();
+            }
+            return aux.getValue();
+        }
+        return null;
     }
     
 }

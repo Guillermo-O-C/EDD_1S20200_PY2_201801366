@@ -9,6 +9,7 @@ import EDD.BTree;
 import EDD.ListaSimple;
 import EDD.NODO_AVL;
 import EDD.NODO_B;
+import UI.BookDisplay;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 
@@ -18,13 +19,19 @@ import javax.swing.JList;
  */
 public class BookList extends javax.swing.JFrame {
     DefaultListModel list;
+    String categoria;
+    int currentUser;
+    ListaSimple<Books> booksInShelf;
     /**
      * Creates new form BookList
      */
     public BookList() {
     }
     public BookList(int carne, String categoria) {
-        list = new DefaultListModel();
+        this.list = new DefaultListModel();
+        this.categoria=categoria;
+        this.booksInShelf = new ListaSimple<>();
+        this.currentUser=carne;
         initComponents();
         list.clear();
         ListBooks(carne, categoria);
@@ -53,6 +60,7 @@ public class BookList extends javax.swing.JFrame {
     void PrintTree(NODO_B x){
         for(int i =0;i<5;i++){
                 if(x.getShelf()[i]!=null){
+                    booksInShelf.AddLast(x.getShelf()[i]);
                     list.addElement(x.getShelf()[i].getTitulo());
                 }
             }
@@ -74,12 +82,26 @@ public class BookList extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
         jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        jList1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jList1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jList1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jList1);
 
         jButton1.setText("Eliminar Categoría");
+
+        jLabel1.setText("Actualizar Lista");
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -87,25 +109,51 @@ public class BookList extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(132, 132, 132)
-                .addComponent(jButton1)
-                .addContainerGap(127, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 724, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(312, 312, 312))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 439, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1)
+                    .addComponent(jLabel1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
+        // TODO add your handling code here:
+        NODO_AVL x = USACLibrary.PublicLibrary.Search(USACLibrary.PublicLibrary.getRoot(), categoria);
+        String Chosen = jList1.getSelectedValue().toString();
+        for(int i =0; i< booksInShelf.getSize();i++){
+            String title = booksInShelf.elementAt(i).getTitulo();
+            if(title.compareTo(Chosen)==0){
+                BookDisplay showBook = new BookDisplay(this.currentUser, booksInShelf.elementAt(i));
+                showBook.show();
+                break;
+            }
+        }
+    }//GEN-LAST:event_jList1MouseClicked
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        // TODO add your handling code here:        
+        list.clear();
+        ListBooks(this.currentUser, categoria);
+        jList1.setModel(list);
+    }//GEN-LAST:event_jLabel1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -144,6 +192,7 @@ public class BookList extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JList jList1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables

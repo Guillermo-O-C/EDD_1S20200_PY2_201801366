@@ -32,21 +32,21 @@ public class BTree {
     public void setRoot(NODO_B root) {
         this.root = root;
     }
-    
-    public NODO_B Search(NODO_B x, int ISBN){
-        int i =0;
-        while(i<this.root.getOccupied() && ISBN > this.root.getShelf()[i].getISBN()){
-            i++;
-        }
-        if(i<=this.root.getOccupied() && ISBN == this.root.getShelf()[i].getISBN()){
-            return this.root;
-        }
-        if(this.root.isIsLeaf()==false){
-            return Search(x.getBranch(i), ISBN);
-        }else{
+    public Books Search(int ISBN){
+        if(this.root==null){
             return null;
+        }else{
+            return this.root.Search(ISBN);
         }
     }
+    public NODO_B UpdateBook(Books Data){
+        if(this.root==null){
+            return null;
+        }else{
+            return this.root.UpdateBook(Data);
+        }
+    }
+   
     public void SplitChild(NODO_B x, int i, NODO_B y){
         NODO_B z = new NODO_B(null);
         z.setIsLeaf(y.isIsLeaf());
@@ -181,9 +181,9 @@ public class BTree {
         }
         temporal.createNewFile();
     }
-
+/*
     public boolean Eliminar(NODO_B x,int ISBN){
         Search(root, order);
         return false;
-    }
+    }*/
 }

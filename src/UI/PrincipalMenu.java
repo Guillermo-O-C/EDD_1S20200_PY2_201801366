@@ -138,6 +138,7 @@ public class PrincipalMenu extends javax.swing.JFrame {
         if(usaclibrary.USACLibrary.StudentTable.LogIn(Integer.parseInt(jTextField2.getText()), jPasswordField1.getText())){
             UserUI signIn = new UserUI(Integer.parseInt(jTextField2.getText()));
             signIn.show();
+            this.dispose();
         }else{
             JOptionPane.showMessageDialog(null, "Ingreso incorrecto, inténtalo de nuevo");
         }
