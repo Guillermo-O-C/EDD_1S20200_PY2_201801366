@@ -5,6 +5,9 @@
  */
 package EDD;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Arrays;
 import javax.swing.JOptionPane;
 import usaclibrary.Estudiante;
@@ -65,5 +68,65 @@ public class HashTable {
             }
         }
         return false;
+    }
+    
+    public String GenerateTable(){
+        String graph = "digraph G { \n node[shape=diamond]\n";
+        String arrayLists ="";
+        String rankedList="";
+        String arrayLabels="";
+        boolean first=true;
+        for(int i =0;i<45;i++){
+            if(this.bucket[i]!=null){
+                rankedList+="{rank=same "+"Slot_"+Integer.toString(i);
+                arrayLabels+="Slot_"+Integer.toString(i)+"[label=\""+Integer.toString(i)+"\" shape=box];";
+                if(first){
+                    graph+="Slot_"+Integer.toString(i);
+                    first=false;
+                }else{                    
+                    graph+="->Slot_"+Integer.toString(i);
+                }
+                Nodo<Estudiante> aux = this.bucket[i].getListado().getHead();
+                while(true){
+                    rankedList+=" "+Integer.toString(aux.getValue().getCarne());
+                    if(aux==this.bucket[i].getListado().getHead()){
+                         arrayLists+="Slot_"+Integer.toString(i)+"->"+Integer.toString(aux.getValue().getCarne())+"[constraint=true];\n";
+                    }
+                    if(aux.getRight()!=null){
+                        arrayLists+=Integer.toString(aux.getValue().getCarne())+"->"+Integer.toString(aux.getRight().getValue().getCarne())+"[constraint=true];\n";
+                        aux=aux.getRight();
+                    }else{
+                        rankedList+="}\n";
+                        break;
+                    }                    
+                }
+            }
+        }
+        return graph+";"+arrayLists+rankedList+arrayLabels+"\n}";
+    }
+      public void GraphTable() throws IOException{
+        //String head = "digraph G {\n nodesep=0.3;\n ranksep=0.2;\n    margin=0.1;\n   node [shape=circle];\n  edge [arrowsize=0.8];";       
+        String head = GenerateTable()+"}";
+        writeDOC(head);
+        try {            
+            ProcessBuilder pbuilder;
+            pbuilder = new ProcessBuilder("dot", "-Tpng", "-o", "Graphics\\HashTable.png","TextFiles\\HashTable.dot");
+            pbuilder.redirectErrorStream(true);
+            pbuilder.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public static void writeDOC(String doc) throws IOException{
+        File dir = new File("Graphics");
+        dir.mkdirs();
+        dir = new File("TextFiles");
+        dir.mkdirs();            
+        File temporal = new File(dir, "HashTable.dot");
+        try (FileWriter TemporalFile = new FileWriter(temporal)) {
+            TemporalFile.write(doc);
+        }
+        temporal.createNewFile();
     }
 }

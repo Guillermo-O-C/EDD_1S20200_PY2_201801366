@@ -32,8 +32,22 @@ public class BTree {
     public void setRoot(NODO_B root) {
         this.root = root;
     }
-    public Books Search(int ISBN){
-        if(this.root==null){
+  /*   public NODO_B Search(NODO_B x, int ISBN){
+        int i =0;
+        while(i<x.getOccupied() && ISBN>GetISBN(x.getShelf(), i)){
+            i++;
+        }
+        if(i<=x.getOccupied() && ISBN==GetISBN(x.getShelf(), i)){
+            return x;
+        }
+        if(x.isIsLeaf()){
+            return null;
+        }else{
+            return Search(x.getBranches()[i], ISBN);
+        }
+    }*/
+   public Books Search(int ISBN){
+        if(this.root.getOccupied()==0){
             return null;
         }else{
             return this.root.Search(ISBN);
@@ -116,23 +130,27 @@ public class BTree {
     }
     
     public void Insert(BTree x, Books Data){
-        NODO_B rootNode = x.getRoot();
-        if(rootNode.getOccupied()==2*this.order -1){/*si lo camibio a 4 luego no puede llegar en el split al 5to*/
-            NODO_B newNode = new NODO_B(null);
-            x.setRoot(newNode);
-            newNode.setIsLeaf(false);
-            newNode.setOccupied(0);
-            newNode.getBranches()[0]=rootNode;
-            SplitChild(newNode, 0, rootNode);
-            SpacedIsert(newNode, Data);
+        if(Search(Data.getISBN())!=null){
+            //libro repetido en esta categoria
         }else{
-            SpacedIsert(rootNode, Data);
+            NODO_B rootNode = x.getRoot();
+            if(rootNode.getOccupied()==2*this.order -1){/*si lo camibio a 4 luego no puede llegar en el split al 5to*/
+                NODO_B newNode = new NODO_B(null);
+                x.setRoot(newNode);
+                newNode.setIsLeaf(false);
+                newNode.setOccupied(0);
+                newNode.getBranches()[0]=rootNode;
+                SplitChild(newNode, 0, rootNode);
+                SpacedIsert(newNode, Data);
+            }else{
+                SpacedIsert(rootNode, Data);
+            }
+           /* try {
+                GraphTree("SOLIDTREE");
+            } catch (IOException ex) {
+                Logger.getLogger(BTree.class.getName()).log(Level.SEVERE, null, ex);
+            }*/
         }
-       /* try {
-            GraphTree("");
-        } catch (IOException ex) {
-            Logger.getLogger(BTree.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
     }
     
     public void GraphTree(String name) throws IOException{
@@ -153,21 +171,26 @@ public class BTree {
     String labels;
     
     public String NextNodos(NODO_B Central){
-        labels +=Integer.toString(Central.getShelf()[0].getISBN())+"[label = \"";
-        for(int i =0;i<5;i++){
-            if(Central.getShelf()[i]!=null){
-                labels+="<f"+Integer.toString(i)+">"+Integer.toString(Central.getShelf()[i].getISBN())+"|";
+        if(Central!=null){
+            if(Central.getShelf()[0]!=null){
+                labels +=Integer.toString(Central.getShelf()[0].getISBN())+"[label = \"";
+            }            
+            for(int i =0;i<Central.getOccupied();i++){
+                if(Central.getShelf()[i]!=null){
+                    labels+="<f"+Integer.toString(i)+">"+Integer.toString(Central.getShelf()[i].getISBN())+"|";
+                }
             }
-        }
-        labels+="\"];\n";
-        String content="";
-        for(int i =0;i <5;i++){
-            if(Central.getBranches()[i]!=null){
-                content+=Integer.toString(Central.getShelf()[0].getISBN())+"->"+Integer.toString(Central.getBranches()[i].getShelf()[0].getISBN())+";\n";
-                content+=NextNodos(Central.getBranches()[i]);
+            labels+="\"];\n";
+            String content="";
+            for(int i =0;i<Central.getOccupied()+1;i++){
+                if(Central.getBranches()[i]!=null){
+                    content+=Integer.toString(Central.getShelf()[0].getISBN())+"->"+Integer.toString(Central.getBranches()[i].getShelf()[0].getISBN())+";\n";
+                    content+=NextNodos(Central.getBranches()[i]);
+                }
             }
+            return content; 
         }
-        return content;   
+         return "";
     }
     
     public static void writeDOC(String doc, String name) throws IOException{
@@ -181,9 +204,25 @@ public class BTree {
         }
         temporal.createNewFile();
     }
-/*
-    public boolean Eliminar(NODO_B x,int ISBN){
-        Search(root, order);
-        return false;
-    }*/
+    
+    public void travel(){
+        if(this.root!=null){
+            this.root.travel();
+        }
+    }
+
+    public void Delete(int ISBN){
+        if(root==null){
+            return;
+        }
+        this.root.delete(ISBN);
+        if(this.root.getOccupied()==0){
+            NODO_B x=this.root;
+            if(this.root.isIsLeaf()){
+                this.root=null;
+            }else{
+                this.root=root.getBranches()[0];
+            }
+        }
+    }
 }

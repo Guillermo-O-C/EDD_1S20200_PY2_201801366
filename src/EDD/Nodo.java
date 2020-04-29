@@ -34,7 +34,7 @@ public class Nodo<T> {
         this.value = value;
     }
 
-    public Nodo getRight() {
+    public Nodo<T> getRight() {
         return right;
     }
 
@@ -42,7 +42,7 @@ public class Nodo<T> {
         this.right = right;
     }
 
-    public Nodo getLeft() {
+    public Nodo<T> getLeft() {
         return left;
     }
 
@@ -50,7 +50,7 @@ public class Nodo<T> {
         this.left = left;
     }
 
-    public Nodo getUp() {
+    public Nodo<T> getUp() {
         return up;
     }
 
@@ -58,7 +58,7 @@ public class Nodo<T> {
         this.up = up;
     }
 
-    public Nodo getDown() {
+    public Nodo<T> getDown() {
         return down;
     }
 

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package usaclibrary;
+package UI;
 
 import EDD.BTree;
 import EDD.ListaSimple;
@@ -12,6 +12,9 @@ import EDD.NODO_B;
 import UI.BookDisplay;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
+import usaclibrary.Books;
+import usaclibrary.USACLibrary;
 
 /**
  *
@@ -95,6 +98,11 @@ public class BookList extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jList1);
 
         jButton1.setText("Eliminar Categoría");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Actualizar Lista");
         jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -154,6 +162,19 @@ public class BookList extends javax.swing.JFrame {
         ListBooks(this.currentUser, categoria);
         jList1.setModel(list);
     }//GEN-LAST:event_jLabel1MouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        int answer = JOptionPane.showConfirmDialog(null, "¿Seguro que deseas eliminar toda esta categoría? todos los libros que estén en ella serán eliminados.");
+        if(answer==0){
+            USACLibrary.PublicLibrary.Delete(USACLibrary.PublicLibrary.getRoot(), categoria);
+            JOptionPane.showMessageDialog(null, "Se  ha eliminado la categoría");
+            this.dispose();
+        }else{
+            JOptionPane.showMessageDialog(null, "No se  ha eliminado la categoría");
+        }
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

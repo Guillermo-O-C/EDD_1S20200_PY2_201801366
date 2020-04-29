@@ -22,7 +22,7 @@ public class NODO_AVL{
         this.value = value;
         this.right = null;
         this.left = null;
-        this.balance = 0;
+        this.balance = 1;
         this.AllowedToDelete = AllowedToDelete;
         this.coleccion = new BTree(3); 
     }

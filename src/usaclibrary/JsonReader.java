@@ -49,6 +49,7 @@ public class JsonReader {
                 JSONObject temporalObj = (JSONObject) jsonArray.get(i);
                 if(USACLibrary.PublicLibrary.Search(USACLibrary.PublicLibrary.getRoot(), temporalObj.get("Categoria").toString())==null){
                     USACLibrary.PublicLibrary.setRoot(USACLibrary.PublicLibrary.Add(USACLibrary.PublicLibrary.getRoot(), temporalObj.get("Categoria").toString(), carne));
+                    USACLibrary.PublicLibrary.GraphTree();
                 }
                     NODO_AVL x =  USACLibrary.PublicLibrary.Search(USACLibrary.PublicLibrary.getRoot(), temporalObj.get("Categoria").toString());
                     x.getColeccion().Insert(x.getColeccion(), new Books(
@@ -57,7 +58,6 @@ public class JsonReader {
                     , Integer.parseInt(temporalObj.get("Año").toString()), Integer.parseInt(temporalObj.get("Edicion").toString()), temporalObj.get("Categoria").toString()
                     , temporalObj.get("Idioma").toString(), carne));
                 }
-            USACLibrary.PublicLibrary.GraphTree();
         } catch (org.json.simple.parser.ParseException ex) {
          //   Logger.getLogger(JsonReader.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {

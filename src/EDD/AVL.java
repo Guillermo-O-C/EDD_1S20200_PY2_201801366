@@ -41,8 +41,8 @@ public class AVL {
     
     public void GraphTree() throws IOException{
         //String head = "digraph G {\n nodesep=0.3;\n ranksep=0.2;\n    margin=0.1;\n   node [shape=circle];\n  edge [arrowsize=0.8];";       
-        String head = "digraph G {\n nodesep=0.3;\\n ranksep=0.2;\\n    margin=0.1;\\n node[shape=circle width=\"1.5\" height=\"1.5\" fixed=\"true\"];  edge [arrowsize=0.8];";       
-        head += NextNodos(this.root)+"}";
+        String head = "digraph G {\n nodesep=0.3;\n ranksep=0.2;\n    margin=0.1;\n node[shape=circle width=\"1.5\" height=\"1.5\" fixed=\"true\"];  edge [arrowsize=0.8];";       
+        head += "\""+this.root.getValue()+"\""+NextNodos(this.root)+"}";
         writeDOC(head);
         try {            
             ProcessBuilder pbuilder;
@@ -56,16 +56,14 @@ public class AVL {
     
     public static String NextNodos(NODO_AVL Central){
         String content="";
-        content +="\""+ Central.getValue()+"\"[label=\"" +Integer.toString(Central.getBalance())+" "+Central.getValue()+"\"]";
         if(Central.getLeft()!=null){
-            content +="\""+Central.getValue()+"\" -> \""+Central.getLeft().getValue()+"\";\n";
+            content +="\""+Central.getValue()+"\" -> \""+Central.getLeft().getValue()+"\"[color=\"#ff0000\"];\n";//rojo
             content += NextNodos(Central.getLeft());
         }
         if(Central.getRight()!=null){
-            content +="\""+Central.getValue()+"\" -> \""+Central.getRight().getValue()+"\";\n";
+            content +="\""+Central.getValue()+"\" -> \""+Central.getRight().getValue()+"\"[color=\"#40e0d0\"];\n";//turquesa
             content += NextNodos(Central.getRight());            
-        }
-        
+        }        
         return content;   
     }
     
@@ -164,6 +162,12 @@ public class AVL {
             return x;
         }
     }
+    NODO_AVL LeftLEaf(NODO_AVL x){
+        if(x.getLeft()!=null){
+            return LeftLEaf(x.getLeft());
+        }
+        return x;        
+    }
     public NODO_AVL Delete(NODO_AVL x, String name){
         if(x == null){
             return x;
@@ -173,30 +177,40 @@ public class AVL {
             x.setRight(Delete(x.getRight(), name));
         }else{
             if(x.getLeft()==null || x.getRight()==null){
-                if(x.getLeft()==null){
-                    x=x.getRight();
+                NODO_AVL y = null;
+                if(x.getLeft()==y){
+                    y=x.getRight();
                 }else{
-                    x=x.getLeft();
+                    y=x.getLeft();
+                }
+                if(y==null){
+                    y=x;
+                    x=null;
+                }else{
+                    x=y;
                 }
             }else{
-                NODO_AVL Leaf = LeftLeaf(x.getRight());
-                x.setValue(Leaf.getValue());
-                x.setRight(Delete(x.getRight(), x.getValue()));
+                NODO_AVL y = LeftLEaf(x.getRight());
+                x.setValue(y.getValue());
+                x.setRight(Delete(x.getRight(), y.getValue()));
             }
+        }
+        if(x==null){
+            return x;
         }
         UpdateHeight(x);
         int NodeBalance = Swing(x);
-        if(NodeBalance>1 && name.compareToIgnoreCase(x.getLeft().getValue())<0){
+        if(NodeBalance>1 && Swing(x.getLeft())>=0){
             return RightRotacion(x);
         }
-        if(NodeBalance<-1 && name.compareToIgnoreCase(x.getRight().getValue())>0){
+        if(NodeBalance<-1 && Swing(x.getRight())<=0){
             return LeftRotacion(x);
         }        
-        if(NodeBalance>1 && name.compareToIgnoreCase(x.getLeft().getValue())>0){
+        if(NodeBalance>1 && Swing(x.getLeft())<0){
             x.setLeft(LeftRotacion(x.getLeft()));
             return RightRotacion(x);
         }
-        if(NodeBalance<-1 && name.compareToIgnoreCase(x.getRight().getValue())<0){
+        if(NodeBalance<-1 && Swing(x.getRight())>0){
             x.setRight(RightRotacion(x.getRight()));
             return LeftRotacion(x);
         }

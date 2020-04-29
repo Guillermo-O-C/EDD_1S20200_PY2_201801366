@@ -8,11 +8,9 @@ package usaclibrary;
 import EDD.AVL;
 import EDD.BTree;
 import EDD.HashTable;
-import EDD.ListaDoble;
-import EDD.ListaSimple;
-import EDD.NODO_AVL;
 import UI.AddCategory;
 import UI.PrincipalMenu;
+import UI.ReportManage;
 
 /**
  *
@@ -76,8 +74,8 @@ public static AVL PublicLibrary;
         arbol.GraphTree();
         } catch (Exception e) {
         }*/
-      //  AddCategory s = new AddCategory();
-       // s.show();
+        AddCategory s = new AddCategory();
+        s.show();
         BTree arbol2 = new BTree(3);
         arbol2.Insert(arbol2, new Books(1));
         arbol2.Insert(arbol2, new Books(2));
@@ -89,28 +87,35 @@ public static AVL PublicLibrary;
         arbol2.Insert(arbol2, new Books(8));
         arbol2.Insert(arbol2, new Books(9));
         arbol2.Insert(arbol2, new Books(10));
+    //    arbol2.Delete(4);
         arbol2.Insert(arbol2, new Books(11));
         arbol2.Insert(arbol2, new Books(12));
         arbol2.Insert(arbol2, new Books(13));
         arbol2.Insert(arbol2, new Books(14));
         arbol2.Insert(arbol2, new Books(15));
         arbol2.Insert(arbol2, new Books(16));
+     //   arbol2.Delete(1);
         arbol2.Insert(arbol2, new Books(17));
         arbol2.Insert(arbol2, new Books(18));
         arbol2.Insert(arbol2, new Books(19));
+    //    arbol2.Delete(10);
         arbol2.Insert(arbol2, new Books(20));
         arbol2.Insert(arbol2, new Books(21));
-        arbol2.Insert(arbol2, new Books(22));/**/
-       /* try {            
-        arbol2.GraphTree("AVL");
+        arbol2.Insert(arbol2, new Books(22));
+    //    arbol2.Delete(14);
+        arbol2.Insert(arbol2, new Books(50));
+        try {            
+        arbol2.GraphTree("NUMEROS");
         } catch (Exception e) {
-        }*/
+        }
         
         PrincipalMenu begin = new PrincipalMenu();
         StudentTable.Insert(new Estudiante(201801366, "josue", "orellana", "sistemass", "1201"));
-        PublicLibrary.setRoot(PublicLibrary.Add(PublicLibrary.getRoot(), "anime", 1));
+        PublicLibrary.setRoot(PublicLibrary.Add(PublicLibrary.getRoot(), "Anime", 201801366));
       //  ListaSimple<Estudiante> oj = new ListaSimple<>();
       //  oj.AddLast(new Estudiante(201801366, "josue", "orellana", "sistemass", "1201"));
         begin.show();
+        ReportManage reports = new ReportManage();
+        reports.show();
     }
 }
