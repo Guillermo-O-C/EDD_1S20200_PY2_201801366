@@ -5,6 +5,7 @@
  */
 package UI;
 
+import EDD.ListaSimple;
 import EDD.NODO_AVL;
 import java.io.File;
 import java.io.IOException;
@@ -12,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import usaclibrary.Books;
 import usaclibrary.Estudiante;
 import usaclibrary.JsonReader;
 
@@ -82,6 +84,11 @@ public static int currentUser;
         });
 
         jLabel3.setText("Ver Mis Libros");
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel3MouseClicked(evt);
+            }
+        });
 
         jButton1.setText("Buscar");
 
@@ -235,6 +242,13 @@ public static int currentUser;
         PrincipalMenu closeSesion = new PrincipalMenu();
         closeSesion.show();
     }//GEN-LAST:event_jLabel9MouseClicked
+
+    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+        // TODO add your handling code here:
+        ListaSimple<Books> userBooks = usaclibrary.USACLibrary.PublicLibrary.UserBooks(this.currentUser);
+        MyBooks myBooks = new MyBooks(this.currentUser, userBooks);
+        myBooks.show();
+    }//GEN-LAST:event_jLabel3MouseClicked
 
     public void AddItems(NODO_AVL x){
         if(x==null){            

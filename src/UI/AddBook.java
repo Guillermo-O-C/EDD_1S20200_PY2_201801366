@@ -235,7 +235,7 @@ int currentUser;
         String anio = jTextField5.getText();
         String edicion = jTextField6.getText();
         String categoria = jTextField7.getText();
-        String idioma = jTextField8.getText();
+        String idioma = jTextField9.getText();
         if(ISBN=="" ||titulo=="" ||autor=="" ||editorial=="" ||anio=="" ||edicion=="" ||categoria=="" ||idioma==""){
             JOptionPane.showMessageDialog(null, "Debe llenar todos los campos");
             return;

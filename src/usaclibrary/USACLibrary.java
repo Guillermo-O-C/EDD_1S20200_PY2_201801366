@@ -73,9 +73,9 @@ public static AVL PublicLibrary;
             
         arbol.GraphTree();
         } catch (Exception e) {
-        }*/
+        }
         AddCategory s = new AddCategory();
-        s.show();
+        s.show();*/
         BTree arbol2 = new BTree(3);
         arbol2.Insert(arbol2, new Books(1));
         arbol2.Insert(arbol2, new Books(2));
@@ -115,7 +115,5 @@ public static AVL PublicLibrary;
       //  ListaSimple<Estudiante> oj = new ListaSimple<>();
       //  oj.AddLast(new Estudiante(201801366, "josue", "orellana", "sistemass", "1201"));
         begin.show();
-        ReportManage reports = new ReportManage();
-        reports.show();
     }
 }

@@ -5,7 +5,10 @@
  */
 package UI;
 
+import EDD.NODO_AVL;
+import javax.swing.JOptionPane;
 import usaclibrary.Books;
+import usaclibrary.USACLibrary;
 
 /**
  *
@@ -14,6 +17,8 @@ import usaclibrary.Books;
 public class BookDisplay extends javax.swing.JFrame {
     int currentUser;
     Books currentBook;
+    String categoria;
+    int isbn;
     /**
      * Creates new form BookDisplay
      */
@@ -22,6 +27,7 @@ public class BookDisplay extends javax.swing.JFrame {
     public BookDisplay(int carne, Books x) {
         initComponents();
         this.currentBook=x;
+        this.currentUser=carne;
         jLabel1.setText("ISBN: "+x.getISBN());
         jLabel2.setText("Título: "+x.getTitulo());
         jLabel3.setText("Autor: "+x.getAutor());
@@ -34,8 +40,12 @@ public class BookDisplay extends javax.swing.JFrame {
         if(x.getUsuario()!=carne){
             jButton1.setVisible(false);
             jButton2.setVisible(false);
+        }else{
+            jButton1.setVisible(true);
+            jButton2.setVisible(true);
         }
-        this.currentUser=carne;
+        this.categoria=x.getCategoria();
+        this.isbn=x.getISBN();
     }
 
     /**
@@ -80,6 +90,11 @@ public class BookDisplay extends javax.swing.JFrame {
         jLabel8.setText("jLabel1");
 
         jButton1.setText("Eliminar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Editar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -151,7 +166,8 @@ public class BookDisplay extends javax.swing.JFrame {
                 .addGap(17, 17, 17))
         );
 
-        pack();
+        setSize(new java.awt.Dimension(674, 369));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -160,6 +176,19 @@ public class BookDisplay extends javax.swing.JFrame {
         update.show();
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        int answer = JOptionPane.showConfirmDialog(null, "¿Seguro que deseas eliminar este libro?");
+        if(answer==0){
+            NODO_AVL x = usaclibrary.USACLibrary.PublicLibrary.Search(usaclibrary.USACLibrary.PublicLibrary.getRoot(), categoria);
+            x.getColeccion().Delete(isbn);
+            JOptionPane.showMessageDialog(null, "Se  ha eliminado el libro.");
+            this.dispose();
+        }else{
+            JOptionPane.showMessageDialog(null, "No se  ha eliminado el libro.");
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

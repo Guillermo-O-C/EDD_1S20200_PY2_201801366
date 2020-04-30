@@ -126,7 +126,7 @@ public class NODO_B {
     }*/
     int FindBook(int ISBN){
         int x=0;
-        while(x<this.occupied && shelf[x].getISBN() < ISBN){
+        while(x<this.occupied && GetISBN(shelf, x) < ISBN){
             x++;
         }
         return x;
@@ -137,8 +137,7 @@ public class NODO_B {
         }
         return x[y].getISBN();
     }
-    void delete(int ISBN)
-    {
+    void delete(int ISBN)    {
         int x = FindBook(ISBN);
         if(x<occupied && GetISBN(shelf, x)==ISBN){
             if(isLeaf){
@@ -186,16 +185,16 @@ public class NODO_B {
     Books getBefore(int x){
         NODO_B y = branches[x];
         while(y.isIsLeaf()==false){
-            y=y.branches[y.getOccupied()-1];
+            y=y.getBranches()[y.getOccupied()];
         }
-        return y.shelf[y.getOccupied()-1];
+        return y.getShelf()[y.getOccupied()-1];
     } 
     Books getNext(int x){
         NODO_B y = branches[x+1];
         while(y.isIsLeaf()==false){
-            y=y.branches[0];
+            y=y.getBranches()[0];
         }
-        return y.shelf[0];
+        return y.getShelf()[0];
     }
     void fill(int x){
         if(x!=0 && branches[x-1].getOccupied()>=order){

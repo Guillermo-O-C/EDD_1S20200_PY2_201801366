@@ -8,6 +8,7 @@ package EDD;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import usaclibrary.Books;
 
 /**
  *
@@ -233,6 +234,20 @@ public class AVL {
         }
         if(x.getRight()!=null){
             PrintAllBTrees(x.getRight());
+        }
+    }
+    public ListaSimple<Books> UserBooks(int carne){
+        ListaSimple<Books> userbooks = new ListaSimple<>();
+        VisitTreeNodes(userbooks, this.root, carne);
+        return userbooks;
+    } 
+    void VisitTreeNodes(ListaSimple<Books> y, NODO_AVL x, int carne){
+        x.getColeccion().AddUserBooks(y, x.getColeccion().getRoot(), carne);
+        if(x.getLeft()!=null){
+            VisitTreeNodes(y, x.getLeft(), carne);
+        }
+        if(x.getRight()!=null){
+            VisitTreeNodes(y, x.getRight(), carne);
         }
     }
 }

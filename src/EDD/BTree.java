@@ -32,27 +32,15 @@ public class BTree {
     public void setRoot(NODO_B root) {
         this.root = root;
     }
-  /*   public NODO_B Search(NODO_B x, int ISBN){
-        int i =0;
-        while(i<x.getOccupied() && ISBN>GetISBN(x.getShelf(), i)){
-            i++;
-        }
-        if(i<=x.getOccupied() && ISBN==GetISBN(x.getShelf(), i)){
-            return x;
-        }
-        if(x.isIsLeaf()){
-            return null;
-        }else{
-            return Search(x.getBranches()[i], ISBN);
-        }
-    }*/
-   public Books Search(int ISBN){
+
+    public Books Search(int ISBN){
         if(this.root.getOccupied()==0){
             return null;
         }else{
             return this.root.Search(ISBN);
         }
     }
+    
     public NODO_B UpdateBook(Books Data){
         if(this.root==null){
             return null;
@@ -212,7 +200,7 @@ public class BTree {
     }
 
     public void Delete(int ISBN){
-        if(root==null){
+        if(this.root.getOccupied()==0){//before was compared with null
             return;
         }
         this.root.delete(ISBN);
@@ -222,6 +210,23 @@ public class BTree {
                 this.root=null;
             }else{
                 this.root=root.getBranches()[0];
+            }
+        }
+    }
+    
+    public void AddUserBooks(ListaSimple<Books> x, NODO_B Central, int carne){
+        if(Central!=null){
+            for(int i =0;i<Central.getOccupied();i++){
+                if(Central.getShelf()[i]!=null){
+                    if(Central.getShelf()[i].getUsuario()==carne){
+                        x.AddLast(Central.getShelf()[i]);
+                    }
+                }
+            }
+            for(int i =0;i<Central.getOccupied()+1;i++){
+                if(Central.getBranches()[i]!=null){
+                    AddUserBooks(x, Central.getBranches()[i], carne);
+                }
             }
         }
     }

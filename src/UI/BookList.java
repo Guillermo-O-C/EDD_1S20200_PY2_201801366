@@ -33,14 +33,14 @@ public class BookList extends javax.swing.JFrame {
     public BookList(int carne, String categoria) {
         this.list = new DefaultListModel();
         this.categoria=categoria;
-        this.booksInShelf = new ListaSimple<>();
         this.currentUser=carne;
         initComponents();
         list.clear();
         ListBooks(carne, categoria);
         jList1.setModel(list);
     }
-    void ListBooks(int carne, String categoria){        
+    void ListBooks(int carne, String categoria){          
+            this.booksInShelf = new ListaSimple<>();
             NODO_AVL x =  usaclibrary.USACLibrary.PublicLibrary.Search(usaclibrary.USACLibrary.PublicLibrary.getRoot(), categoria);
             NODO_B y = x.getColeccion().getRoot();
             PrintTree(y);
@@ -48,30 +48,23 @@ public class BookList extends javax.swing.JFrame {
                 jButton1.setVisible(true);
             }else{
                 jButton1.setVisible(false);
-            }
-            /*ListaSimple<NODO_B> branchList = new ListaSimple<>();
-            branchList.AddLast(y);
-            while(branchList)
-            ListaSimple<Books> AllBooks = new ListaSimple<>();
-            for(int i =0;i<5;i++){
-                if(y.getShelf()[i]!=null){
-                    AllBooks.AddLast(y.getShelf()[i]);
-                }
-            }*/
-            
+            }            
     }
     void PrintTree(NODO_B x){
-        for(int i =0;i<5;i++){
+        for(int i =0;i<x.getOccupied();i++){
                 if(x.getShelf()[i]!=null){
                     booksInShelf.AddLast(x.getShelf()[i]);
                     list.addElement(x.getShelf()[i].getTitulo());
                 }
             }
-        for(int i =0;i<5;i++){
-            if(x.getBranches()[i]!=null){
-                PrintTree(x.getBranches()[i]);
-            }            
+        if(x.isIsLeaf()==false){
+            for(int i =0;i<5;i++){
+                if(x.getBranches()[i]!=null){
+                    PrintTree(x.getBranches()[i]);
+                }            
+            }
         }
+        
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -139,20 +132,18 @@ public class BookList extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        pack();
+        setSize(new java.awt.Dimension(754, 548));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
         // TODO add your handling code here:
         NODO_AVL x = USACLibrary.PublicLibrary.Search(USACLibrary.PublicLibrary.getRoot(), categoria);
-        String Chosen = jList1.getSelectedValue().toString();
-        for(int i =0; i< booksInShelf.getSize();i++){
-            String title = booksInShelf.elementAt(i).getTitulo();
-            if(title.compareTo(Chosen)==0){
-                BookDisplay showBook = new BookDisplay(this.currentUser, booksInShelf.elementAt(i));
-                showBook.show();
-                break;
-            }
+        int chosen = jList1.getSelectedIndex();
+        Books selected = booksInShelf.elementAt(chosen);
+        if(selected.getTitulo().compareTo(jList1.getSelectedValue().toString())==0){
+            BookDisplay showBook = new BookDisplay(this.currentUser, selected);
+            showBook.show();
         }
     }//GEN-LAST:event_jList1MouseClicked
 
