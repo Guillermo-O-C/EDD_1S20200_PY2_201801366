@@ -7,10 +7,16 @@ package usaclibrary;
 
 import EDD.AVL;
 import EDD.BTree;
+import EDD.Block;
 import EDD.HashTable;
 import UI.AddCategory;
 import UI.PrincipalMenu;
 import UI.ReportManage;
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.json.simple.JSONArray;
 
 /**
  *
@@ -19,13 +25,14 @@ import UI.ReportManage;
 public class USACLibrary {
 public static HashTable StudentTable;
 public static AVL PublicLibrary;
-public static String CurrentBlock;
-    /**
+public static JSONArray CurrentBlockData;
+/**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         StudentTable= new HashTable();
         PublicLibrary = new AVL();
+        CurrentBlockData = new JSONArray();
         // TODO code application logic here
       //  conector c = new conector();
        // c.iniciar();
@@ -98,7 +105,7 @@ public static String CurrentBlock;
         arbol2.Delete(1);
         arbol2.Delete(4);
         arbol2.Delete(10);
-       arbol2.Delete(11);
+        arbol2.Delete(11);
         arbol2.Delete(14);
         arbol2.Insertation(new Books(18));
         arbol2.Insertation(new Books(19));
@@ -122,9 +129,20 @@ public static String CurrentBlock;
         arbol2.GraphTree("NUMEROS");
         } catch (Exception e) {
         }
-        
+        CurrentBlockData.add("DELETE");
+        CurrentBlockData.add("DELETE");
+        CurrentBlockData.add("DELETE");
+        CurrentBlockData.add("DELETE");
+    try {
+        Block.SaveJSONDoc();
+        Block.SaveJSONDoc();
+    } catch (IOException ex) {
+        Logger.getLogger(USACLibrary.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (NoSuchAlgorithmException ex) {
+        Logger.getLogger(USACLibrary.class.getName()).log(Level.SEVERE, null, ex);
+    }
         PrincipalMenu begin = new PrincipalMenu();
-        StudentTable.Insert(new Estudiante(201801366, "josue", "orellana", "sistemass", "1201"));
+        StudentTable.Insert(new Estudiante(201801366, "josue", "orellana", "sistemas", "1201"));
         PublicLibrary.setRoot(PublicLibrary.Add(PublicLibrary.getRoot(), "Anime", 201801366));
       //  ListaSimple<Estudiante> oj = new ListaSimple<>();
       //  oj.AddLast(new Estudiante(201801366, "josue", "orellana", "sistemass", "1201"));

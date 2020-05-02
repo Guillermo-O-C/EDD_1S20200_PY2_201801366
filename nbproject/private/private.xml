@@ -4,8 +4,14 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/D:/progra/EDD/USACLibrary/src/EDD/NODO_B.java</file>
+            <file>file:/D:/progra/EDD/USACLibrary/src/UI/AddStudent.java</file>
             <file>file:/D:/progra/EDD/USACLibrary/src/EDD/BTree.java</file>
+            <file>file:/D:/progra/EDD/USACLibrary/src/UI/MyInfo.java</file>
+            <file>file:/D:/progra/EDD/USACLibrary/src/UI/AddBook.java</file>
+            <file>file:/D:/progra/EDD/USACLibrary/src/UI/UserUI.java</file>
+            <file>file:/D:/progra/EDD/USACLibrary/src/EDD/HashTable.java</file>
             <file>file:/D:/progra/EDD/USACLibrary/src/usaclibrary/USACLibrary.java</file>
+            <file>file:/D:/progra/EDD/USACLibrary/src/usaclibrary/JsonReader.java</file>
         </group>
     </open-files>
 </project-private>
