@@ -266,7 +266,7 @@ int currentUser;
                 usaclibrary.USACLibrary.PublicLibrary.setRoot(usaclibrary.USACLibrary.PublicLibrary.Add(usaclibrary.USACLibrary.PublicLibrary.getRoot(), categoria, this.currentUser));
             }
             NODO_AVL x =  usaclibrary.USACLibrary.PublicLibrary.Search(usaclibrary.USACLibrary.PublicLibrary.getRoot(), categoria);
-            x.getColeccion().Insert(x.getColeccion(),new Books(Integer.parseInt(ISBN), titulo, autor, editorial, Integer.parseInt(anio),
+            x.getColeccion().Insertation(new Books(Integer.parseInt(ISBN), titulo, autor, editorial, Integer.parseInt(anio),
                                                                        Integer.parseInt(edicion), categoria, idioma, this.currentUser));
             this.dispose();
         }

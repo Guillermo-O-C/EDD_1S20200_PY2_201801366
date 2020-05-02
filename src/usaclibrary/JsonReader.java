@@ -52,7 +52,7 @@ public class JsonReader {
                     USACLibrary.PublicLibrary.GraphTree();
                 }
                     NODO_AVL x =  USACLibrary.PublicLibrary.Search(USACLibrary.PublicLibrary.getRoot(), temporalObj.get("Categoria").toString());
-                    x.getColeccion().Insert(x.getColeccion(), new Books(
+                    x.getColeccion().Insertation(new Books(
                             Integer.parseInt(temporalObj.get("ISBN").toString())
                             , temporalObj.get("Titulo").toString(), temporalObj.get("Autor").toString(), temporalObj.get("Editorial").toString()
                     , Integer.parseInt(temporalObj.get("Año").toString()), Integer.parseInt(temporalObj.get("Edicion").toString()), temporalObj.get("Categoria").toString()

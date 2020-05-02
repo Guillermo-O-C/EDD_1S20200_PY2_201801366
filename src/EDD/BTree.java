@@ -116,13 +116,13 @@ public class BTree {
         }
         return x[y].getISBN();
     }
-    
+    /*
     public void Insert(BTree x, Books Data){
         if(Search(Data.getISBN())!=null){
             //libro repetido en esta categoria
         }else{
             NODO_B rootNode = x.getRoot();
-            if(rootNode.getOccupied()==2*this.order -1){/*si lo camibio a 4 luego no puede llegar en el split al 5to*/
+            if(rootNode.getOccupied()==2*this.order -1){//si lo camibio a 4 luego no puede llegar en el split al 5to
                 NODO_B newNode = new NODO_B();
                 x.setRoot(newNode);
                 newNode.setIsLeaf(false);
@@ -141,7 +141,7 @@ public class BTree {
                 Logger.getLogger(BTree.class.getName()).log(Level.SEVERE, null, ex);
             }
     }
-    
+    */
     public void Insertation(Books x){
         if(this.root.getOccupied()==0){
             //root's empty

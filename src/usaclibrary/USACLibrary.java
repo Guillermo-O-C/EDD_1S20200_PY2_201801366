@@ -19,6 +19,7 @@ import UI.ReportManage;
 public class USACLibrary {
 public static HashTable StudentTable;
 public static AVL PublicLibrary;
+public static String CurrentBlock;
     /**
      * @param args the command line arguments
      */

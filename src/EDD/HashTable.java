@@ -53,6 +53,73 @@ public class HashTable {
         }
         return false;
     }
+    public Estudiante SearchStudent(int carne){         
+        int key = HashFunction(carne);
+        if(key>=0 && key <45){
+            if(this.bucket[key]!=null){
+                Nodo<Estudiante> z = this.bucket[key].getListado().getHead();
+                while(z!=null){
+                    if(z.getValue().getCarne()==carne){
+                        return z.getValue();
+                    }
+                    z=z.getRight();
+                }
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Error en el registro, inténtalo de nuevo.");
+        }
+        return null;
+    }
+    public void UpdateStudent(Estudiante x){
+        int key = HashFunction(x.getCarne());
+        if(key>=0 && key <45){
+            if(this.bucket[key]!=null){
+                Nodo<Estudiante> z = this.bucket[key].getListado().getHead();
+                while(z!=null){
+                    if(z.getValue().getCarne()==x.getCarne()){
+                       z.setValue(x);
+                    }
+                    z=z.getRight();
+                }
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Error en el registro, inténtalo de nuevo.");
+        }
+    }
+
+    public void DeleteStudent(int carne){
+        int key = HashFunction(carne);
+         if(key>=0 && key <45){
+            if(this.bucket[key]!=null){
+                ListaSimple<Estudiante> list = this.bucket[key].getListado();
+                Nodo<Estudiante> z = list.getHead();
+                Nodo<Estudiante> z_Prev = null;
+                while(z!=null){
+                if(z.getValue().getCarne()==carne){
+                    if(z_Prev==null){
+                        //this was the head
+                        if(list.getHead()==list.getTail()){
+                            //there was only one node
+                            list.setHead(null);
+                            list.setTail(null);
+                        }else{
+                            list.setHead(z.getRight());
+                        } 
+                    }else{
+                        if(list.getTail()==z){
+                            list.setTail(z_Prev);
+                        }else{
+                            z_Prev.setRight(z.getRight());
+                        }
+                    }
+                    break;
+                }
+                z_Prev=z;
+                z=z.getRight();
+                }
+            }
+        }
+    }
     public boolean LogIn(int carne, String password){
         int key = HashFunction(carne);
          if(key>=0 && key <45){
