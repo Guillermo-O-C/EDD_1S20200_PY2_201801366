@@ -22,7 +22,7 @@ public class BTree {
 
     public BTree(int order) {
         this.order=order;
-        this.root = new NODO_B(null);
+        this.root = new NODO_B();
     }
 
     public NODO_B getRoot() {
@@ -50,7 +50,7 @@ public class BTree {
     }
    
     public void SplitChild(NODO_B x, int i, NODO_B y){
-        NODO_B z = new NODO_B(null);
+        NODO_B z = new NODO_B();
         z.setIsLeaf(y.isIsLeaf());
         z.setOccupied(this.order-1);
         for(int e =0;e<this.order-1;e++){
@@ -123,7 +123,7 @@ public class BTree {
         }else{
             NODO_B rootNode = x.getRoot();
             if(rootNode.getOccupied()==2*this.order -1){/*si lo camibio a 4 luego no puede llegar en el split al 5to*/
-                NODO_B newNode = new NODO_B(null);
+                NODO_B newNode = new NODO_B();
                 x.setRoot(newNode);
                 newNode.setIsLeaf(false);
                 newNode.setOccupied(0);
@@ -133,12 +133,39 @@ public class BTree {
             }else{
                 SpacedIsert(rootNode, Data);
             }
-           /* try {
+        }
+        
+           try {
                 GraphTree("SOLIDTREE");
             } catch (IOException ex) {
                 Logger.getLogger(BTree.class.getName()).log(Level.SEVERE, null, ex);
-            }*/
+            }
+    }
+    
+    public void Insertation(Books x){
+        if(this.root.getOccupied()==0){
+            //root's empty
+            this.root = new NODO_B();
+            this.root.getShelf()[0]=x;
+            this.root.addToOccupied();
+        }else{
+            this.root.SpacedIncert(x);
+            if(this.root.getOccupied()==5){
+                NODO_B newRoot = new NODO_B();
+                newRoot.setIsLeaf(false);
+                newRoot.getBranches()[0]=root;
+                newRoot.split(0, this.root);
+                this.root=newRoot;
+            }//else{
+                
+         //   }
         }
+        
+           try {
+                GraphTree("SOLIDTREE");
+            } catch (IOException ex) {
+                Logger.getLogger(BTree.class.getName()).log(Level.SEVERE, null, ex);
+            }
     }
     
     public void GraphTree(String name) throws IOException{
@@ -212,6 +239,12 @@ public class BTree {
                 this.root=root.getBranches()[0];
             }
         }
+        
+           try {
+                GraphTree("SOLIDTREE");
+            } catch (IOException ex) {
+                Logger.getLogger(BTree.class.getName()).log(Level.SEVERE, null, ex);
+            }
     }
     
     public void AddUserBooks(ListaSimple<Books> x, NODO_B Central, int carne){

@@ -19,13 +19,12 @@ public class NODO_B {
     int occupied;
     boolean isLeaf;
 
-    public NODO_B(NODO_B trunk) {
-        this.order=3;
-        this.shelf = new Books[2*this.order-1];
+    public NODO_B() {
+        this.order=5;
+        this.shelf = new Books[5];
         this.isLeaf = true;
-        this.branches =  new NODO_B[2*this.order];
+        this.branches =  new NODO_B[6];
         this.occupied=0;
-        this.trunk=trunk;
     }
     public Books getBook(int i){
         return shelf[i];
@@ -53,7 +52,14 @@ public class NODO_B {
     public int getOccupied() {
         return occupied;
     }
+    
+    public void addToOccupied(){
+        this.occupied++;
+    }
 
+    public void substractToOccupied(){
+        this.occupied--;
+    }
     public void setOccupied(int occupied) {
         this.occupied = occupied;
     }
@@ -109,21 +115,7 @@ public class NODO_B {
             return null;
         }
         return this.branches[i].Search(ISBN);
-    }/*
-    public NODO_B Search(NODO_B x, int ISBN){
-        int i =0;
-        while(i<x.getOccupied() && ISBN>GetISBN(x.getShelf(), i)){
-            i++;
-        }
-        if(i<=x.getOccupied() && ISBN==GetISBN(x.getShelf(), i)){
-            return x;
-        }
-        if(x.isIsLeaf()){
-            return null;
-        }else{
-            return Search(x.getBranches()[i], ISBN);
-        }
-    }*/
+    }
     int FindBook(int ISBN){
         int x=0;
         while(x<this.occupied && GetISBN(shelf, x) < ISBN){
@@ -137,6 +129,72 @@ public class NODO_B {
         }
         return x[y].getISBN();
     }
+    void travel(){
+        int i =0;
+        for(i=0;i<occupied;i++){
+            if(isLeaf==false){
+                branches[i].travel();
+            }
+        }
+        if(isLeaf==false){
+            branches[i].travel();
+        }
+    }
+    void SpacedIncert(Books x){
+        int i=occupied-1;//más a la derecha
+        if(this.isLeaf){
+            while(i>=0 && GetISBN(shelf, i)>x.getISBN())
+            {
+                shelf[i+1]=shelf[i];
+                i--;
+            }
+            shelf[i+1]=x;
+            this.occupied++;
+        }else{
+            while(i>=0 && GetISBN(shelf, i) > x.getISBN()){
+                i--;
+            }
+          
+            branches[i+1].SpacedIncert(x);
+            if( branches[i+1].getOccupied()==5){
+                split(i+1, branches[i+1]);
+            }
+            
+            
+        }
+    }
+    void SplitWatcher(NODO_B x){
+        if(x.getOccupied()==5){
+            
+        }
+    }
+    void split(int i, NODO_B y){
+        NODO_B z = new NODO_B();
+        z.setOccupied(2);//assing that is going to store 2 books
+        for(int e =0;e<2;e++){
+            z.getShelf()[e]=y.getShelf()[e+3];
+        }
+        if(y.isIsLeaf()==false){
+            for(int e=0; e<3;e++){
+                z.setIsLeaf(false);
+                z.getBranches()[e]=y.getBranches()[e+3];
+                //code for deleting the other children
+            }
+        }
+        y.setOccupied(2);
+        for(int e=occupied;e>=i+1;e--){
+            branches[e+1] = branches[e];
+        }          
+        branches[i+1]=z;
+        for(int e=occupied-1;e>=i;e--){
+            shelf[e+1]= shelf[e];
+        }
+        shelf[i]=y.getShelf()[2];
+        occupied++;        
+    }
+    //my code:?
+    
+    int t = 3;//I'm not sure about the 3 used
     void delete(int ISBN)    {
         int x = FindBook(ISBN);
         if(x<occupied && GetISBN(shelf, x)==ISBN){
@@ -147,11 +205,12 @@ public class NODO_B {
             }
         }else{
             if(isLeaf){
+                //didn't found the ISBN
                 return;
             }
             boolean y;
             y = x==occupied;
-            if(branches[x].getOccupied()<order){
+            if(branches[x].getOccupied()<t){
                 fill(x);
             }
             if(y && x>occupied){
@@ -161,19 +220,21 @@ public class NODO_B {
             }
         }
     }
+    
     void LeafDelete(int x){
         for(int i =x+1;i<occupied;i++){
             shelf[i-1]=shelf[i];
         }
         occupied--;
     }
+    
     void BranchDelete(int x){
         Books y = shelf[x];
-        if(branches[x].getOccupied()>=order){
+        if(branches[x].getOccupied()>=t){
             Books before = getBefore(x);
             shelf[x]=before;
             branches[x].delete(before.getISBN());
-        }else if(branches[x+1].getOccupied()>=order){
+        }else if(branches[x+1].getOccupied()>=t){
             Books next = getNext(x);
             shelf[x]=next;
             branches[x+1].delete(next.getISBN());
@@ -182,6 +243,7 @@ public class NODO_B {
             branches[x].delete(y.getISBN());
         }
     }
+    
     Books getBefore(int x){
         NODO_B y = branches[x];
         while(y.isIsLeaf()==false){
@@ -189,6 +251,7 @@ public class NODO_B {
         }
         return y.getShelf()[y.getOccupied()-1];
     } 
+    
     Books getNext(int x){
         NODO_B y = branches[x+1];
         while(y.isIsLeaf()==false){
@@ -196,10 +259,11 @@ public class NODO_B {
         }
         return y.getShelf()[0];
     }
+    
     void fill(int x){
-        if(x!=0 && branches[x-1].getOccupied()>=order){
+        if(x!=0 && branches[x-1].getOccupied()>=t){
             useFromBefore(x);
-        }else if(x!=occupied && branches[x+1].getOccupied()>=order){
+        }else if(x!=occupied && branches[x+1].getOccupied()>=t){
             useFromNext(x);
         }else{
             if(x!=occupied){
@@ -209,6 +273,7 @@ public class NODO_B {
             }
         }
     }
+    
     void useFromBefore(int x){
         NODO_B son = branches[x];
         NODO_B brother = branches[x-1];
@@ -227,9 +292,10 @@ public class NODO_B {
             son.getBranches()[0]=brother.getBranches()[brother.getOccupied()];
         }
         shelf[x-1] = brother.getShelf()[brother.getOccupied()-1];
-        son.setOccupied(son.getOccupied()+1);
-        brother.setOccupied(brother.getOccupied()-1);
+        son.addToOccupied();
+        brother.substractToOccupied();
     }
+    
     void useFromNext(int x){
         NODO_B son = branches[x];
         NODO_B brother = branches[x+1];
@@ -247,19 +313,20 @@ public class NODO_B {
                 //code to dete the rest of the branche nodes;
             }
         }
-        son.setOccupied(son.getOccupied()+1);
-        brother.setOccupied(brother.getOccupied()-1);
+        son.addToOccupied();
+        brother.substractToOccupied();
     }
+    
     void merge(int x){
         NODO_B son = branches[x];
         NODO_B brother = branches[x+1];
-        son.getShelf()[order-1]= shelf[x];
+        son.getShelf()[t-1]= shelf[x];
         for(int i =0;i<brother.getOccupied();i++){
-            son.getShelf()[i+order]=brother.getShelf()[i];
+            son.getShelf()[i+t]=brother.getShelf()[i];
         }
         if(son.isIsLeaf()==false){
             for(int i=0;i<=brother.getOccupied();i++){
-                son.getBranches()[i+order]=brother.getBranches()[i];
+                son.getBranches()[i+t]=brother.getBranches()[i];
                 //idk si va codigo de limpiar branches aquí
             }
         }
@@ -269,18 +336,7 @@ public class NODO_B {
         for(int i =x+2;i<=occupied;i++){
             branches[i-1]=branches[i];
         }
-        son.setOccupied(brother.getOccupied()+1);
+        son.setOccupied(son.getOccupied()+brother.getOccupied()+1);
         occupied--;
-    }
-    void travel(){
-        int i =0;
-        for(i=0;i<occupied;i++){
-            if(isLeaf==false){
-                branches[i].travel();
-            }
-        }
-        if(isLeaf==false){
-            branches[i].travel();
-        }
     }
 }
