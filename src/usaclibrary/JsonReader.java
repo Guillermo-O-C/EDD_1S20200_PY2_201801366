@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -32,10 +33,13 @@ public class JsonReader {
                 usaclibrary.USACLibrary.StudentTable.Insert(new Estudiante(Integer.parseInt(temporalObj.get("Carnet").toString()),
                         temporalObj.get("Nombre").toString(), temporalObj.get("Apellido").toString()
                         , temporalObj.get("Carrera").toString(), temporalObj.get("Password").toString()),temporalObj.get("Password").toString());
-            }
-        } catch (org.json.simple.parser.ParseException ex) {
+            }            
+            JOptionPane.showMessageDialog(null, "¡Se ha cargado correctamente el archivo!");
+        } catch (org.json.simple.parser.ParseException ex) {            
+            JOptionPane.showMessageDialog(null, "Ha sucedido un error, inténtalo de nuevo");
          //   Logger.getLogger(JsonReader.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "Ha sucedido un error, inténtalo de nuevo");
          //   Logger.getLogger(JsonReader.class.getName()).log(Level.SEVERE, null, ex);
         }  
     }   

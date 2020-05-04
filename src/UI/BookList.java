@@ -156,6 +156,7 @@ public class BookList extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        JOptionPane.showInputDialog("Escribe la razón de eliminar esta categoría.");
         int answer = JOptionPane.showConfirmDialog(null, "¿Seguro que deseas eliminar toda esta categoría? todos los libros que estén en ella serán eliminados.");
         if(answer==0){
             USACLibrary.PublicLibrary.Delete(USACLibrary.PublicLibrary.getRoot(), categoria);

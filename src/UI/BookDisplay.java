@@ -179,6 +179,7 @@ public class BookDisplay extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        JOptionPane.showInputDialog("Escribe la razón de eliminar este libro.");
         int answer = JOptionPane.showConfirmDialog(null, "¿Seguro que deseas eliminar este libro?");
         if(answer==0){
             NODO_AVL x = usaclibrary.USACLibrary.PublicLibrary.Search(usaclibrary.USACLibrary.PublicLibrary.getRoot(), categoria);

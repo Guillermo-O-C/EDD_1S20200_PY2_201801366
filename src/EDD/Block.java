@@ -43,16 +43,16 @@ public class Block {
         currentHash=sb.toString();
         return sb.toString();
     } 
-    private static int calculateNonce(String content) throws NoSuchAlgorithmException{
-        int nonce =0;
+    private static BigInteger calculateNonce(String content) throws NoSuchAlgorithmException{
+        BigInteger nonce =new BigInteger("0");
         while(true){
-            System.out.println(content+Integer.toString(nonce));
-            byte[] hash = encrypting(content+Integer.toString(nonce));
+            System.out.println(content+nonce);
+            byte[] hash = encrypting(content+nonce);
             System.out.println(toHexString(hash).substring(0, 4));
             if(toHexString(hash).substring(0, 4).compareTo("0000")==0){
                 break;
             }
-            nonce++;
+            nonce = nonce.add(BigInteger.ONE);
         }
         return nonce;
     }
