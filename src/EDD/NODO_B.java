@@ -5,6 +5,7 @@
  */
 package EDD;
 
+import org.json.simple.JSONObject;
 import usaclibrary.Books;
 
 /**
@@ -141,6 +142,7 @@ public class NODO_B {
         }
     }
     void SpacedIncert(Books x){
+        AddBooksToblock(x);
         int i=occupied-1;//más a la derecha
         if(this.isLeaf){
             while(i>=0 && GetISBN(shelf, i)>x.getISBN())
@@ -198,6 +200,7 @@ public class NODO_B {
     void delete(int ISBN)    {
         int x = FindBook(ISBN);
         if(x<occupied && GetISBN(shelf, x)==ISBN){
+            DeleteBookFromblock(shelf[x]);
             if(isLeaf){
                 LeafDelete(x);
             }else{
@@ -338,5 +341,30 @@ public class NODO_B {
         }
         son.setOccupied(son.getOccupied()+brother.getOccupied()+1);
         occupied--;
+    }
+    
+     private void AddBooksToblock(Books x){
+        JSONObject temp = new JSONObject();
+        JSONObject temporal = new JSONObject();
+        temporal.put("ISBN", x.getISBN());
+        temporal.put("Año", x.getAnio());
+        temporal.put("Idioma", x.getIdioma());
+        temporal.put("Titulo", x.getTitulo());
+        temporal.put("Editorial", x.getEditorial());
+        temporal.put("Autor", x.getAutor());
+        temporal.put("Edicion", x.getEdicion());
+        temporal.put("Categoria", x.getCategoria());
+        temporal.put("Usuario", x.getUsuario());
+        temp.put("CREAR_LIBRO", temporal);
+        usaclibrary.USACLibrary.CurrentBlockData.add(temp);
+    }
+    private void DeleteBookFromblock(Books x){
+        JSONObject temp = new JSONObject();
+        JSONObject temporal = new JSONObject();
+        temporal.put("ISBN", x.getISBN());
+        temporal.put("Titulo", x.getTitulo());
+        temporal.put("Categoria", x.getCategoria());
+        temp.put("ElIMINAR_LIBRO", temporal);
+        usaclibrary.USACLibrary.CurrentBlockData.add(temp);
     }
 }

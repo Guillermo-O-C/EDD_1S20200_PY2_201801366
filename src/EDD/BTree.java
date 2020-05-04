@@ -10,6 +10,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.json.simple.JSONObject;
 import usaclibrary.Books;
 
 /**
@@ -259,6 +260,24 @@ public class BTree {
             for(int i =0;i<Central.getOccupied()+1;i++){
                 if(Central.getBranches()[i]!=null){
                     AddUserBooks(x, Central.getBranches()[i], carne);
+                }
+            }
+        }
+    }
+    
+    public void SearchAlikeTitle(NODO_B Central, String entry, ListaSimple<Books> x){
+        if(Central!=null){   
+            for(int i =0;i<Central.getOccupied();i++){
+                if(Central.getShelf()[i]!=null){
+                 //   System.out.println("¿"+Central.getShelf()[i].getTitulo()+" contiene "+entry+"?");
+                    if(Central.getShelf()[i].getTitulo().toLowerCase().contains(entry.toLowerCase())){
+                        x.AddLast(Central.getShelf()[i]);
+                    }
+                }
+            }
+            for(int i =0;i<Central.getOccupied()+1;i++){
+                if(Central.getBranches()[i]!=null){
+                   SearchAlikeTitle(Central.getBranches()[i], entry, x);
                 }
             }
         }

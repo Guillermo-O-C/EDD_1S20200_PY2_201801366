@@ -8,6 +8,7 @@ package EDD;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import org.json.simple.JSONObject;
 import usaclibrary.Books;
 
 /**
@@ -106,6 +107,21 @@ public class AVL {
         UpdateHeight(y);
         return y;
     }
+    private void AddDataToBlock(String categoria, int AllowedToDelete){
+        JSONObject temp = new JSONObject();
+        JSONObject temporal = new JSONObject();
+        temporal.put("NOMBRE", categoria);
+        temporal.put("USUARIO", AllowedToDelete);
+        temp.put("CREAR_CATEGORIA", temporal);
+        usaclibrary.USACLibrary.CurrentBlockData.add(temp);
+    }
+    public void DeleteDataToBlock(String categoria){
+        JSONObject temp = new JSONObject();
+        JSONObject temporal = new JSONObject();
+        temporal.put("NOMBRE", categoria);
+        temp.put("ELIMINAR_CATEGORIA", temporal);
+        usaclibrary.USACLibrary.CurrentBlockData.add(temp);
+    }
     NODO_AVL LeftRotacion(NODO_AVL x){
         NODO_AVL y = x.getRight();
         NODO_AVL z = y.getLeft();
@@ -124,6 +140,7 @@ public class AVL {
     }
     public NODO_AVL Add(NODO_AVL x, String name, int AllowedToDelete){
         if(x==null){
+            AddDataToBlock(name, AllowedToDelete);
             return (new NODO_AVL(name, AllowedToDelete));
         }
         if(name.compareToIgnoreCase(x.getValue())<0){

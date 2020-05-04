@@ -10,6 +10,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
 import javax.swing.JOptionPane;
+import org.json.simple.JSONObject;
 import usaclibrary.Estudiante;
 
 /**
@@ -22,7 +23,7 @@ public class HashTable {
     public HashTable() {
         this.bucket = new Slot[45];
     }    
-    public boolean Insert(Estudiante x){
+    public boolean Insert(Estudiante x, String password){
         int key = HashFunction(x.getCarne());
         if(key>=0 && key <45){
             if(this.bucket[key]==null){
@@ -30,6 +31,7 @@ public class HashTable {
             }
             if(!SearchStudent(x, this.bucket[key])){                
                 this.bucket[key].getListado().AddLast(x);
+                AddStudentToblock(x, password);
                 return true;
             }else{                
                 JOptionPane.showMessageDialog(null, "El carné que se ha intentado ingresar ya existe.");
@@ -40,8 +42,30 @@ public class HashTable {
         }
         return false;
     }
+    private void AddStudentToblock(Estudiante x, String password){
+        JSONObject temp = new JSONObject();
+        JSONObject temporal = new JSONObject();
+        temporal.put("Carnet", x.getCarne());
+        temporal.put("Nombre", x.getNombre());
+        temporal.put("Apellido", x.getApellido());
+        temporal.put("Carrera", x.getCarrera());
+        temporal.put("Password", password);
+        temp.put("CREAR_USUARIO", temporal);
+        usaclibrary.USACLibrary.CurrentBlockData.add(temp);
+    }
     private int HashFunction(int key){
         return key % 45;
+    }
+    private void UpdateStudenOnBlock(Estudiante x, String password){
+        JSONObject temp = new JSONObject();
+        JSONObject temporal = new JSONObject();
+        temporal.put("Carnet", x.getCarne());
+        temporal.put("Nombre", x.getNombre());
+        temporal.put("Apellido", x.getApellido());
+        temporal.put("Carrera", x.getCarrera());
+        temporal.put("Password", password);
+        temp.put("EDITAR_USUARIO", temporal);
+        usaclibrary.USACLibrary.CurrentBlockData.add(temp);
     }
     private boolean SearchStudent(Estudiante x, Slot y){
         Nodo<Estudiante> z = y.getListado().getHead();
@@ -70,7 +94,7 @@ public class HashTable {
         }
         return null;
     }
-    public void UpdateStudent(Estudiante x){
+    public void UpdateStudent(Estudiante x, String password){
         int key = HashFunction(x.getCarne());
         if(key>=0 && key <45){
             if(this.bucket[key]!=null){
@@ -78,6 +102,7 @@ public class HashTable {
                 while(z!=null){
                     if(z.getValue().getCarne()==x.getCarne()){
                        z.setValue(x);
+                        UpdateStudenOnBlock(x, password);
                     }
                     z=z.getRight();
                 }
@@ -117,9 +142,18 @@ public class HashTable {
                 z_Prev=z;
                 z=z.getRight();
                 }
+                
             }
         }
     }
+    private void DeleteStudentOnBlock(int carne){
+        JSONObject temp = new JSONObject();
+        JSONObject temporal = new JSONObject();
+        temporal.put("Carnet", carne);
+        temp.put("ELIMINAR_USUARIO", temporal);
+        usaclibrary.USACLibrary.CurrentBlockData.add(temp);
+    }    
+    
     public boolean LogIn(int carne, String password){
         int key = HashFunction(carne);
          if(key>=0 && key <45){

@@ -31,7 +31,7 @@ public class JsonReader {
                 JSONObject temporalObj = (JSONObject) jsonArray.get(i);
                 usaclibrary.USACLibrary.StudentTable.Insert(new Estudiante(Integer.parseInt(temporalObj.get("Carnet").toString()),
                         temporalObj.get("Nombre").toString(), temporalObj.get("Apellido").toString()
-                        , temporalObj.get("Carrera").toString(), temporalObj.get("Password").toString()));
+                        , temporalObj.get("Carrera").toString(), temporalObj.get("Password").toString()),temporalObj.get("Password").toString());
             }
         } catch (org.json.simple.parser.ParseException ex) {
          //   Logger.getLogger(JsonReader.class.getName()).log(Level.SEVERE, null, ex);

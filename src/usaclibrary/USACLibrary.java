@@ -84,7 +84,7 @@ public static JSONArray CurrentBlockData;
         }
         AddCategory s = new AddCategory();
         s.show();*/
-        BTree arbol2 = new BTree(3);
+       /* BTree arbol2 = new BTree(3);
         arbol2.Insertation(new Books(1));
         arbol2.Insertation(new Books(2));
         arbol2.Insertation(new Books(3));
@@ -128,24 +128,21 @@ public static JSONArray CurrentBlockData;
         try {            
         arbol2.GraphTree("NUMEROS");
         } catch (Exception e) {
-        }
-        CurrentBlockData.add("DELETE");
-        CurrentBlockData.add("DELETE");
-        CurrentBlockData.add("DELETE");
-        CurrentBlockData.add("DELETE");
-    try {
+        }*/
+        PrincipalMenu begin = new PrincipalMenu();
+        StudentTable.Insert(new Estudiante(201801366, "josue", "orellana", "sistemas", "1201"), "1201");
+        PublicLibrary.setRoot(PublicLibrary.Add(PublicLibrary.getRoot(), "Anime", 201801366)); 
+        begin.show();
+ /*   try {
         Block.SaveJSONDoc();
-        Block.SaveJSONDoc();
+   //     Block.SaveJSONDoc();
     } catch (IOException ex) {
         Logger.getLogger(USACLibrary.class.getName()).log(Level.SEVERE, null, ex);
     } catch (NoSuchAlgorithmException ex) {
         Logger.getLogger(USACLibrary.class.getName()).log(Level.SEVERE, null, ex);
-    }
-        PrincipalMenu begin = new PrincipalMenu();
-        StudentTable.Insert(new Estudiante(201801366, "josue", "orellana", "sistemas", "1201"));
-        PublicLibrary.setRoot(PublicLibrary.Add(PublicLibrary.getRoot(), "Anime", 201801366));
+    }*/
       //  ListaSimple<Estudiante> oj = new ListaSimple<>();
       //  oj.AddLast(new Estudiante(201801366, "josue", "orellana", "sistemass", "1201"));
-        begin.show();
+      
     }
 }
