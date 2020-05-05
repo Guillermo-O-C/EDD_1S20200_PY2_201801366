@@ -45,6 +45,7 @@ public class Block {
     } 
     public static BigInteger calculateNonce(String content) throws NoSuchAlgorithmException{
         BigInteger nonce =new BigInteger("0");
+        Thread t =new Thread();
         while(true){
             System.out.println(content+nonce);
             byte[] hash = encrypting(content+nonce);

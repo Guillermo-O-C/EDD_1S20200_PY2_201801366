@@ -76,7 +76,7 @@ public class AddCategory extends javax.swing.JFrame {
 
     private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
         // TODO add your handling code here:        
-       usaclibrary.USACLibrary.PublicLibrary.setRoot(usaclibrary.USACLibrary.PublicLibrary.Add(usaclibrary.USACLibrary.PublicLibrary.getRoot(), jTextArea1.getText(), 0));
+       usaclibrary.USACLibrary.PublicLibrary.setRoot(usaclibrary.USACLibrary.PublicLibrary.Add(usaclibrary.USACLibrary.PublicLibrary.getRoot(), jTextArea1.getText(), 0, true));
       /*    try {
             jTextArea1.setText("");
       //  arbol.GraphTree();

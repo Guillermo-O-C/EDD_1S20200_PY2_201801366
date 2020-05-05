@@ -4,5 +4,5 @@ digraph G {
  margin=0.1;
    node [shape=box];
   edge [arrowsize=0.8]
-"Informativos"->"Consulta"->"Anime"->"Biografia"->"Ensayo"->"Drama"->"Lírico"->"Literatura"->"Sagas"->"Revista"->"Épico";
+"Informativos"->"Consulta"->"Biografia"->"Ensayo"->"Drama"->"Lírico"->"Literatura"->"Sagas"->"Revista"->"Épico";
 }

@@ -28,6 +28,7 @@ public class MyInfo extends javax.swing.JFrame {
         initComponents();
         this.currentUserUI =y;
         this.currentUser=x;
+        jTextField1.setText(Integer.toString(x.getCarne()));
         jTextField2.setText(x.getNombre());
         jTextField3.setText(x.getApellido());
         jTextField4.setText(x.getCarrera());
@@ -273,7 +274,7 @@ public class MyInfo extends javax.swing.JFrame {
             if(correct){
                 String currentPassword = JOptionPane.showInputDialog(null, "Ingresa tu contraseña actual:");
                 if(usaclibrary.USACLibrary.StudentTable.LogIn(this.currentUser.getCarne(), currentPassword)){
-                    usaclibrary.USACLibrary.StudentTable.UpdateStudent(new Estudiante(this.currentUser.getCarne(), nombre, apellidos, carrera, password), password);
+                    usaclibrary.USACLibrary.StudentTable.UpdateStudent(new Estudiante(this.currentUser.getCarne(), nombre, apellidos, carrera, password), password, true);
                     JOptionPane.showMessageDialog(null, "Tu perfil se actualizado exitosamente.");
                     this.dispose();
                 }else{                
@@ -288,7 +289,7 @@ public class MyInfo extends javax.swing.JFrame {
             if(correct){
                 String currentPassword = JOptionPane.showInputDialog(null, "Ingresa tu contraseña actual:");
                 if(usaclibrary.USACLibrary.StudentTable.LogIn(this.currentUser.getCarne(), currentPassword)){
-                    usaclibrary.USACLibrary.StudentTable.UpdateStudent(new Estudiante(this.currentUser.getCarne(), nombre, apellidos, carrera, currentPassword), currentPassword);
+                    usaclibrary.USACLibrary.StudentTable.UpdateStudent(new Estudiante(this.currentUser.getCarne(), nombre, apellidos, carrera, currentPassword), currentPassword, true);
                     JOptionPane.showMessageDialog(null, "Tu perfil se actualizado exitosamente.");
                     this.dispose();
                 }else{                

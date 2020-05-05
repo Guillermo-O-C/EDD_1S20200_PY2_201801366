@@ -142,7 +142,6 @@ public class NODO_B {
         }
     }
     void SpacedIncert(Books x){
-        AddBooksToblock(x);
         int i=occupied-1;//más a la derecha
         if(this.isLeaf){
             while(i>=0 && GetISBN(shelf, i)>x.getISBN())
@@ -197,14 +196,17 @@ public class NODO_B {
     //my code:?
     
     int t = 3;//I'm not sure about the 3 used
-    void delete(int ISBN)    {
+    void delete(int ISBN, boolean toBlock)    {
         int x = FindBook(ISBN);
         if(x<occupied && GetISBN(shelf, x)==ISBN){
-            DeleteBookFromblock(shelf[x]);
+            if(toBlock){
+                DeleteBookFromblock(shelf[x]);
+                toBlock=false;
+            }            
             if(isLeaf){
                 LeafDelete(x);
             }else{
-                BranchDelete(x);
+                BranchDelete(x, toBlock);
             }
         }else{
             if(isLeaf){
@@ -217,9 +219,9 @@ public class NODO_B {
                 fill(x);
             }
             if(y && x>occupied){
-                branches[x-1].delete(ISBN);
+                branches[x-1].delete(ISBN, toBlock);
             }else{
-                branches[x].delete(ISBN);
+                branches[x].delete(ISBN, toBlock);
             }
            /* if(occupied==5){
                 split(i+1, branches[i+1]);
@@ -234,19 +236,19 @@ public class NODO_B {
         occupied--;
     }
     
-    void BranchDelete(int x){
+    void BranchDelete(int x, boolean toBlock){
         Books y = shelf[x];
         if(branches[x].getOccupied()>=t){
             Books before = getBefore(x);
             shelf[x]=before;
-            branches[x].delete(before.getISBN());
+            branches[x].delete(before.getISBN(), toBlock);
         }else if(branches[x+1].getOccupied()>=t){
             Books next = getNext(x);
             shelf[x]=next;
-            branches[x+1].delete(next.getISBN());
+            branches[x+1].delete(next.getISBN(), toBlock);
         }else{
             merge(x);
-            branches[x].delete(y.getISBN());
+            branches[x].delete(y.getISBN(), toBlock);
         }
     }
     

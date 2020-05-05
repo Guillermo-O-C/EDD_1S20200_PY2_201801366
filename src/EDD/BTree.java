@@ -117,7 +117,7 @@ public class BTree {
         }
         return x[y].getISBN();
     }
-    public void Insertation(Books x){
+    public void Insertation(Books x, boolean toBlock){
         if(this.root.getOccupied()==0){
             //root's empty
             this.root = new NODO_B();
@@ -134,15 +134,25 @@ public class BTree {
             }//else{
                 
          //   }
-        }
+        }        
+        if(toBlock)AddBooksToblock(x);
         size++;
-           try {
-                GraphTree("SOLIDTREE");
-            } catch (IOException ex) {
-                Logger.getLogger(BTree.class.getName()).log(Level.SEVERE, null, ex);
-            }
     }
-    
+    private void AddBooksToblock(Books x){
+        JSONObject temp = new JSONObject();
+        JSONObject temporal = new JSONObject();
+        temporal.put("ISBN", x.getISBN());
+        temporal.put("Año", x.getAnio());
+        temporal.put("Idioma", x.getIdioma());
+        temporal.put("Titulo", x.getTitulo());
+        temporal.put("Editorial", x.getEditorial());
+        temporal.put("Autor", x.getAutor());
+        temporal.put("Edicion", x.getEdicion());
+        temporal.put("Categoria", x.getCategoria());
+        temporal.put("Usuario", x.getUsuario());
+        temp.put("CREAR_LIBRO", temporal);
+        usaclibrary.USACLibrary.CurrentBlockData.add(temp);
+    }
     public void GraphTree(String name) throws IOException{
         String head = "digraph G {\n node [shape = record,height=.1];";  
         labels="";
@@ -201,11 +211,11 @@ public class BTree {
         }
     }
 
-    public void Delete(int ISBN){
+    public void Delete(int ISBN, boolean toBlock){
         if(this.root.getOccupied()==0){//before was compared with null
             return;
         }
-        this.root.delete(ISBN);
+        this.root.delete(ISBN, toBlock);
         if(this.root.getOccupied()==0){
             NODO_B x=this.root;
             if(this.root.isIsLeaf()){

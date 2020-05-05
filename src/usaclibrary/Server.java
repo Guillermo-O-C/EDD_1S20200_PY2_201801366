@@ -40,7 +40,8 @@ public class Server extends Thread{
                 out = new DataOutputStream(sc.getOutputStream());                
                 String mensaje = in.readUTF();//se queda a la espera de que el cliente mande algo
                 System.out.println(mensaje);
-                if(mensaje.compareToIgnoreCase("RETURN_IPS")==0){
+                String[] arg = mensaje.split(";");
+                if(arg[0].compareToIgnoreCase("RETURN_IPS")==0){
                 JOptionPane.showMessageDialog(null, "Nuevo Nodo Detectado");
                     Nodo<String> b = USACLibrary.Nodos.getHead();
                     String output ="";
@@ -49,8 +50,22 @@ public class Server extends Thread{
                         if(b.getRight()!=null) output+=",";
                         b=b.getRight();
                     }
+                    USACLibrary.Nodos.AddLast(arg[1]);
                     out.writeUTF(output);
-                }else{
+                }else if(arg[0].compareToIgnoreCase("DELETE_IP")==0){
+                    String ipToDelete=arg[1];
+                    System.out.println("Will delete "+ipToDelete);
+                    Nodo<String> b = USACLibrary.Nodos.getHead();
+                    int w =0;
+                    while(b!=null){
+                        if(b.getValue().compareToIgnoreCase(ipToDelete)==0){
+                            USACLibrary.Nodos.DeleteElementAt(w);
+                        }
+                        w++;
+                        b=b.getRight();
+                    }
+                }else{                    
+                    JOptionPane.showMessageDialog(null, "Se ha recibido un nuevo bloque, se efectuará la prueba de trabajo.");
                     JsonReader.proofOfWork(mensaje);
                 }                
                 sc.close();

@@ -9,6 +9,7 @@ import EDD.Block;
 import EDD.NODO_AVL;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
@@ -32,7 +33,7 @@ public class JsonReader {
                 JSONObject temporalObj = (JSONObject) jsonArray.get(i);
                 usaclibrary.USACLibrary.StudentTable.Insert(new Estudiante(Integer.parseInt(temporalObj.get("Carnet").toString()),
                         temporalObj.get("Nombre").toString(), temporalObj.get("Apellido").toString()
-                        , temporalObj.get("Carrera").toString(), temporalObj.get("Password").toString()),temporalObj.get("Password").toString());
+                        , temporalObj.get("Carrera").toString(), temporalObj.get("Password").toString()),temporalObj.get("Password").toString(), true);
             }            
             JOptionPane.showMessageDialog(null, "¡Se ha cargado correctamente el archivo!");
         } catch (org.json.simple.parser.ParseException ex) {            
@@ -52,7 +53,7 @@ public class JsonReader {
             for(int i =0;i<jsonArray.size();i++){
                 JSONObject temporalObj = (JSONObject) jsonArray.get(i);
                 if(USACLibrary.PublicLibrary.Search(USACLibrary.PublicLibrary.getRoot(), temporalObj.get("Categoria").toString())==null){
-                    USACLibrary.PublicLibrary.setRoot(USACLibrary.PublicLibrary.Add(USACLibrary.PublicLibrary.getRoot(), temporalObj.get("Categoria").toString(), carne));
+                    USACLibrary.PublicLibrary.setRoot(USACLibrary.PublicLibrary.Add(USACLibrary.PublicLibrary.getRoot(), temporalObj.get("Categoria").toString(), carne, true));
                     USACLibrary.PublicLibrary.GraphTree();
                 }
                     NODO_AVL x =  USACLibrary.PublicLibrary.Search(USACLibrary.PublicLibrary.getRoot(), temporalObj.get("Categoria").toString());
@@ -60,7 +61,7 @@ public class JsonReader {
                             Integer.parseInt(temporalObj.get("ISBN").toString())
                             , temporalObj.get("Titulo").toString(), temporalObj.get("Autor").toString(), temporalObj.get("Editorial").toString()
                     , Integer.parseInt(temporalObj.get("Año").toString()), Integer.parseInt(temporalObj.get("Edicion").toString()), temporalObj.get("Categoria").toString()
-                    , temporalObj.get("Idioma").toString(), carne));
+                    , temporalObj.get("Idioma").toString(), carne), true);
                 }
         } catch (org.json.simple.parser.ParseException ex) {
          //   Logger.getLogger(JsonReader.class.getName()).log(Level.SEVERE, null, ex);
@@ -73,17 +74,23 @@ public class JsonReader {
         }
     } 
     
-    public static void proofOfWork(String File) throws NoSuchAlgorithmException, IOException{
-      JSONParser parser = new JSONParser();
+    public static void proofOfWork(String JsonContent) throws NoSuchAlgorithmException, IOException{
+        File temporal = new File("\\", "TEMPORAL.json");
+        try (FileWriter TemporalFile = new FileWriter(temporal)) {
+            TemporalFile.write(JsonContent);
+        }
+        //temporal.createNewFile();
+        JSONParser parser = new JSONParser();
         try{
-            Object obj = parser.parse(File);
+            Object obj = parser.parse(new FileReader(temporal));
             JSONObject jsonObj = (JSONObject) obj;
-            String entry = jsonObj.get("INDEX").toString()+jsonObj.get("TIMESTAMP").toString()+jsonObj.get("PREVIOUSHASH").toString()+jsonObj.get("DATA").toString();
+            String entry = jsonObj.get("INDEX")+jsonObj.get("TIMESTAMP").toString()+jsonObj.get("PREVIOUSHASH").toString()+jsonObj.get("DATA").toString();
             BigInteger nonce = new BigInteger("0");
             nonce = Block.calculateNonce(entry);
             if(nonce == jsonObj.get("NONCE")){
+                Block.indexControl=Integer.parseInt(jsonObj.get("INDEX").toString())+1;
                 JOptionPane.showMessageDialog(null, "Se ha validado el nuevo bloque");
-                Block.SaveRecibedBlock(File);
+                Block.SaveRecibedBlock(JsonContent);
             }else{
                 JOptionPane.showMessageDialog(null, "No se pudo validar el nuevo Bloque");
             }
@@ -92,4 +99,65 @@ public class JsonReader {
          //   Logger.getLogger(JsonReader.class.getName()).log(Level.SEVERE, null, ex);
         }  
     } 
+    
+    public static void Addupdates(File jsonFile){
+         JSONParser parser = new JSONParser();
+        try{
+            Object obj = parser.parse(new FileReader(jsonFile));
+            JSONObject jsonObj = (JSONObject) obj;
+            JSONArray jsonArray = (JSONArray) jsonObj.get("DATA");
+            for(int i =0;i<jsonArray.size();i++){
+                JSONObject temporalObj = (JSONObject) jsonArray.get(i);
+                System.out.println(temporalObj.keySet().toString());
+                JSONObject jbj = (JSONObject) temporalObj.get("CREAR_USUARIO");
+                switch(temporalObj.keySet().toString()){
+                    case "[CREAR_USUARIO]":                        
+                        System.out.println("creando usuario");
+                        usaclibrary.USACLibrary.StudentTable.Insert(new Estudiante(Integer.parseInt(jbj.get("Carnet").toString()),
+                        jbj.get("Nombre").toString(), jbj.get("Apellido").toString()
+                        , jbj.get("Carrera").toString(), jbj.get("Password").toString()),jbj.get("Password").toString(), false);
+           
+                        break;
+                    case "[EDITAR_USUARIO]":
+                        usaclibrary.USACLibrary.StudentTable.UpdateStudent(new Estudiante(
+                                        Integer.parseInt(jbj.get("Carnet").toString()),
+                        jbj.get("Nombre").toString(), jbj.get("Apellido").toString()
+                        , jbj.get("Carrera").toString(), jbj.get("Password").toString()), jbj.get("Password").toString(), false);
+                        break;
+                    case "[ELIMINAR_USUARIO]":
+                        USACLibrary.StudentTable.DeleteStudent(Integer.parseInt(jbj.get("Carnet").toString()), false);
+                        break;
+                    case "[CREAR_CATEGORIA]":
+                        USACLibrary.PublicLibrary.Add(USACLibrary.PublicLibrary.getRoot(), jbj.get("NOMBRE").toString(), Integer.parseInt(jbj.get("USUARIO").toString()), false);
+                        break;
+                    case "[ELIMINAR_CATEGORIA]":
+                         USACLibrary.PublicLibrary.Delete(USACLibrary.PublicLibrary.getRoot(), jbj.get("NOMBRE").toString(), false);
+                        break;
+                    case "[CREAR_LIBRO]":
+                         if(USACLibrary.PublicLibrary.Search(USACLibrary.PublicLibrary.getRoot(), temporalObj.get("Categoria").toString())==null){
+                            USACLibrary.PublicLibrary.setRoot(USACLibrary.PublicLibrary.Add(USACLibrary.PublicLibrary.getRoot(), temporalObj.get("Categoria").toString(), Integer.parseInt( temporalObj.get("Usuario").toString()), true));
+                            USACLibrary.PublicLibrary.GraphTree();
+                            }
+                            NODO_AVL x =  USACLibrary.PublicLibrary.Search(USACLibrary.PublicLibrary.getRoot(), temporalObj.get("Categoria").toString());
+                            x.getColeccion().Insertation(new Books(
+                                    Integer.parseInt(temporalObj.get("ISBN").toString())
+                                    , temporalObj.get("Titulo").toString(), temporalObj.get("Autor").toString(), temporalObj.get("Editorial").toString()
+                            , Integer.parseInt(temporalObj.get("Año").toString()), Integer.parseInt(temporalObj.get("Edicion").toString()), temporalObj.get("Categoria").toString()
+                            , temporalObj.get("Idioma").toString(), Integer.parseInt( temporalObj.get("Usuario").toString())), false);
+                        break;
+                    case "[ElIMINAR_LIBRO]":
+                        NODO_AVL y = usaclibrary.USACLibrary.PublicLibrary.Search(usaclibrary.USACLibrary.PublicLibrary.getRoot(), temporalObj.get("Categoria").toString());
+                        y.getColeccion().Delete(Integer.parseInt(temporalObj.get("ISBN").toString()), false);
+                        break;
+                }
+              }            
+            JOptionPane.showMessageDialog(null, "¡Se ha cargado correctamente el archivo!");
+        } catch (org.json.simple.parser.ParseException ex) {            
+            JOptionPane.showMessageDialog(null, "Ha sucedido un error, inténtalo de nuevo");
+         //   Logger.getLogger(JsonReader.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "Ha sucedido un error, inténtalo de nuevo");
+         //   Logger.getLogger(JsonReader.class.getName()).log(Level.SEVERE, null, ex);
+        }  
+    }
 }

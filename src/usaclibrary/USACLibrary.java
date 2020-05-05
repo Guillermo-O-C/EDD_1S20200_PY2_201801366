@@ -15,10 +15,13 @@ import UI.PrincipalMenu;
 import UI.ReportManage;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.security.NoSuchAlgorithmException;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.simple.JSONArray;
@@ -42,13 +45,20 @@ public static ListaDoble<String> Nodos;
         CurrentBlockData = new JSONArray(); 
         Nodos = new ListaDoble<>();
         MY_IP="";
-        PrincipalMenu begin = new PrincipalMenu();
-        StudentTable.Insert(new Estudiante(201801366, "josue", "orellana", "sistemas", "1201"), "1201");
-        PublicLibrary.setRoot(PublicLibrary.Add(PublicLibrary.getRoot(), "Anime", 201801366)); 
-        begin.show();
+        PrincipalMenu begin = new PrincipalMenu(); begin.show();
         Server myServer = new Server(5000);
         Thread t = new Thread(myServer);
         t.start();
+        Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+        public void run() {
+            Cliente c = new Cliente(5000, "DELETE_IP;"+MY_IP);
+            Thread t = new Thread(c);
+            t.start();
+            }
+        }, "Shutdown-thread"));
+      //  StudentTable.Insert(new Estudiante(201801366, "josue", "orellana", "sistemas", "1201"), "1201");
+      //  PublicLibrary.setRoot(PublicLibrary.Add(PublicLibrary.getRoot(), "Anime", 201801366)); 
+       
         
         // TODO code application logic here
       //  conector c = new conector();
@@ -71,7 +81,7 @@ public static ListaDoble<String> Nodos;
                     System.out.println("==0 significa que son iguales");
         }
         */
-        AVL arbol = new AVL();
+        //AVL arbol = new AVL();
         /*arbol.setRoot(arbol.Add(arbol.getRoot(),"amigos"));
         arbol.setRoot(arbol.Add(arbol.getRoot(),"beuno"));
         arbol.setRoot(arbol.Add(arbol.getRoot(),"como"));

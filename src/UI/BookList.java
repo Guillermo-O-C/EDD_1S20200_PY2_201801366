@@ -159,7 +159,7 @@ public class BookList extends javax.swing.JFrame {
         JOptionPane.showInputDialog("Escribe la razón de eliminar esta categoría.");
         int answer = JOptionPane.showConfirmDialog(null, "¿Seguro que deseas eliminar toda esta categoría? todos los libros que estén en ella serán eliminados.");
         if(answer==0){
-            USACLibrary.PublicLibrary.Delete(USACLibrary.PublicLibrary.getRoot(), categoria);
+            USACLibrary.PublicLibrary.Delete(USACLibrary.PublicLibrary.getRoot(), categoria, true);
             USACLibrary.PublicLibrary.DeleteDataToBlock(categoria);
             JOptionPane.showMessageDialog(null, "Se  ha eliminado la categoría");
             this.dispose();

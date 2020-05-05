@@ -6,8 +6,11 @@
 package UI;
 
 import EDD.Block;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -102,9 +105,34 @@ public class PeerCommunication extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        Cliente c = new Cliente(5000, "");
-        Thread t = new Thread(c);
-        t.start();
+        if(Block.indexControl>1){
+            String content="";
+            try {
+                File dir = new File("BLOCKS");
+                dir.mkdirs();
+                File myObj = new File(dir, "BLOCK_"+Integer.toString(Block.indexControl-1)+".json");
+                Scanner myReader = new Scanner(myObj);
+                while (myReader.hasNextLine()) {
+                    content+=myReader.nextLine();
+                }
+                myReader.close();
+              } catch (FileNotFoundException e) {
+                System.out.println("An error occurred.");
+                e.printStackTrace();
+              }
+            if(content.compareTo("")!=0){
+                Cliente c = new Cliente(5000, content);
+                Thread t = new Thread(c);
+                t.start();
+            }else{  
+                JOptionPane.showMessageDialog(null, "No se ha cargado el archivo.");
+            }
+            
+            
+        }else{
+            JOptionPane.showMessageDialog(null, "No se ha minado ningún bloque");
+        }
+        
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -115,7 +143,7 @@ public class PeerCommunication extends javax.swing.JFrame {
         if(a==JOptionPane.NO_OPTION){
             String b = JOptionPane.showInputDialog("Ingresa la Ip de un Nodo");
             usaclibrary.USACLibrary.Nodos.AddLast(b);
-            Cliente c = new Cliente(5000, "RETURN_IPS");
+            Cliente c = new Cliente(5000, "RETURN_IPS;"+usaclibrary.USACLibrary.MY_IP);
             Thread t = new Thread(c);
             t.start();
         }

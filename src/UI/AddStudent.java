@@ -192,7 +192,7 @@ public class AddStudent extends javax.swing.JFrame {
             correctData=false;
         }
         if(correctData){
-            if(usaclibrary.USACLibrary.StudentTable.Insert(new Estudiante(Integer.parseInt(carne), nombre, apellidos, carrera, password), password)){
+            if(usaclibrary.USACLibrary.StudentTable.Insert(new Estudiante(Integer.parseInt(carne), nombre, apellidos, carrera, password), password, true)){
                 this.dispose();
             }
         }

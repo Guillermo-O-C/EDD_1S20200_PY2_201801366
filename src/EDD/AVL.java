@@ -139,15 +139,15 @@ public class AVL {
             return Height(x.getLeft())-Height(x.getRight());
         }
     }
-    public NODO_AVL Add(NODO_AVL x, String name, int AllowedToDelete){
+    public NODO_AVL Add(NODO_AVL x, String name,int AllowedToDelete, boolean toBlock){
         if(x==null){
-            AddDataToBlock(name, AllowedToDelete);
+            if(toBlock) AddDataToBlock(name, AllowedToDelete);
             return (new NODO_AVL(name, AllowedToDelete));
         }
         if(name.compareToIgnoreCase(x.getValue())<0){
-            x.setLeft(Add(x.getLeft(), name, AllowedToDelete));
+            x.setLeft(Add(x.getLeft(), name, AllowedToDelete, toBlock));
         }else if(name.compareToIgnoreCase(x.getValue())>0){
-            x.setRight(Add(x.getRight(), name, AllowedToDelete));
+            x.setRight(Add(x.getRight(), name, AllowedToDelete, toBlock));
         }else{
             //son iguales
             return x;
@@ -187,13 +187,13 @@ public class AVL {
         }
         return x;        
     }
-    public NODO_AVL Delete(NODO_AVL x, String name){
+    public NODO_AVL Delete(NODO_AVL x, String name, boolean toBlock){
         if(x == null){
             return x;
         }else if(name.compareToIgnoreCase(x.getValue())<0){
-            x.setLeft(Delete(x.getLeft(), name));
+            x.setLeft(Delete(x.getLeft(), name, toBlock));
         }else if(name.compareToIgnoreCase(x.getValue())>0){
-            x.setRight(Delete(x.getRight(), name));
+            x.setRight(Delete(x.getRight(), name, toBlock));
         }else{
             if(x.getLeft()==null || x.getRight()==null){
                 NODO_AVL y = null;
@@ -211,7 +211,7 @@ public class AVL {
             }else{
                 NODO_AVL y = LeftLEaf(x.getRight());
                 x.setValue(y.getValue());
-                x.setRight(Delete(x.getRight(), y.getValue()));
+                x.setRight(Delete(x.getRight(), y.getValue(), toBlock));
             }
         }
         if(x==null){
@@ -308,57 +308,57 @@ public class AVL {
             printInPC(content, "PosOrder");
     }
    
-String Preorder(NODO_AVL Central){
-        if(Central==null) return "";
-        String content = "";
-        if(pre){
-            content+="->\""+Central.getValue()+"\"";
-        }else{
-            pre=true;
-            content+="\""+Central.getValue()+"\"";
+    String Preorder(NODO_AVL Central){
+            if(Central==null) return "";
+            String content = "";
+            if(pre){
+                content+="->\""+Central.getValue()+"\"";
+            }else{
+                pre=true;
+                content+="\""+Central.getValue()+"\"";
+            }
+            if(Central.getLeft()!=null){
+                content+=Preorder(Central.getLeft());
+            }        
+            if(Central.getRight()!=null){
+                content+=Preorder(Central.getRight());
+            }
+            return content;
         }
-        if(Central.getLeft()!=null){
-            content+=Preorder(Central.getLeft());
-        }        
-        if(Central.getRight()!=null){
-            content+=Preorder(Central.getRight());
-        }
-        return content;
-    }
 
-String InOrder(NODO_AVL Central){
-        if(Central==null) return "";
-        String content = "";
-        if(Central.getLeft()!=null){
-            content+=InOrder(Central.getLeft());
+    String InOrder(NODO_AVL Central){
+            if(Central==null) return "";
+            String content = "";
+            if(Central.getLeft()!=null){
+                content+=InOrder(Central.getLeft());
+            }
+            if(pre){
+                content+="->\""+Central.getValue()+"\"";
+            }else{
+                pre=true;
+                content+="\""+Central.getValue()+"\"";
+            }
+            if(Central.getRight()!=null){
+                content+=InOrder(Central.getRight());
+            }
+            return content;
+            }
+
+    String PosOrder(NODO_AVL Central){
+            if(Central==null) return "";
+            String content = "";
+            if(Central.getLeft()!=null){
+                content+=PosOrder(Central.getLeft());
+            }        
+            if(Central.getRight()!=null){
+                content+=PosOrder(Central.getRight());
+            }
+            if(pre){
+                content+="->\""+Central.getValue()+"\"";
+            }else{
+                pre=true;
+                content+="\""+Central.getValue()+"\"";
+            }
+            return content;
         }
-        if(pre){
-            content+="->\""+Central.getValue()+"\"";
-        }else{
-            pre=true;
-            content+="\""+Central.getValue()+"\"";
-        }
-        if(Central.getRight()!=null){
-            content+=InOrder(Central.getRight());
-        }
-        return content;
-        }
-    
-String PosOrder(NODO_AVL Central){
-        if(Central==null) return "";
-        String content = "";
-        if(Central.getLeft()!=null){
-            content+=PosOrder(Central.getLeft());
-        }        
-        if(Central.getRight()!=null){
-            content+=PosOrder(Central.getRight());
-        }
-        if(pre){
-            content+="->\""+Central.getValue()+"\"";
-        }else{
-            pre=true;
-            content+="\""+Central.getValue()+"\"";
-        }
-        return content;
-    }
 }

@@ -142,17 +142,23 @@ public class ReportManage extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
         Nodo<String> aux = usaclibrary.USACLibrary.Nodos.getHead();
+        Nodo<String> aux2=null;
         String content ="";
+        String content2="";
         while(aux!=null){
+            if(aux2!=null){
+                content2+="\""+aux.getValue()+"\" -> \""+aux2.getValue()+"\";";
+            }
             if(aux.getRight()==null){                
                 content+="\""+aux.getValue()+"\""+";";
             }else{
                 content+="\""+aux.getValue()+"\" ->";
             }
+            aux2=aux;
             aux=aux.getRight();
         }
         String head = "digraph G {\n nodesep=0.3;\n ranksep=0.2;\n    margin=0.1;\n node[shape=box width=\"1.5\" height=\"1.5\" fixed=\"true\"];  edge [arrowsize=0.8];";       
-        head += content+"}";
+        head += content+content2+"}";
         try {
             writeDOC(head);
         } catch (IOException ex) {

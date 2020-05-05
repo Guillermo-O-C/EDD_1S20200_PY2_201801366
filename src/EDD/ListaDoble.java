@@ -58,4 +58,24 @@ public class ListaDoble<T> {
         
     }
     
+    public void DeleteElementAt(int x){
+        Nodo<T> y = this.Head;
+        for(int i =0;i<x;i++){            
+            y=y.getRight();
+        }
+        if(y.getRight()==null){
+            y.getLeft().setRight(null);
+            this.Tail=y.getLeft();
+        }else{
+            if(y!=this.Head){
+               y.getLeft().setRight(y.getRight());
+               y.getRight().setLeft(y.getLeft()); 
+            }else{
+               this.Head=y.getRight();
+               this.Head.setLeft(null);
+            }
+            
+        }
+    }
+    
 }

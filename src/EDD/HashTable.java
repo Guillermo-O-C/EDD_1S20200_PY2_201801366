@@ -23,7 +23,7 @@ public class HashTable {
     public HashTable() {
         this.bucket = new Slot[45];
     }    
-    public boolean Insert(Estudiante x, String password){
+    public boolean Insert(Estudiante x, String password, boolean y){
         int key = HashFunction(x.getCarne());
         if(key>=0 && key <45){
             if(this.bucket[key]==null){
@@ -31,7 +31,9 @@ public class HashTable {
             }
             if(!SearchStudent(x, this.bucket[key])){                
                 this.bucket[key].getListado().AddLast(x);
-                AddStudentToblock(x, password);
+                if(y){
+                   AddStudentToblock(x, password); 
+                }                
                 return true;
             }else{                
                 JOptionPane.showMessageDialog(null, "El carné que se ha intentado ingresar ya existe.");
@@ -94,7 +96,7 @@ public class HashTable {
         }
         return null;
     }
-    public void UpdateStudent(Estudiante x, String password){
+    public void UpdateStudent(Estudiante x, String password, boolean y){
         int key = HashFunction(x.getCarne());
         if(key>=0 && key <45){
             if(this.bucket[key]!=null){
@@ -102,7 +104,9 @@ public class HashTable {
                 while(z!=null){
                     if(z.getValue().getCarne()==x.getCarne()){
                        z.setValue(x);
-                        UpdateStudenOnBlock(x, password);
+                       if(y){
+                           UpdateStudenOnBlock(x, password);
+                       }                        
                     }
                     z=z.getRight();
                 }
@@ -112,7 +116,7 @@ public class HashTable {
         }
     }
 
-    public void DeleteStudent(int carne){
+    public void DeleteStudent(int carne, boolean y){
         int key = HashFunction(carne);
          if(key>=0 && key <45){
             if(this.bucket[key]!=null){
@@ -137,6 +141,7 @@ public class HashTable {
                             z_Prev.setRight(z.getRight());
                         }
                     }
+                    if(y) DeleteStudentOnBlock(carne);
                     break;
                 }
                 z_Prev=z;

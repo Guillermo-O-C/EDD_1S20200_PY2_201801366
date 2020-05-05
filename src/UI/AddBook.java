@@ -263,11 +263,11 @@ int currentUser;
         }
         if(allowed){
             if(usaclibrary.USACLibrary.PublicLibrary.Search(usaclibrary.USACLibrary.PublicLibrary.getRoot(), categoria)==null){
-                usaclibrary.USACLibrary.PublicLibrary.setRoot(usaclibrary.USACLibrary.PublicLibrary.Add(usaclibrary.USACLibrary.PublicLibrary.getRoot(), categoria, this.currentUser));
+                usaclibrary.USACLibrary.PublicLibrary.setRoot(usaclibrary.USACLibrary.PublicLibrary.Add(usaclibrary.USACLibrary.PublicLibrary.getRoot(), categoria, this.currentUser, true));
             }
             NODO_AVL x =  usaclibrary.USACLibrary.PublicLibrary.Search(usaclibrary.USACLibrary.PublicLibrary.getRoot(), categoria);
             x.getColeccion().Insertation(new Books(Integer.parseInt(ISBN), titulo, autor, editorial, Integer.parseInt(anio),
-                                                                       Integer.parseInt(edicion), categoria, idioma, this.currentUser));
+                                                                       Integer.parseInt(edicion), categoria, idioma, this.currentUser), true);
             this.dispose();
         }
     }//GEN-LAST:event_jButton1ActionPerformed

@@ -183,7 +183,7 @@ public class BookDisplay extends javax.swing.JFrame {
         int answer = JOptionPane.showConfirmDialog(null, "¿Seguro que deseas eliminar este libro?");
         if(answer==0){
             NODO_AVL x = usaclibrary.USACLibrary.PublicLibrary.Search(usaclibrary.USACLibrary.PublicLibrary.getRoot(), categoria);
-            x.getColeccion().Delete(isbn);
+            x.getColeccion().Delete(isbn, true);
             JOptionPane.showMessageDialog(null, "Se  ha eliminado el libro.");
             this.dispose();
         }else{
