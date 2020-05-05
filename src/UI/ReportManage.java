@@ -5,9 +5,15 @@
  */
 package UI;
 
+import static EDD.AVL.NextNodos;
+import static EDD.AVL.writeDOC;
+import EDD.Nodo;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import usaclibrary.USACLibrary;
 
 /**
  *
@@ -34,6 +40,8 @@ public class ReportManage extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
 
         jButton1.setText("Imprimir Árboles B");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -56,6 +64,20 @@ public class ReportManage extends javax.swing.JFrame {
             }
         });
 
+        jButton4.setText("Nodos");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        jButton5.setText("Recorridos");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -65,7 +87,9 @@ public class ReportManage extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE))
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)
+                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(97, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -77,7 +101,11 @@ public class ReportManage extends javax.swing.JFrame {
                 .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton3)
-                .addContainerGap(141, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton5)
+                .addContainerGap(65, Short.MAX_VALUE))
         );
 
         setSize(new java.awt.Dimension(418, 347));
@@ -110,6 +138,59 @@ public class ReportManage extends javax.swing.JFrame {
             Logger.getLogger(ReportManage.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        Nodo<String> aux = usaclibrary.USACLibrary.Nodos.getHead();
+        String content ="";
+        while(aux!=null){
+            if(aux.getRight()==null){                
+                content+="\""+aux.getValue()+"\""+";";
+            }else{
+                content+="\""+aux.getValue()+"\" ->";
+            }
+            aux=aux.getRight();
+        }
+        String head = "digraph G {\n nodesep=0.3;\n ranksep=0.2;\n    margin=0.1;\n node[shape=box width=\"1.5\" height=\"1.5\" fixed=\"true\"];  edge [arrowsize=0.8];";       
+        head += content+"}";
+        try {
+            writeDOC(head);
+        } catch (IOException ex) {
+            Logger.getLogger(ReportManage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        File dir = new File("Graphics");
+        dir.mkdirs();
+        dir = new File("TextFiles");
+        dir.mkdirs();            
+        File temporal = new File(dir, "NODOS.dot");
+        try (FileWriter TemporalFile = new FileWriter(temporal)) {
+            TemporalFile.write(head);
+        } catch (IOException ex) {
+            Logger.getLogger(ReportManage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            temporal.createNewFile();
+        } catch (IOException ex) {
+            Logger.getLogger(ReportManage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {            
+            ProcessBuilder pbuilder;
+            pbuilder = new ProcessBuilder("dot", "-Tpng", "-o", "Graphics\\NODOS.png","TextFiles\\NODOS.dot");
+            pbuilder.redirectErrorStream(true);
+            pbuilder.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        try {
+            // TODO add your handling code here:
+            USACLibrary.PublicLibrary.Imprimir();
+        } catch (IOException ex) {
+            Logger.getLogger(ReportManage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -150,5 +231,7 @@ public class ReportManage extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     // End of variables declaration//GEN-END:variables
 }

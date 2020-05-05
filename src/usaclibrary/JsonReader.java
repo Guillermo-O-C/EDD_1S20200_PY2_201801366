@@ -5,13 +5,13 @@
  */
 package usaclibrary;
 
+import EDD.Block;
 import EDD.NODO_AVL;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.text.ParseException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.math.BigInteger;
+import java.security.NoSuchAlgorithmException;
 import javax.swing.JOptionPane;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -71,5 +71,25 @@ public class JsonReader {
             USACLibrary.PublicLibrary.PrintAllBTrees(USACLibrary.PublicLibrary.getRoot());
         } catch (IOException e) {
         }
+    } 
+    
+    public static void proofOfWork(String File) throws NoSuchAlgorithmException, IOException{
+      JSONParser parser = new JSONParser();
+        try{
+            Object obj = parser.parse(File);
+            JSONObject jsonObj = (JSONObject) obj;
+            String entry = jsonObj.get("INDEX").toString()+jsonObj.get("TIMESTAMP").toString()+jsonObj.get("PREVIOUSHASH").toString()+jsonObj.get("DATA").toString();
+            BigInteger nonce = new BigInteger("0");
+            nonce = Block.calculateNonce(entry);
+            if(nonce == jsonObj.get("NONCE")){
+                JOptionPane.showMessageDialog(null, "Se ha validado el nuevo bloque");
+                Block.SaveRecibedBlock(File);
+            }else{
+                JOptionPane.showMessageDialog(null, "No se pudo validar el nuevo Bloque");
+            }
+        } catch (org.json.simple.parser.ParseException ex) {            
+            JOptionPane.showMessageDialog(null, "Ha sucedido un error, inténtalo de nuevo");
+         //   Logger.getLogger(JsonReader.class.getName()).log(Level.SEVERE, null, ex);
+        }  
     } 
 }

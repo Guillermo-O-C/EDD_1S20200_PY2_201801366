@@ -11,23 +11,40 @@ import java.io.*;
  * @author Guillermo
  */
 public class conector {
-    ServerSocket server;
-    Socket socket;
-    int puerto = 9000;
-    DataOutputStream salida;
-    BufferedReader entrada;
-    public void iniciar(){
-        try {
-            server = new ServerSocket(puerto);
-            socket = new Socket();
-            socket =  server.accept();
-            
-            entrada =  new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            String mensaje = entrada.readLine();
-            salida = new DataOutputStream(socket.getOutputStream());
-            salida.writeUTF("Adios mundo");
-            socket.close();
-        } catch (Exception e) {
-        }
+    
+    public conector() {
+    String ip;
     }
+    
+    public void send(String ipDelivery, String msg){
+        try {
+            Socket mySocket = new Socket(ipDelivery,9999);
+            try (DataOutputStream out = new DataOutputStream(mySocket.getOutputStream())) {
+                out.writeUTF(msg);
+            }
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }        
+    }
+    
+    /**
+     * Recibe un flujo de datos en un socket
+     * @return String Recibido
+     */
+    
+    public String receive(){
+         try {
+            ServerSocket rc = new ServerSocket(9999);
+            String rcv;
+             try (Socket msc = rc.accept()) {
+                 DataInputStream in=new DataInputStream(msc.getInputStream());
+                 rcv = in.readUTF();
+             }
+            return rcv;
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return "No hay respuesta...";
+    }
+
 }

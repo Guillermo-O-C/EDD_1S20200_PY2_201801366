@@ -1,0 +1,8 @@
+digraph G {
+ rankdir=LR nodesep=0.3;
+ ranksep=0.2;
+ margin=0.1;
+   node [shape=box];
+  edge [arrowsize=0.8]
+"Anime"->"Biografia"->"Consulta"->"Drama"->"Ensayo"->"Informativos"->"Literatura"->"Lírico"->"Revista"->"Sagas"->"Épico";
+}

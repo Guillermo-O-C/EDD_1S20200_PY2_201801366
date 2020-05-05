@@ -43,7 +43,7 @@ public class Block {
         currentHash=sb.toString();
         return sb.toString();
     } 
-    private static BigInteger calculateNonce(String content) throws NoSuchAlgorithmException{
+    public static BigInteger calculateNonce(String content) throws NoSuchAlgorithmException{
         BigInteger nonce =new BigInteger("0");
         while(true){
             System.out.println(content+nonce);
@@ -81,5 +81,14 @@ public class Block {
     }
     public static void SaveJSONDoc() throws IOException, NoSuchAlgorithmException{
         assembleJSONDoc("BLOCK_"+Integer.toString(indexControl));
+    }
+    public static void SaveRecibedBlock(String entry) throws IOException, NoSuchAlgorithmException{
+        File dir = new File("BLOCKS");
+        dir.mkdirs();   
+        File temporal = new File(dir, "BLOCK_"+Integer.toString(indexControl)+".json");indexControl++;        
+        try (FileWriter TemporalFile = new FileWriter(temporal)) {
+            TemporalFile.write(entry);
+        }
+        temporal.createNewFile();
     }
 }

@@ -9,10 +9,15 @@ import EDD.AVL;
 import EDD.BTree;
 import EDD.Block;
 import EDD.HashTable;
+import EDD.ListaDoble;
 import UI.AddCategory;
 import UI.PrincipalMenu;
 import UI.ReportManage;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,13 +31,25 @@ public class USACLibrary {
 public static HashTable StudentTable;
 public static AVL PublicLibrary;
 public static JSONArray CurrentBlockData;
+public static String MY_IP;
+public static ListaDoble<String> Nodos;
 /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         StudentTable= new HashTable();
         PublicLibrary = new AVL();
-        CurrentBlockData = new JSONArray();
+        CurrentBlockData = new JSONArray(); 
+        Nodos = new ListaDoble<>();
+        MY_IP="";
+        PrincipalMenu begin = new PrincipalMenu();
+        StudentTable.Insert(new Estudiante(201801366, "josue", "orellana", "sistemas", "1201"), "1201");
+        PublicLibrary.setRoot(PublicLibrary.Add(PublicLibrary.getRoot(), "Anime", 201801366)); 
+        begin.show();
+        Server myServer = new Server(5000);
+        Thread t = new Thread(myServer);
+        t.start();
+        
         // TODO code application logic here
       //  conector c = new conector();
        // c.iniciar();
@@ -53,9 +70,9 @@ public static JSONArray CurrentBlockData;
         if("hola".compareToIgnoreCase("hola")==0){
                     System.out.println("==0 significa que son iguales");
         }
-        *//*
+        */
         AVL arbol = new AVL();
-        arbol.setRoot(arbol.Add(arbol.getRoot(),"amigos"));
+        /*arbol.setRoot(arbol.Add(arbol.getRoot(),"amigos"));
         arbol.setRoot(arbol.Add(arbol.getRoot(),"beuno"));
         arbol.setRoot(arbol.Add(arbol.getRoot(),"como"));
         arbol.setRoot(arbol.Add(arbol.getRoot(),"coco"));
@@ -129,20 +146,32 @@ public static JSONArray CurrentBlockData;
         arbol2.GraphTree("NUMEROS");
         } catch (Exception e) {
         }*/
-        PrincipalMenu begin = new PrincipalMenu();
-        StudentTable.Insert(new Estudiante(201801366, "josue", "orellana", "sistemas", "1201"), "1201");
-        PublicLibrary.setRoot(PublicLibrary.Add(PublicLibrary.getRoot(), "Anime", 201801366)); 
-        begin.show();
- /*   try {
-        Block.SaveJSONDoc();
-   //     Block.SaveJSONDoc();
-    } catch (IOException ex) {
-        Logger.getLogger(USACLibrary.class.getName()).log(Level.SEVERE, null, ex);
-    } catch (NoSuchAlgorithmException ex) {
-        Logger.getLogger(USACLibrary.class.getName()).log(Level.SEVERE, null, ex);
-    }*/
-      //  ListaSimple<Estudiante> oj = new ListaSimple<>();
-      //  oj.AddLast(new Estudiante(201801366, "josue", "orellana", "sistemass", "1201"));
-      
+        /*
+        ServerSocket servidor = null;
+        Socket sc = null;
+        DataInputStream in;
+        DataOutputStream out;
+        final int PUERTO = 5000;
+        
+        try {
+            servidor = new ServerSocket(PUERTO);
+            System.out.println("Servidor Iniciado");
+            while(true){
+                sc = servidor.accept();//se queda a la espera en esta línea
+                System.out.println("Cliente conectado");
+                in = new DataInputStream(sc.getInputStream());
+                out = new DataOutputStream(sc.getOutputStream());
+                
+                String mensaje = in.readUTF();//se queda a la espera de que el cliente mande algo
+                System.out.println(mensaje);
+                out.writeUTF("¡Hola mundo desde el servidor!");
+                
+                sc.close();
+                System.out.println("Cliente desconectado");
+            }
+            
+        } catch (Exception e) {
+        }
+                */
     }
 }

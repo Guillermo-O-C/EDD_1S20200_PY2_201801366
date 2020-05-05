@@ -59,11 +59,11 @@ public class AVL {
     public static String NextNodos(NODO_AVL Central){
         String content="";
         if(Central.getLeft()!=null){
-            content +="\""+Central.getValue()+"\" -> \""+Central.getLeft().getValue()+"\"[color=\"#ff0000\"];\n";//rojo
+            content +="\""+Central.getValue()+"\" . \""+Central.getLeft().getValue()+"\"[color=\"#ff0000\"];\n";//rojo
             content += NextNodos(Central.getLeft());
         }
         if(Central.getRight()!=null){
-            content +="\""+Central.getValue()+"\" -> \""+Central.getRight().getValue()+"\"[color=\"#40e0d0\"];\n";//turquesa
+            content +="\""+Central.getValue()+"\" . \""+Central.getRight().getValue()+"\"[color=\"#40e0d0\"];\n";//turquesa
             content += NextNodos(Central.getRight());            
         }        
         return content;   
@@ -266,5 +266,98 @@ public class AVL {
         if(x.getRight()!=null){
             VisitTreeNodes(y, x.getRight(), carne);
         }
+    }
+     void printInPC(String content, String name) throws IOException{
+        File dir = new File("Graphics");
+        dir.mkdirs();
+        dir = new File("TextFiles");
+        dir.mkdirs();            
+        File temporal = new File(dir, name+".dot");
+        try (FileWriter TemporalFile = new FileWriter(temporal)) {
+            TemporalFile.write(content);
+        }
+        temporal.createNewFile();
+        try {            
+            ProcessBuilder pbuilder;
+            pbuilder = new ProcessBuilder("dot", "-Tpng", "-o", "Graphics\\"+name+".png","TextFiles\\"+name+".dot");
+            pbuilder.redirectErrorStream(true);
+            pbuilder.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+     }
+    int impresos =0;
+     boolean pre = false;
+    public void Imprimir() throws IOException{
+        String content="";
+        //Preorder         
+            pre=false;
+            content=Preorder(this.root);
+            content = "digraph G {\n rankdir=LR nodesep=0.3;\n ranksep=0.2;\n margin=0.1;\n   node [shape=box];\n  edge [arrowsize=0.8]\n" + content +";\n}";
+            printInPC(content, "PreOrder");
+        //InOrder
+            pre=false;
+            content=InOrder(this.root);
+            content = "digraph G {\n rankdir=LR nodesep=0.3;\n ranksep=0.2;\n margin=0.1;\n   node [shape=box];\n  edge [arrowsize=0.8]\n" + content +";\n}";
+            printInPC(content, "InOrder");
+        //Posorder
+            pre=false;
+            content=PosOrder(this.root);
+            content = "digraph G {\n rankdir=LR nodesep=0.3;\n ranksep=0.2;\n margin=0.1;\n   node [shape=box];\n  edge [arrowsize=0.8]\n" + content +";\n}";
+            printInPC(content, "PosOrder");
+    }
+   
+String Preorder(NODO_AVL Central){
+        if(Central==null) return "";
+        String content = "";
+        if(pre){
+            content+="->\""+Central.getValue()+"\"";
+        }else{
+            pre=true;
+            content+="\""+Central.getValue()+"\"";
+        }
+        if(Central.getLeft()!=null){
+            content+=Preorder(Central.getLeft());
+        }        
+        if(Central.getRight()!=null){
+            content+=Preorder(Central.getRight());
+        }
+        return content;
+    }
+
+String InOrder(NODO_AVL Central){
+        if(Central==null) return "";
+        String content = "";
+        if(Central.getLeft()!=null){
+            content+=InOrder(Central.getLeft());
+        }
+        if(pre){
+            content+="->\""+Central.getValue()+"\"";
+        }else{
+            pre=true;
+            content+="\""+Central.getValue()+"\"";
+        }
+        if(Central.getRight()!=null){
+            content+=InOrder(Central.getRight());
+        }
+        return content;
+        }
+    
+String PosOrder(NODO_AVL Central){
+        if(Central==null) return "";
+        String content = "";
+        if(Central.getLeft()!=null){
+            content+=PosOrder(Central.getLeft());
+        }        
+        if(Central.getRight()!=null){
+            content+=PosOrder(Central.getRight());
+        }
+        if(pre){
+            content+="->\""+Central.getValue()+"\"";
+        }else{
+            pre=true;
+            content+="\""+Central.getValue()+"\"";
+        }
+        return content;
     }
 }
