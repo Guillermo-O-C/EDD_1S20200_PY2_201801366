@@ -2,8 +2,8 @@ digraph G {
  node [shape = record,height=.1];10809->10807;
 10809->10874;
 10809->13550;
-10809[label = "<f0>10809|<f1>10876|"];
-10807[label = "<f0>10807|<f1>10808|"];
-10874[label = "<f0>10874|<f1>10875|"];
-13550[label = "<f0>13550|<f1>13551|"];
+10809[label = "<f0>Cómo educar la voluntad\n10809|<f1>Sociología de la educación\n10876|"];
+10807[label = "<f0>Educar el carácter\n10807|<f1>Educar los sentimientos\n10808|"];
+10874[label = "<f0>Introducción a la vida política\n10874|<f1>El lenguaje y la vida humana\n10875|"];
+13550[label = "<f0>Future libraries, future catalogues\n13550|<f1>La revalorización del art nouveau en Guatemala (un caso : la casa Fénix)\n13551|"];
 }

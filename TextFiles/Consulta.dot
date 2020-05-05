@@ -3,9 +3,9 @@ digraph G {
 10768->10770;
 10768->10838;
 10768->10910;
-10768[label = "<f0>10768|<f1>10831|<f2>10907|"];
-10763[label = "<f0>10763|<f1>10765|"];
-10770[label = "<f0>10770|<f1>10830|"];
-10838[label = "<f0>10838|<f1>10839|"];
-10910[label = "<f0>10910|<f1>10912|<f2>10916|"];
+10768[label = "<f0>Planeación estratégica aplicada\n10768|<f1>El camino y la meta\n10831|<f2>Las ventas en el mundo actual\n10907|"];
+10763[label = "<f0>Curso de derecho constitucional\n10763|<f1>Canales de comercialización\n10765|"];
+10770[label = "<f0>Marketing\n10770|<f1>Relación de la vida y virtudes del beato Hno. Pedro de San José de Betancurt\n10830|"];
+10838[label = "<f0>Gestión de la calidad en pequeñas y medianas empresas; memoria del proyecto copatrocinado por OEA /GTZ, 1982-2000\n10838|<f1>El mapa; una guía para el mejoramiento de la calidad en la pequeña y mediana empresa, basada en el método de W. Edwards Deming\n10839|"];
+10910[label = "<f0>Problemas y métodos de investigación en la historia de la filosofía\n10910|<f1>La Educación de los padres\n10912|<f2>La Odisea\n10916|"];
 }

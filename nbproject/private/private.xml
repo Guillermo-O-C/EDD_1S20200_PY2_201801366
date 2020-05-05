@@ -3,17 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/progra/EDD/USACLibrary/src/UI/BookList.java</file>
+            <file>file:/D:/progra/EDD/USACLibrary/src/EDD/AVL.java</file>
             <file>file:/D:/progra/EDD/USACLibrary/src/UI/BookDisplay.java</file>
+            <file>file:/D:/progra/EDD/USACLibrary/src/EDD/NODO_B.java</file>
             <file>file:/D:/progra/EDD/USACLibrary/src/EDD/BTree.java</file>
             <file>file:/D:/progra/EDD/USACLibrary/src/UI/MyBooks.java</file>
-            <file>file:/D:/progra/EDD/USACLibrary/src/EDD/Block.java</file>
-            <file>file:/D:/progra/EDD/USACLibrary/src/UI/FoundedBooks.java</file>
-            <file>file:/D:/progra/EDD/USACLibrary/src/UI/UserUI.java</file>
-            <file>file:/D:/progra/EDD/USACLibrary/src/EDD/ListaSimple.java</file>
-            <file>file:/D:/progra/EDD/USACLibrary/src/EDD/HashTable.java</file>
             <file>file:/D:/progra/EDD/USACLibrary/src/usaclibrary/USACLibrary.java</file>
-            <file>file:/D:/progra/EDD/USACLibrary/src/usaclibrary/JsonReader.java</file>
         </group>
     </open-files>
 </project-private>

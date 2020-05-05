@@ -2,14 +2,14 @@ digraph G {
  nodesep=0.3;
  ranksep=0.2;
     margin=0.1;
- node[shape=circle width="1.5" height="1.5" fixed="true"];  edge [arrowsize=0.8];"Informativos""Informativos" . "Consulta"[color="#ff0000"];
-"Consulta" . "Anime"[color="#ff0000"];
-"Anime" . "Biografia"[color="#40e0d0"];
-"Consulta" . "Ensayo"[color="#40e0d0"];
-"Ensayo" . "Drama"[color="#ff0000"];
-"Informativos" . "Lírico"[color="#40e0d0"];
-"Lírico" . "Literatura"[color="#ff0000"];
-"Lírico" . "Sagas"[color="#40e0d0"];
-"Sagas" . "Revista"[color="#ff0000"];
-"Sagas" . "Épico"[color="#40e0d0"];
-}
+ node[shape=circle width="1.5" height="1.5" fixed="true"];  edge [arrowsize=0.8];"Informativos""Informativos"[label="Informativos\n17"]"Informativos" -> "Consulta"[color="#ff0000"];
+"Consulta"[label="Consulta\n12"]"Consulta" -> "Anime"[color="#ff0000"];
+"Anime"[label="Anime\n0"]"Anime" -> "Biografia"[color="#40e0d0"];
+"Biografia"[label="Biografia\n3"]"Consulta" -> "Ensayo"[color="#40e0d0"];
+"Ensayo"[label="Ensayo\n12"]"Ensayo" -> "Drama"[color="#ff0000"];
+"Drama"[label="Drama\n16"]"Informativos" -> "Lírico"[color="#40e0d0"];
+"Lírico"[label="Lírico\n13"]"Lírico" -> "Literatura"[color="#ff0000"];
+"Literatura"[label="Literatura\n9"]"Lírico" -> "Sagas"[color="#40e0d0"];
+"Sagas"[label="Sagas\n2"]"Sagas" -> "Revista"[color="#ff0000"];
+"Revista"[label="Revista\n6"]"Sagas" -> "Épico"[color="#40e0d0"];
+"Épico"[label="Épico\n8"]}

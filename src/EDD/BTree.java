@@ -20,7 +20,7 @@ import usaclibrary.Books;
 public class BTree {
     static int order;
     NODO_B root;
-
+    int size;
     public BTree(int order) {
         this.order=order;
         this.root = new NODO_B();
@@ -117,32 +117,6 @@ public class BTree {
         }
         return x[y].getISBN();
     }
-    /*
-    public void Insert(BTree x, Books Data){
-        if(Search(Data.getISBN())!=null){
-            //libro repetido en esta categoria
-        }else{
-            NODO_B rootNode = x.getRoot();
-            if(rootNode.getOccupied()==2*this.order -1){//si lo camibio a 4 luego no puede llegar en el split al 5to
-                NODO_B newNode = new NODO_B();
-                x.setRoot(newNode);
-                newNode.setIsLeaf(false);
-                newNode.setOccupied(0);
-                newNode.getBranches()[0]=rootNode;
-                SplitChild(newNode, 0, rootNode);
-                SpacedIsert(newNode, Data);
-            }else{
-                SpacedIsert(rootNode, Data);
-            }
-        }
-        
-           try {
-                GraphTree("SOLIDTREE");
-            } catch (IOException ex) {
-                Logger.getLogger(BTree.class.getName()).log(Level.SEVERE, null, ex);
-            }
-    }
-    */
     public void Insertation(Books x){
         if(this.root.getOccupied()==0){
             //root's empty
@@ -161,7 +135,7 @@ public class BTree {
                 
          //   }
         }
-        
+        size++;
            try {
                 GraphTree("SOLIDTREE");
             } catch (IOException ex) {
@@ -193,7 +167,7 @@ public class BTree {
             }            
             for(int i =0;i<Central.getOccupied();i++){
                 if(Central.getShelf()[i]!=null){
-                    labels+="<f"+Integer.toString(i)+">"+Integer.toString(Central.getShelf()[i].getISBN())+"|";
+                    labels+="<f"+Integer.toString(i)+">"+Central.getShelf()[i].getTitulo()+"\\n"+Integer.toString(Central.getShelf()[i].getISBN())+"|";
                 }
             }
             labels+="\"];\n";
@@ -240,12 +214,7 @@ public class BTree {
                 this.root=root.getBranches()[0];
             }
         }
-        
-           try {
-                GraphTree("SOLIDTREE");
-            } catch (IOException ex) {
-                Logger.getLogger(BTree.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        size--;
     }
     
     public void AddUserBooks(ListaSimple<Books> x, NODO_B Central, int carne){
@@ -282,4 +251,13 @@ public class BTree {
             }
         }
     }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+    
 }

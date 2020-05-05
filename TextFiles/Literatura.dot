@@ -2,8 +2,8 @@ digraph G {
  node [shape = record,height=.1];10792->10790;
 10792->10851;
 10792->10936;
-10792[label = "<f0>10792|<f1>10853|"];
-10790[label = "<f0>10790|<f1>10791|"];
-10851[label = "<f0>10851|<f1>10852|"];
-10936[label = "<f0>10936|<f1>10937|<f2>10938|"];
+10792[label = "<f0>El cristianismo y las religiones de la Tierra\n10792|<f1>Historia de la provincia de San Vicente de Chiapa y Guatemala de la orden de Predicadores\n10853|"];
+10790[label = "<f0>Pragmatismo y educación: su interpretación y crítica / John L. Childs.\n10790|<f1>Historia de la etnología\n10791|"];
+10851[label = "<f0>Historia de la provincia de San Vicente de Chiapa y Guatemala de la orden de Predicadores\n10851|<f1>Historia de la provincia de San Vicente de Chiapa y Guatemala de la orden de Predicadores\n10852|"];
+10936[label = "<f0>Educación y vida\n10936|<f1>Lo que España llevó a América\n10937|<f2>Desarrollo organizacional : estrategias de interrelación humana para el desarrollo de organizaciones v 1 Desarrollo organizacional: su naturaleza, sus orígenes y perspectivas\n10938|"];
 }

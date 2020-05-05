@@ -36,7 +36,7 @@ public static ListaDoble<String> Nodos;
 /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) {        
         StudentTable= new HashTable();
         PublicLibrary = new AVL();
         CurrentBlockData = new JSONArray(); 

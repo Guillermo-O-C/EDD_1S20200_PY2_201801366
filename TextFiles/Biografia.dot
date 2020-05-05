@@ -1,3 +1,3 @@
 digraph G {
- node [shape = record,height=.1];10787[label = "<f0>10787|<f1>10850|<f2>10935|"];
+ node [shape = record,height=.1];10787[label = "<f0>La nueva imagen del hombre común\n10787|<f1>Historia de la provincia de San Vicente de Chiapa y Guatemala de la orden de Predicadores\n10850|<f2>Política. Figuras. Paisajes\n10935|"];
 }

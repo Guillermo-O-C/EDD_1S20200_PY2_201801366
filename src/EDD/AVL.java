@@ -58,15 +58,16 @@ public class AVL {
     
     public static String NextNodos(NODO_AVL Central){
         String content="";
+        content +="\""+ Central.getValue()+"\"[label=\""+Central.getValue()+"\\n"+Integer.toString(Central.getColeccion().getSize())+"\"]";
         if(Central.getLeft()!=null){
-            content +="\""+Central.getValue()+"\" . \""+Central.getLeft().getValue()+"\"[color=\"#ff0000\"];\n";//rojo
+            content +="\""+Central.getValue()+"\" -> \""+Central.getLeft().getValue()+"\"[color=\"#ff0000\"];\n";
             content += NextNodos(Central.getLeft());
         }
         if(Central.getRight()!=null){
-            content +="\""+Central.getValue()+"\" . \""+Central.getRight().getValue()+"\"[color=\"#40e0d0\"];\n";//turquesa
+            content +="\""+Central.getValue()+"\" -> \""+Central.getRight().getValue()+"\"[color=\"#40e0d0\"];\n";
             content += NextNodos(Central.getRight());            
-        }        
-        return content;   
+        }
+        return content;
     }
     
     public static void writeDOC(String doc) throws IOException{

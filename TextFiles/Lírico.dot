@@ -3,9 +3,9 @@ digraph G {
 10802->10803;
 10802->10859;
 10802->10871;
-10802[label = "<f0>10802|<f1>10806|<f2>10862|"];
-10799[label = "<f0>10799|<f1>10801|"];
-10803[label = "<f0>10803|<f1>10804|"];
-10859[label = "<f0>10859|<f1>10860|"];
-10871[label = "<f0>10871|<f1>10872|<f2>10873|<f3>13549|"];
+10802[label = "<f0>Thomas Jefferson; biografía\n10802|<f1>Enseñar a pensar\n10806|<f2>Guía de aspectos presupuestarios y fiscales\n10862|"];
+10799[label = "<f0>Titanes de la canción guatemalteca\n10799|<f1>Sociología de la educación\n10801|"];
+10803[label = "<f0>Hombres de América (Montalvo - Bolívar - Rubén Darío). Discursos parlamentarios\n10803|<f1>Historia de las grandes religiones, v. 5\n10804|"];
+10859[label = "<f0>Jóvenes buscando un amor\n10859|<f1>El túnel del amor\n10860|"];
+10871[label = "<f0>Centesimus annus / Karol Wojtyla\n10871|<f1>Successful houses and how to build them\n10872|<f2>Viaje a América Central (Yucatán y Guatemala)\n10873|<f3>Introducción al código procesal penal\n13549|"];
 }

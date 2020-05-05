@@ -4,10 +4,10 @@ digraph G {
 10813->10824;
 10813->10878;
 10813->10890;
-10813[label = "<f0>10813|<f1>10817|<f2>10877|<f3>10886|"];
-10810[label = "<f0>10810|<f1>10812|"];
-10815[label = "<f0>10815|<f1>10816|"];
-10824[label = "<f0>10824|<f1>10825|"];
-10878[label = "<f0>10878|<f1>10884|"];
-10890[label = "<f0>10890|<f1>10891|<f2>10892|<f3>10893|"];
+10813[label = "<f0>Las Ideas de Piaget; su aplicación en el aula\n10813|<f1>Terremoto empresarial\n10817|<f2>Educación y sociedad : introducción a la sociología de la educación\n10877|<f3>Educación en valores a partir de los clásicos greco-latinos; una propuesta de intervención en secundaria\n10886|"];
+10810[label = "<f0>Sociología de la educación\n10810|<f1>Metodología de la enseñanza técnica\n10812|"];
+10815[label = "<f0>Manual gestión de mantenimiento a la medida\n10815|<f1>Manual de gestión de la calidad total a la medida\n10816|"];
+10824[label = "<f0>Cuatro filósofos en busca de Dios\n10824|<f1>La Tolerancia y la manipulación\n10825|"];
+10878[label = "<f0>La rebelión de las masas\n10878|<f1>La Guerra y la paz\n10884|"];
+10890[label = "<f0>Política y sociedad en una época de transición\n10890|<f1>Sociología de la educación\n10891|<f2>Multinational financial management\n10892|<f3>Corporation accounts and statements; an advanced course\n10893|"];
 }
