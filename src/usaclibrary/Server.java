@@ -13,6 +13,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -36,15 +37,16 @@ public class Server extends Thread{
                 sc = servidor.accept();//se queda a la espera en esta línea
                 System.out.println("Cliente conectado");
                 in = new DataInputStream(sc.getInputStream());
-                out = new DataOutputStream(sc.getOutputStream());
-                
+                out = new DataOutputStream(sc.getOutputStream());                
                 String mensaje = in.readUTF();//se queda a la espera de que el cliente mande algo
                 System.out.println(mensaje);
                 if(mensaje.compareToIgnoreCase("RETURN_IPS")==0){
+                JOptionPane.showMessageDialog(null, "Nuevo Nodo Detectado");
                     Nodo<String> b = USACLibrary.Nodos.getHead();
                     String output ="";
                     while(b!=null){
-                        output+=b.getValue()+",";
+                        output+=b.getValue();
+                        if(b.getRight()!=null) output+=",";
                         b=b.getRight();
                     }
                     out.writeUTF(output);

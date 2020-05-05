@@ -2,4 +2,4 @@ digraph G {
  nodesep=0.3;
  ranksep=0.2;
     margin=0.1;
- node[shape=box width="1.5" height="1.5" fixed="true"];  edge [arrowsize=0.8];}
+ node[shape=box width="1.5" height="1.5" fixed="true"];  edge [arrowsize=0.8];"192.168.1.11" ->"192.168.1.16" ->"192.168.1.1";}

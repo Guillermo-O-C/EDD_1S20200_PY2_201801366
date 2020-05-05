@@ -102,7 +102,7 @@ public class PeerCommunication extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        Cliente c = new Cliente("", 5000, "");
+        Cliente c = new Cliente(5000, "");
         Thread t = new Thread(c);
         t.start();
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -115,7 +115,7 @@ public class PeerCommunication extends javax.swing.JFrame {
         if(a==JOptionPane.NO_OPTION){
             String b = JOptionPane.showInputDialog("Ingresa la Ip de un Nodo");
             usaclibrary.USACLibrary.Nodos.AddLast(b);
-            Cliente c = new Cliente(usaclibrary.USACLibrary.MY_IP, 5000, "RETURN_IPS");
+            Cliente c = new Cliente(5000, "RETURN_IPS");
             Thread t = new Thread(c);
             t.start();
         }
