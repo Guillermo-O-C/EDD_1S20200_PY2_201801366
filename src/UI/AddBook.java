@@ -7,6 +7,9 @@ package UI;
 
 import EDD.NODO_AVL;
 import java.awt.Color;
+import java.awt.MouseInfo;
+import java.awt.Point;
+import java.awt.PointerInfo;
 import javax.swing.JOptionPane;
 import usaclibrary.Books;
 
@@ -23,7 +26,12 @@ int currentUser;
     }
 
     public AddBook(int carne) {
-        initComponents();        
+        initComponents();      
+        PointerInfo a = MouseInfo.getPointerInfo();
+        Point b = a.getLocation();
+        int x = (int) b.getX();
+        int y = (int) b.getY();
+        this.setLocation(x-200, y-200);  
         AddItems(usaclibrary.USACLibrary.PublicLibrary.getRoot());
         this.currentUser = carne;
     }

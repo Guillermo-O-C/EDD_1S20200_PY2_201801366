@@ -6,13 +6,18 @@
 package usaclibrary;
 
 import EDD.AVL;
+import EDD.Block;
+import static EDD.Block.indexControl;
 import EDD.HashTable;
 import EDD.Nodo;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Scanner;
 import javax.swing.JOptionPane;
 
 /**
@@ -47,9 +52,26 @@ public class Server extends Thread{
                     String output ="";
                     while(b!=null){
                         output+=b.getValue();
-                        if(b.getRight()!=null) output+=",";
+                        output+=",";
                         b=b.getRight();
                     }
+                    for(int i =1;i<indexControl;i++){
+                        try {
+                            output+="#@"; 
+                            File dir = new File("BLOCKS");
+                            dir.mkdirs();
+                            File myObj = new File(dir, "BLOCK_"+Integer.toString(i)+".json");
+                            Scanner myReader = new Scanner(myObj);
+                            while (myReader.hasNextLine()) {
+                                output+=myReader.nextLine();
+                            }
+                            myReader.close();
+                          } catch (FileNotFoundException e) {
+                            System.out.println("An error occurred.");
+                            e.printStackTrace();
+                          }
+                    }
+                    System.out.println(output);
                     USACLibrary.Nodos.AddLast(arg[1]);
                     out.writeUTF(output);
                 }else if(arg[0].compareToIgnoreCase("DELETE_IP")==0){
@@ -64,10 +86,29 @@ public class Server extends Thread{
                         w++;
                         b=b.getRight();
                     }
+                }else if(arg[0].compareToIgnoreCase("LAST_BLOCK")==0){
+                    String output ="";
+                    try {
+                            output+="#@"; 
+                            File dir = new File("BLOCKS");
+                            dir.mkdirs();
+                            File myObj = new File(dir, "BLOCK_"+Integer.toString(Block.indexControl)+".json");
+                            Scanner myReader = new Scanner(myObj);
+                            while (myReader.hasNextLine()) {
+                                output+=myReader.nextLine();
+                            }
+                            myReader.close();
+                          } catch (FileNotFoundException e) {
+                            System.out.println("An error occurred.");
+                            e.printStackTrace();
+                          }
+                    System.out.println("Muy last block is: "+output);
+                    out.writeUTF(output);
                 }else{                    
                     JOptionPane.showMessageDialog(null, "Se ha recibido un nuevo bloque, se efectuará la prueba de trabajo.");
                     JsonReader.proofOfWork(mensaje);
-                }                
+                }      
+                
                 sc.close();
                 System.out.println("Cliente desconectado");
             }

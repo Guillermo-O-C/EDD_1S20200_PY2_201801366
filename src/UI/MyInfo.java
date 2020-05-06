@@ -7,6 +7,9 @@ package UI;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.MouseInfo;
+import java.awt.Point;
+import java.awt.PointerInfo;
 import javax.swing.JOptionPane;
 import usaclibrary.Estudiante;
 
@@ -39,6 +42,11 @@ public class MyInfo extends javax.swing.JFrame {
         jButton3.show(false);
         jLabel8.show(false);        
         this.UpdatePassword=false;
+        PointerInfo a = MouseInfo.getPointerInfo();
+        Point b = a.getLocation();
+        int w = (int) b.getX();
+        int z = (int) b.getY();
+        this.setLocation(w-200, z-200);
     }
     
     /**

@@ -6,6 +6,9 @@
 package UI;
 
 import EDD.ListaSimple;
+import java.awt.MouseInfo;
+import java.awt.Point;
+import java.awt.PointerInfo;
 import javax.swing.DefaultListModel;
 import usaclibrary.Books;
 
@@ -30,6 +33,11 @@ public class MyBooks extends javax.swing.JFrame {
         this.list = new DefaultListModel();
         this.currentUser=carne;
         populateList(myshelf);
+        PointerInfo a = MouseInfo.getPointerInfo();
+        Point b = a.getLocation();
+        int x = (int) b.getX();
+        int y = (int) b.getY();
+        this.setLocation(x-200, y-200);
     }
     void populateList(ListaSimple<Books> x){
         list.clear();

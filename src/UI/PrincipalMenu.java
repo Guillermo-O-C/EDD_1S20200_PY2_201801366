@@ -5,6 +5,9 @@
  */
 package UI;
 
+import java.awt.MouseInfo;
+import java.awt.Point;
+import java.awt.PointerInfo;
 import java.io.File;
 import java.io.FileFilter;
 import javax.swing.JFileChooser;
@@ -23,6 +26,12 @@ public class PrincipalMenu extends javax.swing.JFrame {
      */
     public PrincipalMenu() {
         initComponents();
+        this.setTitle(usaclibrary.USACLibrary.MY_IP);
+        PointerInfo a = MouseInfo.getPointerInfo();
+        Point b = a.getLocation();
+        int x = (int) b.getX();
+        int y = (int) b.getY();
+        this.setLocation(x-200, y-200);
     }
 
     /**

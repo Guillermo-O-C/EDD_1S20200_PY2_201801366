@@ -5,6 +5,7 @@
  */
 package EDD;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.math.BigInteger;
@@ -16,6 +17,7 @@ import java.security.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.Scanner;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -26,7 +28,7 @@ import org.json.simple.JSONObject;
 
 public class Block {
     public static int indexControl=1;
-    public static String previousHash;
+    public static String previousHash="0000";
     static String currentHash;
     
     private static byte[] encrypting(String content)throws NoSuchAlgorithmException{     
@@ -59,16 +61,17 @@ public class Block {
     }
     private static void assembleJSONDoc(String FileName) throws IOException, NoSuchAlgorithmException{
         JSONObject newDoc = new JSONObject();
-        newDoc.put("INDEX", Integer.toString(indexControl));indexControl++;
-        String timeStamp =new SimpleDateFormat("yyyy.MM.dd HH:mm:ss").format(new Date());
+        newDoc.put("INDEX", Integer.toString(indexControl));
+        String timeStamp =new SimpleDateFormat("yyyy.MM.d::HH:mm:ss").format(new Date());
         newDoc.put("TIMESTAMP", timeStamp);
         newDoc.put("NONCE", calculateNonce(Integer.toString(indexControl)+timeStamp+previousHash+usaclibrary.USACLibrary.CurrentBlockData));
         newDoc.put("DATA", usaclibrary.USACLibrary.CurrentBlockData);
         if(indexControl==1){
-            newDoc.put("PREVIOUSHASH", 0000);
+            newDoc.put("PREVIOUSHASH", "0000");
         }else{
             newDoc.put("PREVIOUSHASH", previousHash);            
         }
+        indexControl++;
         previousHash=currentHash;
         newDoc.put("HASH", previousHash);
         File dir = new File("BLOCKS");
@@ -91,5 +94,26 @@ public class Block {
             TemporalFile.write(entry);
         }
         temporal.createNewFile();
+    }
+    public static String GetBlockChain(){
+        String blockChain = "";
+        for(int i =1;i<indexControl;i++){
+            try {
+                blockChain+="#@"; 
+                File dir = new File("BLOCKS");
+                dir.mkdirs();
+                File myObj = new File(dir, "BLOCK_"+Integer.toString(i)+".json");
+                Scanner myReader = new Scanner(myObj);
+                while (myReader.hasNextLine()) {
+                    blockChain+=myReader.nextLine();
+                }
+                myReader.close();
+              } catch (FileNotFoundException e) {
+                System.out.println("An error occurred.");
+                e.printStackTrace();
+              }
+        }
+        System.out.println("Current blockchain is:"+blockChain);
+        return blockChain;
     }
 }

@@ -6,6 +6,10 @@
 package UI;
 
 import EDD.Block;
+import EDD.Nodo;
+import java.awt.MouseInfo;
+import java.awt.Point;
+import java.awt.PointerInfo;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -15,6 +19,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import usaclibrary.Cliente;
+import usaclibrary.USACLibrary;
 
 /**
  *
@@ -27,6 +32,11 @@ public class PeerCommunication extends javax.swing.JFrame {
      */
     public PeerCommunication() {
         initComponents();
+        PointerInfo a = MouseInfo.getPointerInfo();
+        Point b = a.getLocation();
+        int x = (int) b.getX();
+        int y = (int) b.getY();
+        this.setLocation(x-200, y-200);
     }
 
     /**
@@ -40,7 +50,6 @@ public class PeerCommunication extends javax.swing.JFrame {
 
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -58,13 +67,6 @@ public class PeerCommunication extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setText("Unirme a la red");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -73,20 +75,17 @@ public class PeerCommunication extends javax.swing.JFrame {
                 .addGap(114, 114, 114)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(132, Short.MAX_VALUE))
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE))
+                .addContainerGap(146, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addComponent(jButton3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(45, 45, 45)
                 .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton2)
-                .addContainerGap(149, Short.MAX_VALUE))
+                .addContainerGap(198, Short.MAX_VALUE))
         );
 
         pack();
@@ -96,17 +95,7 @@ public class PeerCommunication extends javax.swing.JFrame {
         try {
             // TODO add your handling code here:
             Block.SaveJSONDoc();
-        } catch (IOException ex) {
-            Logger.getLogger(PeerCommunication.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(PeerCommunication.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        if(Block.indexControl>1){
-            String content="";
+             String content="";
             try {
                 File dir = new File("BLOCKS");
                 dir.mkdirs();
@@ -121,33 +110,33 @@ public class PeerCommunication extends javax.swing.JFrame {
                 e.printStackTrace();
               }
             if(content.compareTo("")!=0){
-                Cliente c = new Cliente(5000, content);
-                Thread t = new Thread(c);
-                t.start();
+                Nodo<String> w = USACLibrary.Nodos.getHead().getRight();
+                while(w!=null){
+                    Cliente c = new Cliente(Integer.parseInt(w.getValue()), content);
+                    Thread t = new Thread(c);
+                    t.start();
+                }
+                
             }else{  
                 JOptionPane.showMessageDialog(null, "No se ha cargado el archivo.");
             }
-            
-            
-        }else{
-            JOptionPane.showMessageDialog(null, "No se ha minado ningún bloque");
+        } catch (IOException ex) {
+            Logger.getLogger(PeerCommunication.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(PeerCommunication.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        usaclibrary.USACLibrary.MY_IP=JOptionPane.showInputDialog("Ingresa tu IP");
-        usaclibrary.USACLibrary.Nodos.AddLast(usaclibrary.USACLibrary.MY_IP);
-        int a = JOptionPane.showConfirmDialog(null, "¿Eres el primer nodo?",null, JOptionPane.YES_NO_OPTION);
-        if(a==JOptionPane.NO_OPTION){
-            String b = JOptionPane.showInputDialog("Ingresa la Ip de un Nodo");
-            usaclibrary.USACLibrary.Nodos.AddLast(b);
-            Cliente c = new Cliente(5000, "RETURN_IPS;"+usaclibrary.USACLibrary.MY_IP);
-            Thread t = new Thread(c);
-            t.start();
-        }
-    }//GEN-LAST:event_jButton3ActionPerformed
+                Nodo<String> w = USACLibrary.Nodos.getHead().getRight();
+                while(w!=null){
+                    Cliente c = new Cliente(Integer.parseInt(w.getValue()), "LAST_BLOCK;"+USACLibrary.MY_IP);
+                    Thread t = new Thread(c);
+                    t.start();
+                    w=w.getRight();
+                }        
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -187,6 +176,5 @@ public class PeerCommunication extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     // End of variables declaration//GEN-END:variables
 }

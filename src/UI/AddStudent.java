@@ -6,6 +6,9 @@
 package UI;
 
 import java.awt.Color;
+import java.awt.MouseInfo;
+import java.awt.Point;
+import java.awt.PointerInfo;
 import javafx.scene.control.Alert;
 import javax.swing.JOptionPane;
 import usaclibrary.Estudiante;
@@ -21,6 +24,11 @@ public class AddStudent extends javax.swing.JFrame {
      */
     public AddStudent() {
         initComponents();
+        PointerInfo a = MouseInfo.getPointerInfo();
+        Point b = a.getLocation();
+        int x = (int) b.getX();
+        int y = (int) b.getY();
+        this.setLocation(x-200, y-200);
     }
 
     /**

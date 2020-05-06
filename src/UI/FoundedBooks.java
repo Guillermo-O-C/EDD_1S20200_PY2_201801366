@@ -7,6 +7,9 @@ package UI;
 
 import EDD.ListaSimple;
 import EDD.NODO_AVL;
+import java.awt.MouseInfo;
+import java.awt.Point;
+import java.awt.PointerInfo;
 import javax.swing.DefaultListModel;
 import usaclibrary.Books;
 
@@ -33,6 +36,11 @@ public class FoundedBooks extends javax.swing.JFrame {
         jLabel1.setText("Coincidencias de títulos con :"+entry);
         this.entry=entry;
         FindBooks(entry);
+        PointerInfo a = MouseInfo.getPointerInfo();
+        Point b = a.getLocation();
+        int x = (int) b.getX();
+        int y = (int) b.getY();
+        this.setLocation(x-200, y-200);
     }
     void FindBooks(String x){        
         list.clear();

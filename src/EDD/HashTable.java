@@ -195,6 +195,9 @@ public class HashTable {
                 Nodo<Estudiante> aux = this.bucket[i].getListado().getHead();
                 while(true){
                     rankedList+=" "+Integer.toString(aux.getValue().getCarne());
+                    arrayLabels+=Integer.toString(aux.getValue().getCarne())+"[label=\""+Integer.toString(aux.getValue().getCarne())+"\\n "
+                            +aux.getValue().getNombre()+" "+aux.getValue().getApellido()
+                            +"\\n "+Arrays.toString(aux.getValue().getPassword())+"\"]";
                     if(aux==this.bucket[i].getListado().getHead()){
                          arrayLists+="Slot_"+Integer.toString(i)+"->"+Integer.toString(aux.getValue().getCarne())+"[constraint=true];\n";
                     }

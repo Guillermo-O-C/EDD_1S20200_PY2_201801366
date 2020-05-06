@@ -24,6 +24,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import org.json.simple.JSONArray;
 
 /**
@@ -45,6 +46,16 @@ public static ListaDoble<String> Nodos;
         CurrentBlockData = new JSONArray(); 
         Nodos = new ListaDoble<>();
         MY_IP="";
+        usaclibrary.USACLibrary.MY_IP=JOptionPane.showInputDialog("Ingresa tu puerto");
+        usaclibrary.USACLibrary.Nodos.AddLast(usaclibrary.USACLibrary.MY_IP);
+        int a = JOptionPane.showConfirmDialog(null, "¿Eres el primer nodo?",null, JOptionPane.YES_NO_OPTION);
+        if(a==JOptionPane.NO_OPTION){
+            String b = JOptionPane.showInputDialog("Ingresa el peurto de un Nodo");
+            usaclibrary.USACLibrary.Nodos.AddLast(b);
+            Cliente c = new Cliente(5000, "RETURN_IPS;"+usaclibrary.USACLibrary.MY_IP);
+            Thread t = new Thread(c);
+            t.start();
+        }
         PrincipalMenu begin = new PrincipalMenu(); begin.show();
         Server myServer = new Server(5000);
         Thread t = new Thread(myServer);

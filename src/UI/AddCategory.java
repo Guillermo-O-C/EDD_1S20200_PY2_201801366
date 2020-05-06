@@ -6,6 +6,9 @@
 package UI;
 
 import EDD.BTree;
+import java.awt.MouseInfo;
+import java.awt.Point;
+import java.awt.PointerInfo;
 import usaclibrary.Books;
 
 /**
@@ -19,6 +22,11 @@ public class AddCategory extends javax.swing.JFrame {
      */
     public AddCategory() {
         initComponents();
+        PointerInfo a = MouseInfo.getPointerInfo();
+        Point b = a.getLocation();
+        int x = (int) b.getX();
+        int y = (int) b.getY();
+        this.setLocation(x-200, y-200);
     }
 
     /**

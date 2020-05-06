@@ -7,6 +7,9 @@ package UI;
 
 import EDD.NODO_AVL;
 import java.awt.Color;
+import java.awt.MouseInfo;
+import java.awt.Point;
+import java.awt.PointerInfo;
 import javax.swing.JOptionPane;
 import usaclibrary.Books;
 
@@ -31,6 +34,11 @@ public class UpdateBook extends javax.swing.JFrame {
         jTextField7.setText(x.getIdioma());
         jTextField8.setText(Integer.toString(x.getISBN()));
         jTextField9.setText(Integer.toString(x.getUsuario()));
+        PointerInfo a = MouseInfo.getPointerInfo();
+        Point b = a.getLocation();
+        int w = (int) b.getX();
+        int y = (int) b.getY();
+        this.setLocation(w-200, y-200);
     }
 
     /**

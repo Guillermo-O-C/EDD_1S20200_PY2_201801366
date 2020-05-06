@@ -6,6 +6,9 @@
 package UI;
 
 import EDD.NODO_AVL;
+import java.awt.MouseInfo;
+import java.awt.Point;
+import java.awt.PointerInfo;
 import javax.swing.JOptionPane;
 import usaclibrary.Books;
 import usaclibrary.USACLibrary;
@@ -46,6 +49,11 @@ public class BookDisplay extends javax.swing.JFrame {
         }
         this.categoria=x.getCategoria();
         this.isbn=x.getISBN();
+        PointerInfo a = MouseInfo.getPointerInfo();
+        Point b = a.getLocation();
+        int w = (int) b.getX();
+        int y = (int) b.getY();
+        this.setLocation(w-200, y-200);
     }
 
     /**

@@ -8,10 +8,14 @@ package usaclibrary;
 import EDD.Nodo;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.Socket;
+import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -26,28 +30,46 @@ public class Cliente extends Thread{
     }
     
     @Override 
-    public void run(){     
+    public void run(){    
+        final String HOST ="127.0.0.1";
         DataInputStream in;
         DataOutputStream out;
         Nodo<String> t = USACLibrary.Nodos.getHead().getRight();
         while(t!=null){
             try {
-                try (Socket sc = new Socket(t.getValue(), puerto)) {
+                System.out.println("Conectando con "+t.getValue());
+                try (Socket sc = new Socket(HOST, Integer.parseInt(t.getValue()))) {
                     in = new DataInputStream(sc.getInputStream());
                     out = new DataOutputStream(sc.getOutputStream());
                     out.writeUTF(mensaje);
-                    String entry = in.readUTF();
-                    System.out.println(entry);
-                    if(mensaje.compareToIgnoreCase("RETURN_IPS")==0){
+                    String[] arg = mensaje.split(";");
+                    if(arg[0].compareToIgnoreCase("RETURN_IPS")==0){
+                        String entry = in.readUTF();
+                        System.out.println(entry);
                         String[] x = entry.split(",");
-                        for(int i =1;i<x.length;i++){
+                        for(int i =1;i<x.length-1;i++){
                             USACLibrary.Nodos.AddLast(x[i]);
                         }
+                        System.out.println("Los datos serian "+x[x.length-1]);
+                        String[] y = x[x.length-1].split("#@");
+                        for(int i =0;i<y.length;i++){
+                            File temporal = new File("\\", "TEMPORAL.json");
+                            try (FileWriter TemporalFile = new FileWriter(temporal)) {
+                                TemporalFile.write(y[i]);
+                            }
+                            JsonReader.Addupdates(temporal);
+                        }
+                        JOptionPane.showMessageDialog(null, "Te has unido exitosamente, estás actualizado.");
                         break;
                     }else{
                         System.out.println("Relizando Validación");
+                        String entry = in.readUTF();
+                        System.out.println(entry);
+                        JsonReader.proofOfWork(entry);
                     }
                     
+                } catch (NoSuchAlgorithmException ex) {
+                    Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } catch (IOException ex) {
                 Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);

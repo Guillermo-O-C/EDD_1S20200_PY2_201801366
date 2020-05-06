@@ -8,6 +8,9 @@ package UI;
 import EDD.ListaSimple;
 import EDD.NODO_AVL;
 import EDD.NODO_B;
+import java.awt.MouseInfo;
+import java.awt.Point;
+import java.awt.PointerInfo;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -48,6 +51,11 @@ public static int currentUser;
         this.currentUser =x;
         jLabel2.setText("Usuario: "+Integer.toString(x));
         AddItems(usaclibrary.USACLibrary.PublicLibrary.getRoot());
+        PointerInfo a = MouseInfo.getPointerInfo();
+        Point b = a.getLocation();
+        int w = (int) b.getX();
+        int y = (int) b.getY();
+        this.setLocation(w-200, y-200);
     }
 
     /**

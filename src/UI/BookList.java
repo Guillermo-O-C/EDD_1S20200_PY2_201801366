@@ -10,6 +10,9 @@ import EDD.ListaSimple;
 import EDD.NODO_AVL;
 import EDD.NODO_B;
 import UI.BookDisplay;
+import java.awt.MouseInfo;
+import java.awt.Point;
+import java.awt.PointerInfo;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -38,6 +41,11 @@ public class BookList extends javax.swing.JFrame {
         list.clear();
         ListBooks(carne, categoria);
         jList1.setModel(list);
+        PointerInfo a = MouseInfo.getPointerInfo();
+        Point b = a.getLocation();
+        int w = (int) b.getX();
+        int y = (int) b.getY();
+        this.setLocation(w-200, y-200);
     }
     void ListBooks(int carne, String categoria){          
             this.booksInShelf = new ListaSimple<>();
