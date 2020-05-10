@@ -66,10 +66,8 @@ public class BookList extends javax.swing.JFrame {
                 }
             }
         if(x.isIsLeaf()==false){
-            for(int i =0;i<5;i++){
-                if(x.getBranches()[i]!=null){
-                    PrintTree(x.getBranches()[i]);
-                }            
+            for(int i =0;i<x.getOccupied()+1;i++){
+                 PrintTree(x.getBranches()[i]);
             }
         }
         
