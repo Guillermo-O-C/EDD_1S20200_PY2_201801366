@@ -9,9 +9,11 @@ import static EDD.AVL.NextNodos;
 import static EDD.AVL.writeDOC;
 import static EDD.Block.indexControl;
 import EDD.Nodo;
+import java.awt.BorderLayout;
 import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.PointerInfo;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -20,6 +22,11 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JScrollPane;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -142,6 +149,8 @@ public class ReportManage extends javax.swing.JFrame {
         // TODO add your handling code here:        
         try {
             usaclibrary.USACLibrary.PublicLibrary.PrintAllBTrees(usaclibrary.USACLibrary.PublicLibrary.getRoot());
+            ViewGallery v = new ViewGallery();
+            v.show();
         } catch (IOException ex) {
             Logger.getLogger(UserUI.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -151,6 +160,20 @@ public class ReportManage extends javax.swing.JFrame {
         try {
             // TODO add your handling code here:
             usaclibrary.USACLibrary.PublicLibrary.GraphTree();
+            JFrame fr = new JFrame();
+            fr.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            BufferedImage img=null;
+            try {
+                img = ImageIO.read(new File("Graphics\\AVL.png"));
+            } catch (Exception e) {
+            }
+            JLabel lbl =  new JLabel("Árbol AVL");
+            lbl.setIcon(new ImageIcon(img));
+            JScrollPane jsp = new JScrollPane(lbl);
+            fr.getContentPane().add(jsp, BorderLayout.CENTER);
+            fr.pack();
+            fr.setLocationRelativeTo(this);
+            fr.setVisible(true);
         } catch (IOException ex) {
             Logger.getLogger(ReportManage.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -160,6 +183,20 @@ public class ReportManage extends javax.swing.JFrame {
         try {
             // TODO add your handling code here:
             usaclibrary.USACLibrary.StudentTable.GraphTable();
+            JFrame fr = new JFrame("Tabla Hash");
+            fr.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            BufferedImage img=null;
+            try {
+                img = ImageIO.read(new File("Graphics\\HashTable.png"));
+            } catch (Exception e) {
+            }
+            JLabel lbl =  new JLabel();
+            lbl.setIcon(new ImageIcon(img));
+            JScrollPane jsp = new JScrollPane(lbl);
+            fr.getContentPane().add(jsp, BorderLayout.CENTER);
+            fr.pack();
+            fr.setLocationRelativeTo(this);
+            fr.setVisible(true);
         } catch (IOException ex) {
             Logger.getLogger(ReportManage.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -213,6 +250,20 @@ public class ReportManage extends javax.swing.JFrame {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        JFrame fr = new JFrame("Nodos de la Red");
+        fr.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        BufferedImage img=null;
+        try {
+            img = ImageIO.read(new File("Graphics\\NODOS.png"));
+        } catch (Exception e) {
+        }
+        JLabel lbl =  new JLabel();
+        lbl.setIcon(new ImageIcon(img));
+        JScrollPane jsp = new JScrollPane(lbl);
+        fr.getContentPane().add(jsp, BorderLayout.CENTER);
+        fr.pack();
+        fr.setLocationRelativeTo(this);
+        fr.setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -274,6 +325,20 @@ public class ReportManage extends javax.swing.JFrame {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        JFrame fr = new JFrame("BLOCKHAIN");
+        fr.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        BufferedImage img=null;
+        try {
+        img = ImageIO.read(new File("Graphics\\BLOCKHAIN.png"));
+        } catch (Exception e) {
+        }
+        JLabel lbl =  new JLabel();
+        lbl.setIcon(new ImageIcon(img));
+        JScrollPane jsp = new JScrollPane(lbl);
+        fr.getContentPane().add(jsp, BorderLayout.CENTER);
+        fr.pack();
+        fr.setLocationRelativeTo(null);
+        fr.setVisible(true);
     }//GEN-LAST:event_jButton6ActionPerformed
 
     /**

@@ -55,7 +55,7 @@ public class ListaDoble<T> {
             nuevo.setLeft(this.Tail);
             this.Tail=nuevo;
         }
-        
+        size++;
     }
     
     public void DeleteElementAt(int x){

@@ -5,9 +5,16 @@
  */
 package EDD;
 
+import java.awt.BorderLayout;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JScrollPane;
 import org.json.simple.JSONObject;
 import usaclibrary.Books;
 
@@ -296,16 +303,58 @@ public class AVL {
             content=Preorder(this.root);
             content = "digraph G {\n rankdir=LR nodesep=0.3;\n ranksep=0.2;\n margin=0.1;\n   node [shape=box];\n  edge [arrowsize=0.8]\n" + content +";\n}";
             printInPC(content, "PreOrder");
+            JFrame fr = new JFrame("PreOrder");
+            fr.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            BufferedImage img=null;
+            try {
+                img = ImageIO.read(new File("Graphics\\PreOrder.png"));
+            } catch (Exception e) {
+            }
+            JLabel lbl =  new JLabel();
+            lbl.setIcon(new ImageIcon(img));
+            JScrollPane jsp = new JScrollPane(lbl);
+            fr.getContentPane().add(jsp, BorderLayout.CENTER);
+            fr.pack();
+            fr.setLocationRelativeTo(null);
+            fr.setVisible(true);
         //InOrder
             pre=false;
             content=InOrder(this.root);
             content = "digraph G {\n rankdir=LR nodesep=0.3;\n ranksep=0.2;\n margin=0.1;\n   node [shape=box];\n  edge [arrowsize=0.8]\n" + content +";\n}";
             printInPC(content, "InOrder");
+            fr = new JFrame("InOrder");
+            fr.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            img=null;
+            try {
+                img = ImageIO.read(new File("Graphics\\InOrder.png"));
+            } catch (Exception e) {
+            }
+            lbl =  new JLabel();
+            lbl.setIcon(new ImageIcon(img));
+            jsp = new JScrollPane(lbl);
+            fr.getContentPane().add(jsp, BorderLayout.CENTER);
+            fr.pack();
+            fr.setLocationRelativeTo(null);
+            fr.setVisible(true);
         //Posorder
             pre=false;
             content=PosOrder(this.root);
             content = "digraph G {\n rankdir=LR nodesep=0.3;\n ranksep=0.2;\n margin=0.1;\n   node [shape=box];\n  edge [arrowsize=0.8]\n" + content +";\n}";
             printInPC(content, "PosOrder");
+            fr = new JFrame("PosOrder");
+            fr.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            img=null;
+            try {
+                img = ImageIO.read(new File("Graphics\\PosOrder.png"));
+            } catch (Exception e) {
+            }
+            lbl =  new JLabel();
+            lbl.setIcon(new ImageIcon(img));
+            jsp = new JScrollPane(lbl);
+            fr.getContentPane().add(jsp, BorderLayout.CENTER);
+            fr.pack();
+            fr.setLocationRelativeTo(null);
+            fr.setVisible(true);
     }
    
     String Preorder(NODO_AVL Central){

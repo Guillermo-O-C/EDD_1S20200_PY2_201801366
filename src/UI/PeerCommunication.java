@@ -112,7 +112,7 @@ public class PeerCommunication extends javax.swing.JFrame {
             if(content.compareTo("")!=0){
                 Nodo<String> w = USACLibrary.Nodos.getHead().getRight();
                 while(w!=null){
-                    Cliente c = new Cliente(Integer.parseInt(w.getValue()), content);
+                    Cliente c = new Cliente(1234, content);
                     Thread t = new Thread(c);
                     t.start();
                 }
@@ -129,13 +129,13 @@ public class PeerCommunication extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-                Nodo<String> w = USACLibrary.Nodos.getHead().getRight();
-                while(w!=null){
-                    Cliente c = new Cliente(Integer.parseInt(w.getValue()), "LAST_BLOCK;"+USACLibrary.MY_IP);
+                if(USACLibrary.Nodos.getSize()>1){
+                    Cliente c = new Cliente(Integer.parseInt(USACLibrary.Nodos.getHead().getRight().getValue()), "BLOCK_LIST");
                     Thread t = new Thread(c);
                     t.start();
-                    w=w.getRight();
-                }        
+                }else{
+                    JOptionPane.showMessageDialog(this, "No hay más nodos conectados en la red");
+                }      
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**

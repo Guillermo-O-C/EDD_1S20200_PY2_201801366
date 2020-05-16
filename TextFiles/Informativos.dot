@@ -1,13 +1,19 @@
 digraph G {
- node [shape = record,height=.1];10774->10772;
+ node [shape = record,height=.1];10844->10774;
+10774->10772;
 10774->10775;
 10774->10840;
-10774->10927;
-10774->10932;
-10774[label = "<f0>Optimización de rendimiento y aseguramiento de inocuidad en la industria de quesería; una guía para la pequeña y mediana empresa\n10774|<f1>La idea del hombre\n10786|<f2>Historia de la provincia de San Vicente de Chiapa y Guatemala de la orden de Predicadores\n10848|<f3>Psicología aplicada a la enseñanza\n10930|"];
+10844->10848;
+10848->10846;
+10848->10927;
+10848->10932;
+10844[label = "<f0>El ocaso de un régimen\n10844|"];
+10774[label = "<f0>Optimización de rendimiento y aseguramiento de inocuidad en la industria de quesería; una guía para la pequeña y mediana empresa\n10774|<f1>La idea del hombre\n10786|"];
 10772[label = "<f0>Las Ventas en el mundo actual\n10772|<f1>Procesamiento de carnes y embutidos; elaboración, estandarización, control de calidad\n10773|"];
 10775[label = "<f0>Producción higiénica de la leche cruda; una guía para la pequeña y mediana empresa\n10775|<f1>Moral para intelectuales\n10783|"];
-10840[label = "<f0>Constitución pastoral Gaudium et spes, sobre la Iglesia en el mundo actual\n10840|<f1>El ocaso de un régimen\n10844|<f2>Educación política nacional\n10846|<f3>De hombres sociales y movimientos políticos / C. Wright Mills.\n10847|"];
+10840[label = "<f0>Constitución pastoral Gaudium et spes, sobre la Iglesia en el mundo actual\n10840|<f1>Introducción a la ética\n10842|"];
+10848[label = "<f0>Historia de la provincia de San Vicente de Chiapa y Guatemala de la orden de Predicadores\n10848|<f1>Psicología aplicada a la enseñanza\n10930|"];
+10846[label = "<f0>Educación política nacional\n10846|<f1>De hombres sociales y movimientos políticos / C. Wright Mills.\n10847|"];
 10927[label = "<f0>Evaluación de impacto en formación empresarial ; el caso FUNDES\n10927|<f1>Cómo resolver el problema de falta de tiempo\n10928|"];
 10932[label = "<f0>Pan Am: an airline and its aircraft\n10932|<f1>La Mujer de pelo largo / Leonor Paz y Paz G.\n10933|<f2>El libro de la piedad y de la muerte\n10934|"];
 }

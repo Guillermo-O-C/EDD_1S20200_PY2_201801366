@@ -59,6 +59,14 @@ public class Block {
         }
         return nonce;
     }
+    public static boolean validateBlock(String content, String nonce) throws NoSuchAlgorithmException{
+         byte[] hash = encrypting(content+nonce);
+            System.out.println(toHexString(hash).substring(0, 4));
+            if(toHexString(hash).substring(0, 4).compareTo("0000")==0){
+                return true;
+            }
+         return false;
+    }
     private static void assembleJSONDoc(String FileName) throws IOException, NoSuchAlgorithmException{
         JSONObject newDoc = new JSONObject();
         newDoc.put("INDEX", Integer.toString(indexControl));
@@ -81,6 +89,13 @@ public class Block {
             TemporalFile.write(newDoc.toJSONString());
         }
         temporal.createNewFile();
+        File myObj = new File(dir, "BLOCK_"+Integer.toString(indexControl-1)+".json");
+        try (Scanner myReader = new Scanner(myObj)) {
+            while (myReader.hasNextLine()) {
+                usaclibrary.USACLibrary.BLOCK_String+=myReader.nextLine();
+            }
+            usaclibrary.USACLibrary.BLOCK_String+="#@";
+        }
         usaclibrary.USACLibrary.CurrentBlockData= new JSONArray();
     }
     public static void SaveJSONDoc() throws IOException, NoSuchAlgorithmException{

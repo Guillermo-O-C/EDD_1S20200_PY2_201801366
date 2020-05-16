@@ -1,12 +1,6 @@
 digraph G { 
  node[shape=diamond]
-Slot_1->Slot_2->Slot_23->Slot_36;Slot_1->201503476[constraint=true];
-Slot_2->201503477[constraint=true];
-Slot_23->202005878[constraint=true];
-Slot_36->201801366[constraint=true];
-{rank=same Slot_1 201503476}
-{rank=same Slot_2 201503477}
-{rank=same Slot_23 202005878}
+Slot_36;Slot_36->201801366[constraint=true];
 {rank=same Slot_36 201801366}
-Slot_1[label="1" shape=box];201503476[label="201503476\n RicardoCutz\n [-31, 10, -36, 57, 73, -70, 89, -85, -66, 86, -32, 87, -14, 15, -120, 62]"]Slot_2[label="2" shape=box];201503477[label="201503477\n JuanitoHernandez\n [-31, 10, -36, 57, 73, -70, 89, -85, -66, 86, -32, 87, -14, 15, -120, 62]"]Slot_23[label="23" shape=box];202005878[label="202005878\n AntonioHernandez\n [-31, 10, -36, 57, 73, -70, 89, -85, -66, 86, -32, 87, -14, 15, -120, 62]"]Slot_36[label="36" shape=box];201801366[label="201801366\n josue orellana\n [117, 1, -27, -44, -38, -121, -84, 57, -41, -126, 116, 28, -41, -108, 0, 45]"]
+Slot_36[label="36" shape=box];201801366[label="201801366\n josue orellana\n 7501e5d4da87ac39d782741cd794002d"]
 }}

@@ -13,6 +13,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.net.Socket;
 import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -35,9 +36,9 @@ public class Cliente extends Thread{
         DataInputStream in;
         DataOutputStream out;
         Nodo<String> t = USACLibrary.Nodos.getHead().getRight();
-        while(t!=null){
+        while(t!=null){ 
             try {
-                System.out.println("Conectando con "+t.getValue());
+                System.out.println("Conectando con "+t.getValue()+" enviando "+mensaje);
                 try (Socket sc = new Socket(HOST, Integer.parseInt(t.getValue()))) {
                     in = new DataInputStream(sc.getInputStream());
                     out = new DataOutputStream(sc.getOutputStream());
@@ -46,32 +47,42 @@ public class Cliente extends Thread{
                     if(arg[0].compareToIgnoreCase("RETURN_IPS")==0){
                         String entry = in.readUTF();
                         System.out.println(entry);
-                        String[] x = entry.split(",");
-                        for(int i =1;i<x.length-1;i++){
+                        String[] x = entry.split(";");
+                        for(int i =1;i<x.length-2;i++){
                             USACLibrary.Nodos.AddLast(x[i]);
                         }
-                        System.out.println("Los datos serian "+x[x.length-1]);
+                        System.out.println("Blocks Obteined"+ x[x.length-1]);
                         String[] y = x[x.length-1].split("#@");
                         for(int i =0;i<y.length;i++){
-                            File temporal = new File("\\", "TEMPORAL.json");
+                            File temporal = new File("", "tmp.json");
                             try (FileWriter TemporalFile = new FileWriter(temporal)) {
                                 TemporalFile.write(y[i]);
+                                System.out.println("Entry File is: "+y[i]);
                             }
                             JsonReader.Addupdates(temporal);
                         }
                         JOptionPane.showMessageDialog(null, "Te has unido exitosamente, estás actualizado.");
                         break;
-                    }else{
+                    }else if(arg[0].compareToIgnoreCase("BLOCK_LIST")==0){
+                        String entry = in.readUTF();
+                        System.out.println("Blocks Obteined"+ entry);
+                        String[] y = entry.split("#@");
+                        for(int i =0;i<y.length;i++){
+                            File temporal = new File("", "tmp.json");
+                            try (FileWriter TemporalFile = new FileWriter(temporal)) {
+                                TemporalFile.write(y[i]);
+                                System.out.println("Entry File is: "+y[i]);
+                            }
+                            JsonReader.Addupdates(temporal);
+                        }
+                        JOptionPane.showMessageDialog(null, "Te has unido exitosamente, estás actualizado.");
+                        break;
+                    }else if(puerto==1234){
                         System.out.println("Relizando Validación");
                         String entry = in.readUTF();
                         System.out.println(entry);
-                        JsonReader.proofOfWork(entry);
                     }
-                    
-                } catch (NoSuchAlgorithmException ex) {
-                    Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            } catch (IOException ex) {
+                }            } catch (IOException ex) {
                 Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
             }
             t=t.getRight();

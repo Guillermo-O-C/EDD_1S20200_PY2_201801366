@@ -5,9 +5,11 @@
  */
 package EDD;
 
+import static EDD.Block.currentHash;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import javax.swing.JOptionPane;
 import org.json.simple.JSONObject;
@@ -194,10 +196,14 @@ public class HashTable {
                 }
                 Nodo<Estudiante> aux = this.bucket[i].getListado().getHead();
                 while(true){
+                     StringBuilder sb = new StringBuilder();
+                        for (byte b : aux.getValue().getPassword()) {
+                            sb.append(String.format("%02x", b&0xff));
+                        } 
                     rankedList+=" "+Integer.toString(aux.getValue().getCarne());
                     arrayLabels+=Integer.toString(aux.getValue().getCarne())+"[label=\""+Integer.toString(aux.getValue().getCarne())+"\\n "
                             +aux.getValue().getNombre()+" "+aux.getValue().getApellido()
-                            +"\\n "+Arrays.toString(aux.getValue().getPassword())+"\"]";
+                            +"\\n "+sb.toString()+"\"]";
                     if(aux==this.bucket[i].getListado().getHead()){
                          arrayLists+="Slot_"+Integer.toString(i)+"->"+Integer.toString(aux.getValue().getCarne())+"[constraint=true];\n";
                     }

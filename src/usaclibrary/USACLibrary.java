@@ -37,6 +37,7 @@ public static AVL PublicLibrary;
 public static JSONArray CurrentBlockData;
 public static String MY_IP;
 public static ListaDoble<String> Nodos;
+public static String BLOCK_String;
 /**
      * @param args the command line arguments
      */
@@ -46,18 +47,30 @@ public static ListaDoble<String> Nodos;
         CurrentBlockData = new JSONArray(); 
         Nodos = new ListaDoble<>();
         MY_IP="";
+        BLOCK_String="";
+        String ac = ",a#@v#@c#@";
+        String[] vc = ac.split(",");
+        String[] ce = ac.split("#@");
+        for(int i = 0;i <ce.length;i++){
+            System.out.println(ce[i]+Integer.toString(i));
+        }
+       /*
+        StudentTable.Insert(new Estudiante(201801366, "josue", "orellana", "sistemas", "1201"), "1201", true);
+         PublicLibrary.setRoot(PublicLibrary.Add(PublicLibrary.getRoot(), "Anime", 201801366, true)); 
+        PublicLibrary.getRoot().getColeccion().Insertation(new Books(213), true);
+        */
         usaclibrary.USACLibrary.MY_IP=JOptionPane.showInputDialog("Ingresa tu puerto");
         usaclibrary.USACLibrary.Nodos.AddLast(usaclibrary.USACLibrary.MY_IP);
         int a = JOptionPane.showConfirmDialog(null, "¿Eres el primer nodo?",null, JOptionPane.YES_NO_OPTION);
         if(a==JOptionPane.NO_OPTION){
-            String b = JOptionPane.showInputDialog("Ingresa el peurto de un Nodo");
+            String b = JOptionPane.showInputDialog("Ingresa el puerto de un Nodo");
             usaclibrary.USACLibrary.Nodos.AddLast(b);
-            Cliente c = new Cliente(5000, "RETURN_IPS;"+usaclibrary.USACLibrary.MY_IP);
+            Cliente c = new Cliente(Integer.parseInt(b), "RETURN_IPS;"+usaclibrary.USACLibrary.MY_IP);
             Thread t = new Thread(c);
             t.start();
         }
         PrincipalMenu begin = new PrincipalMenu(); begin.show();
-        Server myServer = new Server(5000);
+        Server myServer = new Server(Integer.parseInt(MY_IP));
         Thread t = new Thread(myServer);
         t.start();
         Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
@@ -67,8 +80,6 @@ public static ListaDoble<String> Nodos;
             t.start();
             }
         }, "Shutdown-thread"));
-      //  StudentTable.Insert(new Estudiante(201801366, "josue", "orellana", "sistemas", "1201"), "1201");
-      //  PublicLibrary.setRoot(PublicLibrary.Add(PublicLibrary.getRoot(), "Anime", 201801366)); 
        
         
         // TODO code application logic here

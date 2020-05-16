@@ -2,6 +2,4 @@ digraph G {
  nodesep=0.3;
  ranksep=0.2;
     margin=0.1;
- node[shape=box width="1.5" height="1.5" fixed="true"];  edge [arrowsize=0.8];1->2;1[label="INDEX: 1\n TIMESTAMP: 2020.05.6::00:12:23\n NONCE: 17652\n PREVIOUSHASH: 0000\n HASH: 000069f1cc0c822a676d6d14a4c6afed24a75b9bc2d1b4da14677b576e8e70d2"];
-2[label="INDEX: 2\n TIMESTAMP: 2020.05.6::00:13:03\n NONCE: 43626\n PREVIOUSHASH: 000069f1cc0c822a676d6d14a4c6afed24a75b9bc2d1b4da14677b576e8e70d2\n HASH: 00003d7cfdaf911f0dfafb2c750c3e75087c03c755064fe4f8660b7ec2f5273e"];
-}
+ node[shape=box width="1.5" height="1.5" fixed="true"];  edge [arrowsize=0.8];}

@@ -52,28 +52,12 @@ public class Server extends Thread{
                     String output ="";
                     while(b!=null){
                         output+=b.getValue();
-                        output+=",";
+                        output+=";";
                         b=b.getRight();
                     }
-                    for(int i =1;i<indexControl;i++){
-                        try {
-                            output+="#@"; 
-                            File dir = new File("BLOCKS");
-                            dir.mkdirs();
-                            File myObj = new File(dir, "BLOCK_"+Integer.toString(i)+".json");
-                            Scanner myReader = new Scanner(myObj);
-                            while (myReader.hasNextLine()) {
-                                output+=myReader.nextLine();
-                            }
-                            myReader.close();
-                          } catch (FileNotFoundException e) {
-                            System.out.println("An error occurred.");
-                            e.printStackTrace();
-                          }
-                    }
-                    System.out.println(output);
+                    System.out.println(output+USACLibrary.BLOCK_String);
                     USACLibrary.Nodos.AddLast(arg[1]);
-                    out.writeUTF(output);
+                    out.writeUTF(output+USACLibrary.BLOCK_String);
                 }else if(arg[0].compareToIgnoreCase("DELETE_IP")==0){
                     String ipToDelete=arg[1];
                     System.out.println("Will delete "+ipToDelete);
@@ -86,33 +70,16 @@ public class Server extends Thread{
                         w++;
                         b=b.getRight();
                     }
-                }else if(arg[0].compareToIgnoreCase("LAST_BLOCK")==0){
-                    String output ="";
-                    try {
-                            output+="#@"; 
-                            File dir = new File("BLOCKS");
-                            dir.mkdirs();
-                            File myObj = new File(dir, "BLOCK_"+Integer.toString(Block.indexControl)+".json");
-                            Scanner myReader = new Scanner(myObj);
-                            while (myReader.hasNextLine()) {
-                                output+=myReader.nextLine();
-                            }
-                            myReader.close();
-                          } catch (FileNotFoundException e) {
-                            System.out.println("An error occurred.");
-                            e.printStackTrace();
-                          }
-                    System.out.println("Muy last block is: "+output);
-                    out.writeUTF(output);
+                }else if(arg[0].compareToIgnoreCase("BLOCK_LIST")==0){
+                    out.writeUTF(USACLibrary.BLOCK_String);
+                    System.out.println("BlockChain sent: "+USACLibrary.BLOCK_String);
                 }else{                    
                     JOptionPane.showMessageDialog(null, "Se ha recibido un nuevo bloque, se efectuará la prueba de trabajo.");
                     JsonReader.proofOfWork(mensaje);
-                }      
-                
+                }                      
                 sc.close();
                 System.out.println("Cliente desconectado");
-            }
-            
+            }            
         } catch (Exception e) {
         }
     }
