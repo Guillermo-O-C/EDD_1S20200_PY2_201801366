@@ -86,7 +86,7 @@ public static int currentUser;
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Cargar Libros");
         jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -256,7 +256,7 @@ public static int currentUser;
         JFileChooser jsonFileChooser = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter("JSON Files", "json");
         jsonFileChooser.addChoosableFileFilter(filter);
-        int loaded = jsonFileChooser.showOpenDialog(null);
+        int loaded = jsonFileChooser.showOpenDialog(this);
         if(loaded==JFileChooser.APPROVE_OPTION){
             File jsonFile = jsonFileChooser.getSelectedFile();
             JsonReader.LoadBooks(jsonFile, this.currentUser);

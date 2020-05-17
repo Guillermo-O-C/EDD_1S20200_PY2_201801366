@@ -10,6 +10,7 @@ import EDD.BTree;
 import EDD.Block;
 import EDD.HashTable;
 import EDD.ListaDoble;
+import EDD.Nodo;
 import UI.AddCategory;
 import UI.PrincipalMenu;
 import UI.ReportManage;
@@ -48,12 +49,6 @@ public static String BLOCK_String;
         Nodos = new ListaDoble<>();
         MY_IP="";
         BLOCK_String="";
-        String ac = ",a#@v#@c#@";
-        String[] vc = ac.split(",");
-        String[] ce = ac.split("#@");
-        for(int i = 0;i <ce.length;i++){
-            System.out.println(ce[i]+Integer.toString(i));
-        }
        /*
         StudentTable.Insert(new Estudiante(201801366, "josue", "orellana", "sistemas", "1201"), "1201", true);
          PublicLibrary.setRoot(PublicLibrary.Add(PublicLibrary.getRoot(), "Anime", 201801366, true)); 
@@ -75,9 +70,12 @@ public static String BLOCK_String;
         t.start();
         Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
         public void run() {
-            Cliente c = new Cliente(5000, "DELETE_IP;"+MY_IP);
-            Thread t = new Thread(c);
-            t.start();
+            Nodo<String> f = Nodos.getHead().getRight();
+            while(f!=null){
+                Cliente c = new Cliente(Integer.parseInt(f.getValue()), "DELETE_IP;"+MY_IP);
+                Thread t = new Thread(c);
+                t.start();
+            }            
             }
         }, "Shutdown-thread"));
        

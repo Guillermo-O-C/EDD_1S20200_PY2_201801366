@@ -87,9 +87,10 @@ public class JsonReader {
             String entry = jsonObj.get("INDEX").toString()+jsonObj.get("TIMESTAMP").toString()+jsonObj.get("PREVIOUSHASH").toString()+jsonObj.get("DATA").toString();
             System.out.println("El bloque que se valida es" + entry);
             if(Block.validateBlock(entry, jsonObj.get("NONCE").toString())){
-                Block.indexControl=Integer.parseInt(jsonObj.get("INDEX").toString())+1;
+                Block.indexControl=Integer.parseInt(jsonObj.get("INDEX").toString());
                 JOptionPane.showMessageDialog(null, "Se ha validado el nuevo bloque");
-                Block.SaveRecibedBlock(JsonContent);
+                Block.SaveReceivedBlock(temporal);
+                JsonReader.Addupdates(temporal);
             }else{
                 JOptionPane.showMessageDialog(null, "No se pudo validar el nuevo Bloque");
             }
@@ -104,54 +105,66 @@ public class JsonReader {
         try{
             Object obj = parser.parse(new FileReader(jsonFile));
             JSONObject jsonObj = (JSONObject) obj;
-            int index = Integer.parseInt(jsonObj.get("INDEX").toString());
-            if(index>Block.indexControl-1){
+      //      int index = Integer.parseInt(jsonObj.get("INDEX").toString());
+      //      if(index>=Block.indexControl-1){
                 JSONArray jsonArray = (JSONArray) jsonObj.get("DATA");
                 for(int i =0;i<jsonArray.size();i++){
                     JSONObject temporalObj = (JSONObject) jsonArray.get(i);
                     System.out.println(temporalObj.keySet().toString());
-                    JSONObject jbj = (JSONObject) temporalObj.get("CREAR_USUARIO");
                     switch(temporalObj.keySet().toString()){
-                        case "[CREAR_USUARIO]":                        
+                        case "[CREAR_USUARIO]":
+                            JSONObject jbj = (JSONObject) temporalObj.get("CREAR_USUARIO");                        
                             System.out.println("creando usuario");
                             usaclibrary.USACLibrary.StudentTable.Insert(new Estudiante(Integer.parseInt(jbj.get("Carnet").toString()),
                             jbj.get("Nombre").toString(), jbj.get("Apellido").toString()
                             , jbj.get("Carrera").toString(), jbj.get("Password").toString()),jbj.get("Password").toString(), false);
 
                             break;
-                        case "[EDITAR_USUARIO]":
+                        case "[EDITAR_USUARIO]":   
+                            jbj = (JSONObject) temporalObj.get("EDITAR_USUARIO");
+                            System.out.println("editando usuario");
                             usaclibrary.USACLibrary.StudentTable.UpdateStudent(new Estudiante(
                                             Integer.parseInt(jbj.get("Carnet").toString()),
                             jbj.get("Nombre").toString(), jbj.get("Apellido").toString()
                             , jbj.get("Carrera").toString(), jbj.get("Password").toString()), jbj.get("Password").toString(), false);
                             break;
-                        case "[ELIMINAR_USUARIO]":
+                        case "[ELIMINAR_USUARIO]":   
+                            jbj = (JSONObject) temporalObj.get("ELIMINAR_USUARIO");
+                            System.out.println("eliminando usuario");
                             USACLibrary.StudentTable.DeleteStudent(Integer.parseInt(jbj.get("Carnet").toString()), false);
                             break;
-                        case "[CREAR_CATEGORIA]":
+                        case "[CREAR_CATEGORIA]":   
+                            jbj = (JSONObject) temporalObj.get("CREAR_CATEGORIA");
+                            System.out.println("creando categoria");
                             USACLibrary.PublicLibrary.Add(USACLibrary.PublicLibrary.getRoot(), jbj.get("NOMBRE").toString(), Integer.parseInt(jbj.get("USUARIO").toString()), false);
                             break;
-                        case "[ELIMINAR_CATEGORIA]":
+                        case "[ELIMINAR_CATEGORIA]":   
+                            jbj = (JSONObject) temporalObj.get("ELIMINAR_CATEGORIA");
+                            System.out.println("eliminando categoria");
                              USACLibrary.PublicLibrary.Delete(USACLibrary.PublicLibrary.getRoot(), jbj.get("NOMBRE").toString(), false);
                             break;
-                        case "[CREAR_LIBRO]":
-                             if(USACLibrary.PublicLibrary.Search(USACLibrary.PublicLibrary.getRoot(), temporalObj.get("Categoria").toString())==null){
-                                USACLibrary.PublicLibrary.setRoot(USACLibrary.PublicLibrary.Add(USACLibrary.PublicLibrary.getRoot(), temporalObj.get("Categoria").toString(), Integer.parseInt( temporalObj.get("Usuario").toString()), true));
+                        case "[CREAR_LIBRO]":   
+                            jbj = (JSONObject) temporalObj.get("CREAR_LIBRO");
+                            System.out.println("Creando libro");
+                             if(USACLibrary.PublicLibrary.Search(USACLibrary.PublicLibrary.getRoot(), jbj.get("Categoria").toString())==null){
+                                USACLibrary.PublicLibrary.setRoot(USACLibrary.PublicLibrary.Add(USACLibrary.PublicLibrary.getRoot(), jbj.get("Categoria").toString(), Integer.parseInt( jbj.get("Usuario").toString()), true));
                                 USACLibrary.PublicLibrary.GraphTree();
                                 }
-                                NODO_AVL x =  USACLibrary.PublicLibrary.Search(USACLibrary.PublicLibrary.getRoot(), temporalObj.get("Categoria").toString());
+                                NODO_AVL x =  USACLibrary.PublicLibrary.Search(USACLibrary.PublicLibrary.getRoot(), jbj.get("Categoria").toString());
                                 x.getColeccion().Insertation(new Books(
-                                        Integer.parseInt(temporalObj.get("ISBN").toString())
-                                        , temporalObj.get("Titulo").toString(), temporalObj.get("Autor").toString(), temporalObj.get("Editorial").toString()
-                                , Integer.parseInt(temporalObj.get("Año").toString()), Integer.parseInt(temporalObj.get("Edicion").toString()), temporalObj.get("Categoria").toString()
-                                , temporalObj.get("Idioma").toString(), Integer.parseInt( temporalObj.get("Usuario").toString())), false);
+                                        Integer.parseInt(jbj.get("ISBN").toString())
+                                        , jbj.get("Titulo").toString(), jbj.get("Autor").toString(), jbj.get("Editorial").toString()
+                                , Integer.parseInt(jbj.get("Año").toString()), Integer.parseInt(jbj.get("Edicion").toString()), jbj.get("Categoria").toString()
+                                , jbj.get("Idioma").toString(), Integer.parseInt( jbj.get("Usuario").toString())), false);
                             break;
-                        case "[ElIMINAR_LIBRO]":
-                            NODO_AVL y = usaclibrary.USACLibrary.PublicLibrary.Search(usaclibrary.USACLibrary.PublicLibrary.getRoot(), temporalObj.get("Categoria").toString());
-                            y.getColeccion().Delete(Integer.parseInt(temporalObj.get("ISBN").toString()), false);
+                        case "[ElIMINAR_LIBRO]": 
+                            jbj = (JSONObject) temporalObj.get("ElIMINAR_LIBRO");  
+                            System.out.println("Eliminando libro");
+                            NODO_AVL y = usaclibrary.USACLibrary.PublicLibrary.Search(usaclibrary.USACLibrary.PublicLibrary.getRoot(), jbj.get("Categoria").toString());
+                            y.getColeccion().Delete(Integer.parseInt(jbj.get("ISBN").toString()), false);
                             break;
                     }
-                }                     
+                }                     /*
                 File dir = new File("BLOCKS");
                 dir.mkdirs();   
                 File temporal = new File(dir, "BLOCK_"+Integer.toString(index)+".json");  
@@ -160,8 +173,8 @@ public class JsonReader {
                 }
                 temporal.createNewFile();
                 JOptionPane.showMessageDialog(null, "¡Se ha cargado correctamente el archivo!");
-                Block.indexControl++;
-            }
+                Block.indexControl++;*/
+         //   }
             //si no entró es poprque ya existía ese bloque.
         } catch (org.json.simple.parser.ParseException ex) {            
             JOptionPane.showMessageDialog(null, "Ha sucedido un error, inténtalo de nuevo");

@@ -186,7 +186,7 @@ public class PrincipalMenu extends javax.swing.JFrame {
         JFileChooser jsonFileChooser = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter("JSON Files", "json");
         jsonFileChooser.addChoosableFileFilter(filter);
-        int loaded = jsonFileChooser.showOpenDialog(null);
+        int loaded = jsonFileChooser.showOpenDialog(this);
         if(loaded==JFileChooser.APPROVE_OPTION){
             File jsonFile = jsonFileChooser.getSelectedFile();
             JsonReader.LoadStudents(jsonFile);

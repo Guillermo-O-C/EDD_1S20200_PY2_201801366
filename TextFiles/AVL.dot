@@ -2,4 +2,5 @@ digraph G {
  nodesep=0.3;
  ranksep=0.2;
     margin=0.1;
- node[shape=box width="1.5" height="1.5" fixed="true"];  edge [arrowsize=0.8];"5000" ->"6000";"6000" -> "5000";}
+ node[shape=circle width="1.5" height="1.5" fixed="true"];  edge [arrowsize=0.8];"1""1"[label="1\n1"]"1" -> "3"[color="#40e0d0"];
+"3"[label="3\n1"]}

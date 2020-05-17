@@ -236,6 +236,7 @@ public class MyInfo extends javax.swing.JFrame {
         if(answer==0){
             String password = JOptionPane.showInputDialog(null, "Ingresa tu contraseña:");
             if(usaclibrary.USACLibrary.StudentTable.LogIn(this.currentUser.getCarne(), password)){
+                usaclibrary.USACLibrary.StudentTable.DeleteStudent(this.currentUser.getCarne(), true);
                 JOptionPane.showMessageDialog(null, "Tu perfil se eliminado exitosamente.");
                 this.dispose();
                 this.currentUserUI.show(false);

@@ -179,7 +179,7 @@ public class HashTable {
     }
     
     public String GenerateTable(){
-        String graph = "digraph G { \n node[shape=diamond]\n";
+        String graph = "digraph G { \n node[shape=box]\n";
         String arrayLists ="";
         String rankedList="";
         String arrayLabels="";
@@ -187,7 +187,7 @@ public class HashTable {
         for(int i =0;i<45;i++){
             if(this.bucket[i]!=null){
                 rankedList+="{rank=same "+"Slot_"+Integer.toString(i);
-                arrayLabels+="Slot_"+Integer.toString(i)+"[label=\""+Integer.toString(i)+"\" shape=box];";
+                arrayLabels+="Slot_"+Integer.toString(i)+"[label=\""+Integer.toString(i)+"\"];";
                 if(first){
                     graph+="Slot_"+Integer.toString(i);
                     first=false;

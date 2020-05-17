@@ -35,11 +35,11 @@ public class Cliente extends Thread{
         final String HOST ="127.0.0.1";
         DataInputStream in;
         DataOutputStream out;
-        Nodo<String> t = USACLibrary.Nodos.getHead().getRight();
-        while(t!=null){ 
+      //  Nodo<String> t = USACLibrary.Nodos.getHead().getRight();
+       // while(t!=null){ 
             try {
-                System.out.println("Conectando con "+t.getValue()+" enviando "+mensaje);
-                try (Socket sc = new Socket(HOST, Integer.parseInt(t.getValue()))) {
+                System.out.println("Conectando con "+Integer.toString(puerto)+" enviando "+mensaje);
+                try (Socket sc = new Socket(HOST, puerto)) {
                     in = new DataInputStream(sc.getInputStream());
                     out = new DataOutputStream(sc.getOutputStream());
                     out.writeUTF(mensaje);
@@ -54,15 +54,19 @@ public class Cliente extends Thread{
                         System.out.println("Blocks Obteined"+ x[x.length-1]);
                         String[] y = x[x.length-1].split("#@");
                         for(int i =0;i<y.length;i++){
-                            File temporal = new File("", "tmp.json");
-                            try (FileWriter TemporalFile = new FileWriter(temporal)) {
+                            try {
+                                /*  File temporal = new File("", "tmp.json");
+                                try (FileWriter TemporalFile = new FileWriter(temporal)) {
                                 TemporalFile.write(y[i]);
                                 System.out.println("Entry File is: "+y[i]);
+                                }*/
+                                JsonReader.proofOfWork(y[i]);
+                            } catch (NoSuchAlgorithmException ex) {
+                                Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
                             }
-                            JsonReader.Addupdates(temporal);
                         }
                         JOptionPane.showMessageDialog(null, "Te has unido exitosamente, estás actualizado.");
-                        break;
+    //                    break;
                     }else if(arg[0].compareToIgnoreCase("BLOCK_LIST")==0){
                         String entry = in.readUTF();
                         System.out.println("Blocks Obteined"+ entry);
@@ -76,8 +80,8 @@ public class Cliente extends Thread{
                             JsonReader.Addupdates(temporal);
                         }
                         JOptionPane.showMessageDialog(null, "Te has unido exitosamente, estás actualizado.");
-                        break;
-                    }else if(puerto==1234){
+     //                   break;
+                    }else{
                         System.out.println("Relizando Validación");
                         String entry = in.readUTF();
                         System.out.println(entry);
@@ -85,8 +89,8 @@ public class Cliente extends Thread{
                 }            } catch (IOException ex) {
                 Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
             }
-            t=t.getRight();
-        }
+    //        t=t.getRight();
+    //    }
         
     }
         

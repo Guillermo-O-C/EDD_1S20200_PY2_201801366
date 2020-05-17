@@ -60,22 +60,25 @@ public class Server extends Thread{
                     out.writeUTF(output+USACLibrary.BLOCK_String);
                 }else if(arg[0].compareToIgnoreCase("DELETE_IP")==0){
                     String ipToDelete=arg[1];
-                    System.out.println("Will delete "+ipToDelete);
+                    System.out.println(USACLibrary.MY_IP+" will delete "+ipToDelete);
                     Nodo<String> b = USACLibrary.Nodos.getHead();
                     int w =0;
                     while(b!=null){
                         if(b.getValue().compareToIgnoreCase(ipToDelete)==0){
                             USACLibrary.Nodos.DeleteElementAt(w);
+                            break;
                         }
                         w++;
                         b=b.getRight();
                     }
+                    out.writeUTF("Se ha eliminado tu conexión con "+USACLibrary.MY_IP);
                 }else if(arg[0].compareToIgnoreCase("BLOCK_LIST")==0){
                     out.writeUTF(USACLibrary.BLOCK_String);
                     System.out.println("BlockChain sent: "+USACLibrary.BLOCK_String);
                 }else{                    
                     JOptionPane.showMessageDialog(null, "Se ha recibido un nuevo bloque, se efectuará la prueba de trabajo.");
                     JsonReader.proofOfWork(mensaje);
+                    out.writeUTF("Bloque aceptado");
                 }                      
                 sc.close();
                 System.out.println("Cliente desconectado");
@@ -83,25 +86,4 @@ public class Server extends Thread{
         } catch (Exception e) {
         }
     }
-   /* public Server(){
-    //Se crea un hilo para escuchar en cierto puerto
-    Thread hilo = new Thread(this);
-    hilo.start();
-    }
-
-    
-    //Metodo que realiza el listen
-    @Override
-    public void run() {  
-        try {
-            ServerSocket rc = new ServerSocket(5000);
-            try (Socket msc = rc.accept()) {
-                DataInputStream flujo_entrada = new DataInputStream(msc.getInputStream());
-                String respuesta = flujo_entrada.readUTF();
-                //ejecutar acciones sobre cadena
-            }
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
-        }
-    }*/
 }

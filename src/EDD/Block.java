@@ -101,34 +101,27 @@ public class Block {
     public static void SaveJSONDoc() throws IOException, NoSuchAlgorithmException{
         assembleJSONDoc("BLOCK_"+Integer.toString(indexControl));
     }
-    public static void SaveRecibedBlock(String entry) throws IOException, NoSuchAlgorithmException{
+    public static void SaveReceivedBlock(File jsonFile) throws IOException{
+        String content="";
+        try (Scanner myReader = new Scanner(jsonFile)) {
+            while (myReader.hasNextLine()) {
+                content+=myReader.nextLine();
+            }
+        }
         File dir = new File("BLOCKS");
         dir.mkdirs();   
-        File temporal = new File(dir, "BLOCK_"+Integer.toString(indexControl)+".json");indexControl++;        
+        File temporal = new File(dir, "BLOCK_"+Integer.toString(indexControl)+".json");
+        indexControl++;
         try (FileWriter TemporalFile = new FileWriter(temporal)) {
-            TemporalFile.write(entry);
+            TemporalFile.write(content);
         }
         temporal.createNewFile();
-    }
-    public static String GetBlockChain(){
-        String blockChain = "";
-        for(int i =1;i<indexControl;i++){
-            try {
-                blockChain+="#@"; 
-                File dir = new File("BLOCKS");
-                dir.mkdirs();
-                File myObj = new File(dir, "BLOCK_"+Integer.toString(i)+".json");
-                Scanner myReader = new Scanner(myObj);
-                while (myReader.hasNextLine()) {
-                    blockChain+=myReader.nextLine();
-                }
-                myReader.close();
-              } catch (FileNotFoundException e) {
-                System.out.println("An error occurred.");
-                e.printStackTrace();
-              }
+        File myObj = new File(dir, "BLOCK_"+Integer.toString(indexControl-1)+".json");
+        try (Scanner myReader = new Scanner(myObj)) {
+            while (myReader.hasNextLine()) {
+                usaclibrary.USACLibrary.BLOCK_String+=myReader.nextLine();
+            }
+            usaclibrary.USACLibrary.BLOCK_String+="#@";
         }
-        System.out.println("Current blockchain is:"+blockChain);
-        return blockChain;
     }
 }

@@ -110,13 +110,14 @@ public class PeerCommunication extends javax.swing.JFrame {
                 e.printStackTrace();
               }
             if(content.compareTo("")!=0){
-                Nodo<String> w = USACLibrary.Nodos.getHead().getRight();
-                while(w!=null){
-                    Cliente c = new Cliente(1234, content);
+                System.out.println("Block sent: "+content);
+                Nodo<String> f = USACLibrary.Nodos.getHead().getRight();
+                while(f!=null){
+                    Cliente c = new Cliente(Integer.parseInt(f.getValue()), content);
                     Thread t = new Thread(c);
-                    t.start();
-                }
-                
+                    t.start();  
+                    f=f.getRight();
+                }                            
             }else{  
                 JOptionPane.showMessageDialog(null, "No se ha cargado el archivo.");
             }
