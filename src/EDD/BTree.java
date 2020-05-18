@@ -10,6 +10,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import org.json.simple.JSONObject;
 import usaclibrary.Books;
 
@@ -124,16 +125,18 @@ public class BTree {
             this.root.getShelf()[0]=x;
             this.root.addToOccupied();
         }else{
-            this.root.SpacedIncert(x);
-            if(this.root.getOccupied()==5){
-                NODO_B newRoot = new NODO_B();
-                newRoot.setIsLeaf(false);
-                newRoot.getBranches()[0]=root;
-                newRoot.split(0, this.root);
-                this.root=newRoot;
-            }//else{
-                
-         //   }
+            if(Search(x.getISBN())==null){
+                this.root.SpacedIncert(x);
+                if(this.root.getOccupied()==5){
+                    NODO_B newRoot = new NODO_B();
+                    newRoot.setIsLeaf(false);
+                    newRoot.getBranches()[0]=root;
+                    newRoot.split(0, this.root);
+                    this.root=newRoot;
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "Ya existe un libro en esta categoría con el ISBN "+Integer.toString(x.getISBN()));
+            }            
         }        
         if(toBlock)AddBooksToblock(x);
         size++;

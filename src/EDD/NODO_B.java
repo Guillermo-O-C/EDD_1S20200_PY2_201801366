@@ -223,9 +223,6 @@ public class NODO_B {
             }else{
                 branches[x].delete(ISBN, toBlock);
             }
-           /* if(occupied==5){
-                split(i+1, branches[i+1]);
-            }*/
         }
     }
     

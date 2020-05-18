@@ -317,10 +317,10 @@ public static int currentUser;
         if(x==null){            
             return;
         }
-        jComboBox1.addItem(new ComboItem(x.getValue(), x.getValue()));
         if(x.getLeft()!=null){
             AddItems(x.getLeft());
         }
+        jComboBox1.addItem(new ComboItem(x.getValue(), x.getValue()));
         if(x.getRight()!=null){
             AddItems(x.getRight());
         }

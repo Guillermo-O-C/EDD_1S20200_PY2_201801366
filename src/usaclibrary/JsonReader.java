@@ -136,7 +136,7 @@ public class JsonReader {
                         case "[CREAR_CATEGORIA]":   
                             jbj = (JSONObject) temporalObj.get("CREAR_CATEGORIA");
                             System.out.println("creando categoria");
-                            USACLibrary.PublicLibrary.Add(USACLibrary.PublicLibrary.getRoot(), jbj.get("NOMBRE").toString(), Integer.parseInt(jbj.get("USUARIO").toString()), false);
+                            USACLibrary.PublicLibrary.setRoot(USACLibrary.PublicLibrary.Add(USACLibrary.PublicLibrary.getRoot(), jbj.get("NOMBRE").toString(), Integer.parseInt(jbj.get("USUARIO").toString()), false));
                             break;
                         case "[ELIMINAR_CATEGORIA]":   
                             jbj = (JSONObject) temporalObj.get("ELIMINAR_CATEGORIA");

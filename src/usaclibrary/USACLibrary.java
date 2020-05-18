@@ -75,6 +75,7 @@ public static String BLOCK_String;
                 Cliente c = new Cliente(Integer.parseInt(f.getValue()), "DELETE_IP;"+MY_IP);
                 Thread t = new Thread(c);
                 t.start();
+                f=f.getRight();
             }            
             }
         }, "Shutdown-thread"));
