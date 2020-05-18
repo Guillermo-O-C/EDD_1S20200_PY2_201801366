@@ -1,8 +1,0 @@
-digraph G {
- nodesep=0.3;
- ranksep=0.2;
-    margin=0.1;
- node[shape=box width="1.5" height="1.5" fixed="true"];  edge [arrowsize=0.8];1->2->3;1[label="INDEX: 1\n TIMESTAMP: 2020.05.16::13:30:02\n NONCE: 264120\n PREVIOUSHASH: 0000\n HASH: 00000bfb3d7cc5ec0206d41c053799dbc2eded94bfbde37c3ebeced15f7e2c77"];
-2[label="INDEX: 2\n TIMESTAMP: 2020.05.16::13:32:08\n NONCE: 18565\n PREVIOUSHASH: 00000bfb3d7cc5ec0206d41c053799dbc2eded94bfbde37c3ebeced15f7e2c77\n HASH: 0000148a7175fb3a641cd5501d57dce0166e56bd9312409285b7c840462c380d"];
-3[label="INDEX: 3\n TIMESTAMP: 2020.05.16::13:09:08\n NONCE: 53047\n PREVIOUSHASH: 0000e68e1ab8d6ef5dc52d3d9baa9efff904995b141e9f066f61e9e4254d02ab\n HASH: 000067a95314e05c3e9f93eb2eed54820430f5ac55a280ea65d3b712cc647e6b"];
-}

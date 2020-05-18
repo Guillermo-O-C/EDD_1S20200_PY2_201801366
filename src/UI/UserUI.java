@@ -130,6 +130,11 @@ public static int currentUser;
         jLabel8.setText("Ingresar ISBN");
 
         jButton2.setText("Buscar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Ver Lista");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -312,6 +317,12 @@ public static int currentUser;
         FoundedBooks research = new FoundedBooks(jTextField1.getText(), this.currentUser);
         research.show();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        FoundedBooks research = new FoundedBooks(Integer.parseInt(jTextField2.getText()), this.currentUser);
+        research.show();
+    }//GEN-LAST:event_jButton2ActionPerformed
     
     public void AddItems(NODO_AVL x){
         if(x==null){            

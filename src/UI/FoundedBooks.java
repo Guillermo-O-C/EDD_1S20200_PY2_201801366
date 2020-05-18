@@ -24,6 +24,7 @@ public class FoundedBooks extends javax.swing.JFrame {
      */
     int carne =0;
     String entry;
+    int ISBN;
     DefaultListModel list;
     ListaSimple<Books> FoundShelf;
     public FoundedBooks() {
@@ -42,6 +43,27 @@ public class FoundedBooks extends javax.swing.JFrame {
         int y = (int) b.getY();
         this.setLocation(x-200, y-200);
     }
+     public FoundedBooks(int ISBN, int carne) {
+        initComponents();
+        this.FoundShelf = new ListaSimple<>();
+        this.list = new DefaultListModel();
+        this.carne=carne;
+        jLabel1.setText("Coincidencias de ISBN con :"+Integer.toString(ISBN));
+        this.ISBN=ISBN;
+        FindBooksByISBN(ISBN);
+        PointerInfo a = MouseInfo.getPointerInfo();
+        Point b = a.getLocation();
+        int x = (int) b.getX();
+        int y = (int) b.getY();
+        this.setLocation(x-200, y-200);
+    }
+    void FindBooksByISBN(int ISBN){
+        list.clear();
+        this.FoundShelf = new ListaSimple();
+        visitTree(usaclibrary.USACLibrary.PublicLibrary.getRoot(), this.FoundShelf, this.ISBN);        
+        populateList(this.FoundShelf);
+        jList1.setModel(list);
+    }
     void FindBooks(String x){        
         list.clear();
         this.FoundShelf = new ListaSimple();
@@ -55,6 +77,20 @@ public class FoundedBooks extends javax.swing.JFrame {
             list.addElement(x.elementAt(i).getTitulo()+"\t| "+x.elementAt(i).getCategoria());
         }        
         jList1.setModel(list);
+    }
+    void visitTree(NODO_AVL x, ListaSimple<Books> y, int z){
+        if(x==null){
+            return;
+        }
+        if(x.getColeccion().Search(z)!=null){
+            y.AddLast(x.getColeccion().Search(z));
+        }        
+        if(x.getLeft()!=null){
+            visitTree(x.getLeft(), y, z);
+        }
+        if(x.getRight()!=null){
+            visitTree(x.getRight(), y, z);
+        }
     }
     void visitTree(NODO_AVL x, ListaSimple<Books> y, String z){
         if(x==null){

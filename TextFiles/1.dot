@@ -1,3 +1,0 @@
-digraph G {
- node [shape = record,height=.1];1[label = "<f0>1\n1|"];
-}
