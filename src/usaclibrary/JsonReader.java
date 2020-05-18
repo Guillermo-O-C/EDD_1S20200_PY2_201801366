@@ -7,11 +7,15 @@ package usaclibrary;
 
 import EDD.Block;
 import EDD.NODO_AVL;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
 import javax.swing.JOptionPane;
 import org.json.simple.JSONArray;
@@ -47,7 +51,7 @@ public class JsonReader {
     public static void LoadBooks(File jsonFile, int carne){
       JSONParser parser = new JSONParser();
         try{
-            Object obj = parser.parse(new FileReader(jsonFile));
+            Object obj = parser.parse(new BufferedReader(new InputStreamReader(new FileInputStream(jsonFile.getAbsolutePath()), "UTF-8")));
             JSONObject jsonObj = (JSONObject) obj;
             JSONArray jsonArray = (JSONArray) jsonObj.get("libros");
             for(int i =0;i<jsonArray.size();i++){
@@ -60,7 +64,9 @@ public class JsonReader {
                     x.getColeccion().Insertation(new Books(
                             Integer.parseInt(temporalObj.get("ISBN").toString())
                             , temporalObj.get("Titulo").toString(), temporalObj.get("Autor").toString(), temporalObj.get("Editorial").toString()
-                    , Integer.parseInt(temporalObj.get("Año").toString()), Integer.parseInt(temporalObj.get("Edicion").toString()), temporalObj.get("Categoria").toString()
+                    , Integer.parseInt(temporalObj.get("Año").toString())
+                            , Integer.parseInt(temporalObj.get("Edicion").toString())
+                            , temporalObj.get("Categoria").toString()
                     , temporalObj.get("Idioma").toString(), carne), true);
                 }
         } catch (org.json.simple.parser.ParseException ex) {
